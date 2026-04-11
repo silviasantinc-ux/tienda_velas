@@ -17,7 +17,7 @@ export default function PaginaNosotros() {
         <div className="relative z-10 max-w-4xl mx-auto px-6 pb-14 text-[#f6f4f1]">
           <p className="text-[10px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-4">Nuestra historia</p>
           <h1 className="font-serif text-5xl md:text-7xl italic leading-tight">
-            Una madre, una hija<br />y una llama que no se apagó
+            Dos personas, muchas velas<br />y muchas risas por el camino
           </h1>
         </div>
       </section>
@@ -25,18 +25,18 @@ export default function PaginaNosotros() {
       {/* Historia — Capítulo 1 */}
       <section className="max-w-3xl mx-auto px-6 py-20">
         <p className="font-serif text-2xl md:text-3xl italic text-[#7d5d24] mb-10 leading-relaxed">
-          "Hay momentos que huelen a hogar. Y otros que huelen a todo lo que perdiste. Nosotras aprendimos a distinguirlos encendiendo una vela."
+          "Todo empezó con una tarde de domingo, una olla prestada y la certeza de que algo olía muy bien."
         </p>
 
         <div className="space-y-6 text-sm text-[#555] leading-[1.9]">
           <p>
-            Carmen siempre olía a canela y a jabón de lavanda. Lo recuerda su hija Sofía como el primer aroma de su vida, el que la despertaba los domingos, el que le decía que todo estaba bien sin necesidad de palabras.
+            Carmen lleva toda la vida rodeada de velas. Las encendía para cenar, para leer, para no hacer nada en particular. Su casa siempre olía bien y eso, según ella, es lo más importante que puede tener una casa.
           </p>
           <p>
-            Cuando Sofía tenía doce años, su padre se fue. No de golpe, sino de esa manera lenta y cruel que tienen algunas ausencias: primero las cenas, luego los fines de semana, luego el rastro de su colonia en el baño. Carmen nunca habló mucho de ello. Compraba velas. Llenaba la casa de luz y de aroma, como quien construye una muralla de cosas bonitas contra la tristeza.
+            Sofía, su hija, creció con esa costumbre y la hizo suya. Un día, buscando una vela con un aroma concreto que tenía en la cabeza —algo entre naranja y madera, cálido pero fresco— no encontró nada que le convenciera del todo. Se lo contó a su madre y Carmen, con esa naturalidad que tienen algunas personas para lanzarse, dijo: <strong>"Pues la hacemos nosotras."</strong>
           </p>
           <p>
-            Sofía creció viendo a su madre encender velas cada noche antes de cenar. Era su ritual, su forma de decir <em>este momento importa</em>. Con los años, Sofía empezó a comprárselas también. Y un día, al no encontrar ninguna que oliera exactamente como los domingos de su infancia, le preguntó a su madre: <strong>"¿Y si las hacemos nosotras?"</strong>
+            Ese mismo fin de semana ya estaban en la cocina, con cera de soja, un termómetro de cocina y muchas ganas de experimentar.
           </p>
         </div>
       </section>
@@ -56,10 +56,10 @@ export default function PaginaNosotros() {
           <div>
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-5">2019</p>
             <p className="font-serif text-3xl italic text-[#1b1b1b] leading-snug mb-6">
-              "La primera vela que hicimos olía a quemado. Nos reímos tanto que casi nos caemos de la silla."
+              "La primera olía a quemado. La segunda, regular. La tercera ya era bastante buena. La cuarta la regalamos."
             </p>
             <p className="text-sm text-[#666] leading-relaxed">
-              La cocina de Carmen, en un piso de Murcia, fue el primer taller. Una olla vieja, cera de soja comprada por internet, y dos mujeres que no sabían muy bien lo que hacían pero que lo hacían juntas. Eso era suficiente.
+              Así funciona aprender algo nuevo: con paciencia, con humor y sin tomarse demasiado en serio los primeros intentos.
             </p>
           </div>
         </div>
@@ -69,13 +69,13 @@ export default function PaginaNosotros() {
       <section className="max-w-3xl mx-auto px-6 py-20">
         <div className="space-y-6 text-sm text-[#555] leading-[1.9]">
           <p>
-            Durante meses, los fines de semana eran de ellas. Sofía llegaba en tren desde Valencia, donde vivía, y pasaban el sábado entero entre aromas, notas y errores. Carmen llevaba un cuaderno donde apuntaba cada mezcla, cada temperatura, cada fallo. Sofía hacía fotos. Regalaban las velas a vecinas, amigas, familiares.
+            Los fines de semana se convirtieron en talleres improvisados. Probaban fragancias, ajustaban proporciones, llenaban la cocina de olores mezclados y discutían con cariño sobre si la lavanda necesitaba más bergamota o menos. Carmen apuntaba todo en un cuaderno. Sofía hacía fotos.
           </p>
           <p>
-            Fue Carmen quien dijo, un domingo de enero de 2020, que quizás deberían intentarlo en serio. Tenía cincuenta y tres años, llevaba veinte trabajando de administrativa en una empresa que nunca la había visto bien, y por primera vez en mucho tiempo sentía que algo era suyo de verdad.
+            Las velas que iban saliendo bien las regalaban: a vecinas, a amigas, a la familia. La respuesta siempre era la misma — "¿Dónde las compráis?" — y ellas se miraban y se reían.
           </p>
           <p>
-            Sofía dudó. Tenía miedo. Le preocupaba el dinero, el tiempo, el fracaso. Pero sobre todo le preocupaba decepcionar a su madre, que había arriesgado tanto ya en la vida. Entonces Carmen la miró y le dijo algo que Sofía lleva tatuado en algún lugar que no se ve: <em>"Si lo hacemos juntas, ya habrá valido la pena aunque no funcione."</em>
+            En 2020 decidieron darle una vuelta de tuerca. Si a tanta gente le gustaban, quizás valía la pena intentarlo de verdad. Sin grandes planes ni inversiones descabelladas, con la misma actitud con la que todo había empezado: <em>probamos y vemos qué pasa.</em>
           </p>
         </div>
       </section>
@@ -88,28 +88,28 @@ export default function PaginaNosotros() {
             {[
               {
                 año: '2019',
-                titulo: 'La primera llama',
-                texto: 'Primera vela hecha en casa. Olía a quemado. La segunda ya olía a lavanda. La tercera era perfecta.',
+                titulo: 'La primera vela',
+                texto: 'Una tarde de domingo, una olla y muchas ganas. La primera olía a quemado. La cuarta ya se podía regalar.',
               },
               {
-                año: '2020',
-                titulo: 'La decisión',
-                texto: 'En plena pandemia, con el mundo parado, Carmen y Sofía deciden que es el momento. Llum & Glow nace en una cocina de Murcia.',
+                año: '2026',
+                titulo: 'Llum & Glow nace',
+                texto: 'De los regalos a los primeros pedidos. Montamos una tienda pequeña y empezamos a enviar velas.',
               },
               {
                 año: '2021',
-                titulo: 'La primera venta',
-                texto: 'Una desconocida de Instagram compra tres velas. Lloran las dos. Es la mejor señal que han recibido nunca.',
+                titulo: 'Las primeras clientas fieles',
+                texto: 'Algunas personas empezaron a repetir. Eso fue la mejor señal de que íbamos por buen camino.',
               },
               {
                 año: '2022',
-                titulo: 'El taller',
-                texto: 'Carmen deja su trabajo después de veinte años. Alquilan un pequeño local. Por primera vez, el taller tiene nombre en la puerta.',
+                titulo: 'Taller propio',
+                texto: 'Dejamos la cocina de casa y alquilamos un pequeño local. Más espacio, más aromas, más posibilidades.',
               },
               {
-                año: '2024',
+                año: '2026',
                 titulo: 'Hoy',
-                texto: 'Más de 2.000 velas vendidas. Cada una elaborada a mano. Cada una con el mismo amor que la primera.',
+                texto: 'Más de 2.000 velas elaboradas a mano. Cada una con los mismos ingredientes y el mismo cuidado que la primera.',
               },
             ].map(({ año, titulo, texto }, i) => (
               <div key={año} className="flex gap-8 pb-10 relative">
@@ -132,21 +132,21 @@ export default function PaginaNosotros() {
       <section className="max-w-3xl mx-auto px-6 py-20">
         <div className="space-y-6 text-sm text-[#555] leading-[1.9]">
           <p>
-            Hoy Carmen y Sofía trabajan juntas cada día. Se pelean por las fragancias —Carmen prefiere los aromas cálidos y especiados, Sofía los florales y frescos— y se ríen de esas peleas porque en el fondo saben que son las dos caras del mismo carácter.
+            Hoy Carmen y Sofía siguen trabajando juntas, con el mismo espíritu de aquel primer domingo. Todavía discuten sobre fragancias —Carmen tira hacia los aromas cálidos y especiados, Sofía hacia los florales y frescos— y todavía se ríen mucho mientras trabajan.
           </p>
           <p>
-            Hay días difíciles. Días en que los pedidos se acumulan y las horas no alcanzan, en que un lote sale mal o llega una devolución que duele. Pero hay algo que ninguna de las dos cambiaría: al final del día, cuando apagan la luz del taller, siempre queda el olor. A cera caliente, a lavanda, a madera. A ellas.
+            Cada vela se sigue haciendo a mano, con los mismos ingredientes desde el principio: cera de soja, mecha de algodón y fragancias que huelen de verdad. Sin atajos.
           </p>
           <p>
-            Cada vela que sale de Llum & Glow lleva algo de esa historia. La historia de dos mujeres que decidieron que nunca es tarde para encender algo nuevo.
+            Llum & Glow es eso: dos personas a las que les gusta lo que hacen y quieren que te guste a ti también.
           </p>
         </div>
 
         <blockquote className="border-l-2 border-[#dcbcbc] pl-6 mt-12">
           <p className="font-serif text-xl italic text-[#1b1b1b] leading-relaxed mb-3">
-            "Mamá me enseñó que los hogares no huelen a paredes ni a muebles. Huelen a lo que decides encender dentro de ellos."
+            "Una vela no cambia el mundo, pero sí puede cambiar cómo se siente una habitación. Y eso, para nosotras, es suficiente."
           </p>
-          <cite className="text-[10px] uppercase tracking-widest text-[#7d5d24] not-italic">— Sofía, cofundadora</cite>
+          <cite className="text-[10px] uppercase tracking-widest text-[#7d5d24] not-italic">— Carmen & Sofía</cite>
         </blockquote>
       </section>
 
@@ -168,8 +168,8 @@ export default function PaginaNosotros() {
                 texto: 'Cera de soja sostenible, mechas de algodón sin metales pesados, fragancias libres de ftalatos. Lo que entra en nuestras velas es lo que pondrías en tu hogar.',
               },
               {
-                titulo: 'Hecho con historia',
-                texto: 'Detrás de cada vela hay una conversación entre madre e hija, un experimento fallido que se convirtió en algo mejor, una pequeña victoria celebrada en silencio.',
+                titulo: 'Hecho con cariño',
+                texto: 'Detrás de cada vela hay una conversación, un experimento que salió bien, y las ganas de que cuando la enciendas en casa, algo cambie un poco para mejor.',
               },
             ].map(({ titulo, texto }) => (
               <div key={titulo} className="border-t-2 border-[#dcbcbc] pt-6">
@@ -204,7 +204,7 @@ export default function PaginaNosotros() {
               </div>
             </div>
             <p className="text-sm text-[#555] leading-relaxed">
-              53 años. Veinte de ellos en un trabajo que nunca fue suyo. Sabe cuándo una fragancia está equilibrada con solo olerla tres segundos. Le gusta la canela, el ámbar y los lunes tranquilos. Dice que emprender a su edad fue lo más valiente y lo más tonto que ha hecho. Y que lo volvería a hacer.
+              La que más sabe de fragancias y la que menos lo presume. Tiene un olfato extraordinario y una paciencia infinita para ajustar cada mezcla hasta que queda exactamente bien. Le gustan los aromas cálidos, el café por las mañanas y los domingos sin prisa.
             </p>
           </div>
           <div>
@@ -223,7 +223,7 @@ export default function PaginaNosotros() {
               </div>
             </div>
             <p className="text-sm text-[#555] leading-relaxed">
-              28 años. Diseñadora de día, aprendiz de aromatóloga los fines de semana. Prefiere las notas florales y frescas, aunque reconoce que la vela de canela de su madre es la mejor que han hecho nunca. Le da miedo el fracaso, pero más le daría no haberlo intentado con ella.
+              Se encarga de que todo tenga buen aspecto además de buen olor. Diseñadora de formación, perfeccionista por naturaleza. Prefiere las notas frescas y florales, aunque reconoce que la canela de su madre es imbatible. La que hace las fotos, lleva las redes y dice "esto podría quedar mejor" al menos tres veces al día.
             </p>
           </div>
         </div>
@@ -231,12 +231,12 @@ export default function PaginaNosotros() {
 
       {/* CTA final */}
       <section className="bg-[#1b1b1b] text-[#f6f4f1] py-20 px-6 text-center">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-4">Lleva un poco de esta historia a tu hogar</p>
+        <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-4">Hecho con cariño, para tu hogar</p>
         <h2 className="font-serif text-4xl md:text-5xl italic mb-4 max-w-xl mx-auto leading-tight">
-          Cada vela guarda una llama que no se apaga
+          Una vela de Llum & Glow en cada rincón
         </h2>
         <p className="text-[#a0a0a0] text-sm mb-10 max-w-sm mx-auto">
-          Porque detrás de cada aroma hay dos mujeres que decidieron que nunca es tarde para encender algo nuevo.
+          Elaboradas a mano, con ingredientes naturales y muchas ganas de que te gusten.
         </p>
         <Link
           href="/tienda"
