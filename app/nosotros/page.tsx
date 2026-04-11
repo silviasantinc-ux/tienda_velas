@@ -90,7 +90,7 @@ export default function PaginaNosotros() {
               },
               {
                 año: 'Principios de 2026',
-                titulo: 'llum & glow nace',
+                titulo: 'nace llum & glow',
                 texto: 'De los regalos a los primeros pedidos. Montamos la tienda y empezamos a enviar velas.',
               },
               {
