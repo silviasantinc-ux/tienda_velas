@@ -136,23 +136,30 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Menú mobile desplegable */}
+      {/* Menú mobile flotante */}
       {menuAbierto && (
-        <div className="md:hidden border-t border-[#e0ddd8] bg-[#f6f4f1] px-6 py-4 flex flex-col gap-4">
-          {[
-            { href: '/tienda', label: 'Tienda' },
-            { href: '/nosotros', label: 'El origen' },
-          ].map(({ href, label }) => (
-            <Link
-              key={label}
-              href={href}
-              onClick={() => setMenuAbierto(false)}
-              className="text-[11px] uppercase tracking-widest text-[#1b1b1b] hover:text-[#7d5d24] transition-colors"
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
+        <>
+          {/* Capa de fondo para cerrar al tocar fuera */}
+          <div
+            className="md:hidden fixed inset-0 z-40"
+            onClick={() => setMenuAbierto(false)}
+          />
+          <div className="md:hidden absolute left-0 right-0 z-50 bg-[#f6f4f1] border-b border-[#e0ddd8] shadow-md px-6 py-5 flex flex-col gap-4">
+            {[
+              { href: '/tienda', label: 'Tienda' },
+              { href: '/nosotros', label: 'El origen' },
+            ].map(({ href, label }) => (
+              <Link
+                key={label}
+                href={href}
+                onClick={() => setMenuAbierto(false)}
+                className="text-[11px] uppercase tracking-widest text-[#1b1b1b] hover:text-[#7d5d24] transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </>
       )}
     </nav>
   )
