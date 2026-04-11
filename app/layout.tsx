@@ -75,7 +75,7 @@ export default function RootLayout({
 
             {/* Bottom bar */}
             <div className="border-t border-[#2e2e2e] pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
-              <p className="text-[11px] text-[#555]">© 2025 Llum & Glow. Todos los derechos reservados.</p>
+              <p className="text-[11px] text-[#555]">© 2026 Llum & Glow. Todos los derechos reservados.</p>
               <div className="flex gap-6 text-[11px] text-[#555]">
                 <span className="hover:text-[#a0a0a0] cursor-pointer transition-colors">Política de privacidad</span>
                 <span className="hover:text-[#a0a0a0] cursor-pointer transition-colors">Términos y condiciones</span>

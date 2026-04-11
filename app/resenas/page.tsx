@@ -4,7 +4,7 @@ const RESENAS = [
   {
     nombre: 'María José T.',
     ciudad: 'Madrid',
-    fecha: 'marzo 2025',
+    fecha: 'marzo 2026',
     estrellas: 5,
     producto: 'Lavanda & Bergamota',
     titulo: 'La mejor vela que he comprado nunca',
@@ -15,7 +15,7 @@ const RESENAS = [
   {
     nombre: 'Lucía F.',
     ciudad: 'Valencia',
-    fecha: 'febrero 2025',
+    fecha: 'febrero 2026',
     estrellas: 5,
     producto: 'Vainilla & Sándalo',
     titulo: 'Pedí tres y ya he repetido dos veces',
@@ -26,7 +26,7 @@ const RESENAS = [
   {
     nombre: 'Raquel M.',
     ciudad: 'Barcelona',
-    fecha: 'enero 2025',
+    fecha: 'enero 2026',
     estrellas: 5,
     producto: 'Oud & Rosa Negra',
     titulo: 'Una obra de arte olfativa',
@@ -37,7 +37,7 @@ const RESENAS = [
   {
     nombre: 'Ana Belén G.',
     ciudad: 'Sevilla',
-    fecha: 'marzo 2025',
+    fecha: 'marzo 2026',
     estrellas: 5,
     producto: 'Canela & Naranja',
     titulo: 'Huele exactamente a Navidad todo el año',
@@ -48,7 +48,7 @@ const RESENAS = [
   {
     nombre: 'Elena P.',
     ciudad: 'Bilbao',
-    fecha: 'febrero 2025',
+    fecha: 'febrero 2026',
     estrellas: 5,
     producto: 'Rosa & Jazmín',
     titulo: 'La regalé y me pidieron la referencia inmediatamente',
@@ -59,7 +59,7 @@ const RESENAS = [
   {
     nombre: 'Cristina L.',
     ciudad: 'Zaragoza',
-    fecha: 'enero 2025',
+    fecha: 'enero 2026',
     estrellas: 4,
     producto: 'Bruma de Mar',
     titulo: 'Muy buena, aunque al principio me costó apreciarla',
@@ -81,7 +81,7 @@ const RESENAS = [
   {
     nombre: 'Patricia V.',
     ciudad: 'Málaga',
-    fecha: 'febrero 2025',
+    fecha: 'febrero 2026',
     estrellas: 5,
     producto: 'Té Verde & Menta',
     titulo: 'Perfecta para la mañana',
@@ -92,7 +92,7 @@ const RESENAS = [
   {
     nombre: 'Isabel N.',
     ciudad: 'Murcia',
-    fecha: 'enero 2025',
+    fecha: 'enero 2026',
     estrellas: 5,
     producto: 'Higo & Musgo',
     titulo: 'Diferente a todo lo que había probado antes',

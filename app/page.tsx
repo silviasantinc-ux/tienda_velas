@@ -132,7 +132,7 @@ export default function Home() {
 
         <div className="relative z-10 text-center text-[#f6f4f1] px-6 max-w-2xl mx-auto">
           <p className="text-[11px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-6">
-            Colección 2025
+            Colección 2026
           </p>
           <h1 className="font-['EB_Garamond'] text-6xl md:text-7xl italic leading-tight mb-6">
             El arte de la luz artesanal
