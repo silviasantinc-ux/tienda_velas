@@ -1,19 +1,29 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingBag, Search, Menu, X } from 'lucide-react'
+import { ShoppingBag, Search, Menu, X, User } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import CarritoDropdown from './CarritoDropdown'
+import LogoLlumGlow from './LogoLlumGlow'
 
 export default function Navbar() {
   const totalItems = useCarrito((s) => s.totalItems())
   const [menuAbierto, setMenuAbierto] = useState(false)
   const [carritoAbierto, setCarritoAbierto] = useState(false)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const abrirCarrito = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setCarritoAbierto(true)
+  }
+  const cerrarCarrito = () => {
+    closeTimer.current = setTimeout(() => setCarritoAbierto(false), 180)
+  }
 
   return (
     <nav className="bg-[#f6f4f1] border-b border-[#e0ddd8] sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between min-h-[88px]">
 
         {/* Menú izquierdo desktop */}
         <div className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-widest font-medium">
@@ -36,9 +46,10 @@ export default function Navbar() {
         {/* Logo centro */}
         <Link
           href="/"
-          className="font-['EB_Garamond'] text-2xl italic text-[#1b1b1b] tracking-tight absolute left-1/2 -translate-x-1/2"
+          className="absolute left-1/2 -translate-x-1/2"
+          aria-label="Llum & Glow — inicio"
         >
-          SQVGlow
+          <LogoLlumGlow height={72} />
         </Link>
 
         {/* Iconos derecha */}
@@ -46,10 +57,13 @@ export default function Navbar() {
           <Link href="/tienda" className="hidden md:block hover:text-[#7d5d24] transition-colors">
             <Search className="w-5 h-5" />
           </Link>
+          <Link href="/registro" className="hidden md:block hover:text-[#7d5d24] transition-colors">
+            <User className="w-5 h-5" />
+          </Link>
           <div
             className="relative"
-            onMouseEnter={() => setCarritoAbierto(true)}
-            onMouseLeave={() => setCarritoAbierto(false)}
+            onMouseEnter={abrirCarrito}
+            onMouseLeave={cerrarCarrito}
           >
             <Link href="/carrito" className="relative block hover:text-[#7d5d24] transition-colors">
               <ShoppingBag className="w-5 h-5" />

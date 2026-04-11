@@ -209,7 +209,7 @@ export default function Home() {
             { valor: '100%', etiqueta: 'Cera de soja natural' },
             { valor: '+40h', etiqueta: 'Duración garantizada' },
             { valor: '0%', etiqueta: 'Parafina y tóxicos' },
-            { valor: 'ES', etiqueta: 'Elaboradas en España' },
+            { valor: '✦', etiqueta: 'Elaboradas artesanalmente' },
           ].map(({ valor, etiqueta }) => (
             <div key={etiqueta} className="text-center">
               <p className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b] mb-1">{valor}</p>
@@ -242,7 +242,7 @@ export default function Home() {
         <div className="relative h-80 md:h-auto min-h-[400px] bg-[#ece9e4]">
           <Image
             src="https://upload.wikimedia.org/wikipedia/commons/0/01/Scented_candle_candlelight.jpg"
-            alt="Taller artesanal SQVGlow"
+            alt="Taller artesanal Llum & Glow"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -258,7 +258,7 @@ export default function Home() {
               Carmen siempre olió a canela y lavanda. Cuando Sofía, su hija, no encontró ninguna vela que oliera a los domingos de su infancia, le preguntó: <em>"¿Y si las hacemos nosotras?"</em>
             </p>
             <p className="text-[#a0a0a0] text-sm leading-relaxed mb-8">
-              Así nació SQVGlow en 2020. Con una olla vieja, cera de soja y más fracasos que éxitos al principio. Hoy cada vela sigue siendo un trozo de esa historia.
+              Así nació Llum & Glow en 2020. Con una olla vieja, cera de soja y más fracasos que éxitos al principio. Hoy cada vela sigue siendo un trozo de esa historia.
             </p>
             <Link
               href="/nosotros"

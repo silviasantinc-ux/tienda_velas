@@ -96,7 +96,7 @@ const RESENAS = [
     estrellas: 5,
     producto: 'Higo & Musgo',
     titulo: 'Diferente a todo lo que había probado antes',
-    texto: 'No sabía qué esperar de una vela de higo y musgo. Compré a ciegas fiándome de las reseñas y acerté. Es un aroma verde, fresco, muy especial — nada convencional. Combina perfectamente con un salón moderno o una habitación con plantas. Me la han preguntado varias personas que han venido a casa. SQVGlow tiene un criterio muy bueno para las fragancias, cada combinación tiene sentido y personalidad propia.',
+    texto: 'No sabía qué esperar de una vela de higo y musgo. Compré a ciegas fiándome de las reseñas y acerté. Es un aroma verde, fresco, muy especial — nada convencional. Combina perfectamente con un salón moderno o una habitación con plantas. Me la han preguntado varias personas que han venido a casa. Llum & Glow tiene un criterio muy bueno para las fragancias, cada combinación tiene sentido y personalidad propia.',
     verificado: true,
     util: 21,
   },
@@ -175,7 +175,7 @@ export default function PaginaResenas() {
           {/* Stats */}
           <div className="flex flex-col gap-5 flex-shrink-0 text-center md:text-left">
             {[
-              { valor: '98%', texto: 'recomendarían SQVGlow' },
+              { valor: '98%', texto: 'recomendarían Llum & Glow' },
               { valor: '4.9', texto: 'valoración media' },
               { valor: '100%', texto: 'compra verificada' },
             ].map(({ valor, texto }) => (
@@ -230,7 +230,7 @@ export default function PaginaResenas() {
         <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">¿Ya eres clienta?</p>
         <h2 className="font-serif text-3xl italic text-[#1b1b1b] mb-4">Cuéntanos tu experiencia</h2>
         <p className="text-sm text-[#666] mb-8 max-w-xs mx-auto">
-          Escríbenos a <a href="mailto:hola@sqvglow.com" className="text-[#1b1b1b] border-b border-[#1b1b1b]">hola@sqvglow.com</a> con tu reseña y la publicamos.
+          Escríbenos a <a href="mailto:hola@llumglow.com" className="text-[#1b1b1b] border-b border-[#1b1b1b]">hola@llumglow.com</a> con tu reseña y la publicamos.
         </p>
         <Link
           href="/tienda"

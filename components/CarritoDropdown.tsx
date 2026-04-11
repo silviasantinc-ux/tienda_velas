@@ -2,15 +2,17 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Trash2, ShoppingBag } from 'lucide-react'
+import { Trash2, ShoppingBag, Plus, Minus } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
+import { useState } from 'react'
 
 export default function CarritoDropdown() {
-  const { items, quitar, total } = useCarrito()
+  const { items, quitar, actualizarCantidad, total } = useCarrito()
   const envioGratis = total() >= 50
+  const [hover, setHover] = useState<'ver' | 'pago' | null>(null)
 
   return (
-    <div className="absolute right-0 top-full mt-3 w-80 bg-[#f6f4f1] border border-[#e0ddd8] shadow-xl z-50">
+    <div className="absolute right-0 top-full w-80 bg-[#f6f4f1] border border-[#e0ddd8] shadow-xl z-50">
       {/* Cabecera */}
       <div className="px-5 py-4 border-b border-[#e0ddd8] flex items-center justify-between">
         <p className="font-['EB_Garamond'] text-lg italic text-[#1b1b1b]">Tu carrito</p>
@@ -44,7 +46,7 @@ export default function CarritoDropdown() {
                 />
               </div>
               <p className="text-[10px] text-[#666] whitespace-nowrap flex-shrink-0">
-                Faltan <strong className="text-[#1b1b1b]">{(50 - total()).toFixed(2)} €</strong>
+                Faltan <strong className="text-[#1b1b1b]">{(50 - total()).toFixed(2)} €</strong> para envío gratuito
               </p>
             </div>
           )}
@@ -79,14 +81,32 @@ export default function CarritoDropdown() {
                     {cantidad} × {producto.precio.toFixed(2)} €
                   </p>
                 </div>
-                <div className="flex flex-col items-end justify-between flex-shrink-0">
+                <div className="flex flex-col items-end justify-between flex-shrink-0 gap-2">
                   <button
                     onClick={() => quitar(producto.id)}
-                    className="text-[#ccc] hover:text-[#1b1b1b] transition-colors"
+                    className="text-[#ccc] hover:text-[#b97979] transition-colors"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
-                  <p className="text-sm font-medium text-[#1b1b1b]">
+                  {/* Controles cantidad */}
+                  <div className="flex items-center border border-[#e0ddd8]">
+                    <button
+                      onClick={() => actualizarCantidad(producto.id, cantidad - 1)}
+                      className="px-1.5 py-1 hover:bg-[#ece9e4] transition-colors"
+                    >
+                      <Minus className="w-2.5 h-2.5" />
+                    </button>
+                    <span className="px-2 text-xs font-medium text-[#1b1b1b] min-w-[1.25rem] text-center">
+                      {cantidad}
+                    </span>
+                    <button
+                      onClick={() => actualizarCantidad(producto.id, cantidad + 1)}
+                      className="px-1.5 py-1 hover:bg-[#ece9e4] transition-colors"
+                    >
+                      <Plus className="w-2.5 h-2.5" />
+                    </button>
+                  </div>
+                  <p className="text-xs font-medium text-[#1b1b1b]">
                     {(producto.precio * cantidad).toFixed(2)} €
                   </p>
                 </div>
@@ -104,11 +124,25 @@ export default function CarritoDropdown() {
             </div>
             <Link
               href="/carrito"
-              className="block w-full text-center bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors mb-2"
+              onMouseEnter={() => setHover('ver')}
+              onMouseLeave={() => setHover(null)}
+              className={`block w-full text-center text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors mb-2 ${
+                hover === 'pago'
+                  ? 'bg-[#f6f4f1] text-[#999] border border-[#e0ddd8]'
+                  : 'bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1]'
+              }`}
             >
               Ver carrito
             </Link>
-            <button className="w-full border border-[#1b1b1b] text-[#1b1b1b] hover:bg-[#1b1b1b] hover:text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors">
+            <button
+              onMouseEnter={() => setHover('pago')}
+              onMouseLeave={() => setHover(null)}
+              className={`w-full text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors ${
+                hover === 'ver'
+                  ? 'border border-[#e0ddd8] text-[#bbb]'
+                  : 'border border-[#1b1b1b] text-[#1b1b1b] hover:bg-[#1b1b1b] hover:text-[#f6f4f1]'
+              }`}
+            >
               Proceder al pago
             </button>
           </div>

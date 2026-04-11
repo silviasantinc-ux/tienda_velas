@@ -8,7 +8,7 @@ export default function PaginaNosotros() {
       <section className="relative h-[60vh] min-h-96 flex items-end overflow-hidden bg-[#1b1b1b]">
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Byredo_1996_scented_candle.jpg"
-          alt="Taller SQVGlow"
+          alt="Taller Llum & Glow"
           fill
           className="object-cover opacity-35"
           priority
@@ -94,7 +94,7 @@ export default function PaginaNosotros() {
               {
                 año: '2020',
                 titulo: 'La decisión',
-                texto: 'En plena pandemia, con el mundo parado, Carmen y Sofía deciden que es el momento. SQVGlow nace en una cocina de Murcia.',
+                texto: 'En plena pandemia, con el mundo parado, Carmen y Sofía deciden que es el momento. Llum & Glow nace en una cocina de Murcia.',
               },
               {
                 año: '2021',
@@ -138,7 +138,7 @@ export default function PaginaNosotros() {
             Hay días difíciles. Días en que los pedidos se acumulan y las horas no alcanzan, en que un lote sale mal o llega una devolución que duele. Pero hay algo que ninguna de las dos cambiaría: al final del día, cuando apagan la luz del taller, siempre queda el olor. A cera caliente, a lavanda, a madera. A ellas.
           </p>
           <p>
-            Cada vela que sale de SQVGlow lleva algo de esa historia. La historia de dos mujeres que decidieron que nunca es tarde para encender algo nuevo.
+            Cada vela que sale de Llum & Glow lleva algo de esa historia. La historia de dos mujeres que decidieron que nunca es tarde para encender algo nuevo.
           </p>
         </div>
 

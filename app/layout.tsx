@@ -3,9 +3,10 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AnuncioBar from "@/components/AnuncioBar";
 import Link from "next/link";
+import LogoLlumGlow from "@/components/LogoLlumGlow";
 
 export const metadata: Metadata = {
-  title: "SQVGlow — Velas Artesanales",
+  title: "Llum & Glow — Velas Artesanales",
   description: "Velas artesanales elaboradas con cera de soja natural, mechas de algodón y fragancias únicas para transformar tu hogar.",
 };
 
@@ -19,7 +20,7 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
       </head>
       <body className="min-h-full flex flex-col bg-[#f6f4f1] text-[#1b1b1b]">
         <AnuncioBar />
@@ -32,9 +33,9 @@ export default function RootLayout({
             <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14">
               {/* Marca */}
               <div className="md:col-span-2">
-                <p className="font-['EB_Garamond'] text-3xl italic mb-4">SQVGlow</p>
+                <div className="mb-4"><LogoLlumGlow height={56} variant="light" /></div>
                 <p className="text-sm text-[#a0a0a0] leading-relaxed max-w-xs">
-                  Cada vela es elaborada a mano en nuestro taller en España usando exclusivamente cera de soja, mechas de algodón y fragancias de grado cosmético.
+                  Cada vela es elaborada a mano en nuestro taller usando exclusivamente cera de soja, mechas de algodón y fragancias de grado cosmético.
                 </p>
                 <div className="flex gap-4 mt-6">
                   {['Instagram', 'TikTok', 'Pinterest'].map((red) => (
@@ -67,14 +68,14 @@ export default function RootLayout({
                   <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">Envíos y devoluciones</span></li>
                   <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">Cuidado de la vela</span></li>
                   <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">Preguntas frecuentes</span></li>
-                  <li><a href="mailto:hola@sqvglow.com" className="hover:text-[#dcbcbc] transition-colors">hola@sqvglow.com</a></li>
+                  <li><a href="mailto:hola@llumglow.com" className="hover:text-[#dcbcbc] transition-colors">hola@llumglow.com</a></li>
                 </ul>
               </div>
             </div>
 
             {/* Bottom bar */}
             <div className="border-t border-[#2e2e2e] pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
-              <p className="text-[11px] text-[#555]">© 2025 SQVGlow. Todos los derechos reservados.</p>
+              <p className="text-[11px] text-[#555]">© 2025 Llum & Glow. Todos los derechos reservados.</p>
               <div className="flex gap-6 text-[11px] text-[#555]">
                 <span className="hover:text-[#a0a0a0] cursor-pointer transition-colors">Política de privacidad</span>
                 <span className="hover:text-[#a0a0a0] cursor-pointer transition-colors">Términos y condiciones</span>
