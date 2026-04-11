@@ -6,7 +6,7 @@ import Link from "next/link";
 import LogoLlumGlow from "@/components/LogoLlumGlow";
 
 export const metadata: Metadata = {
-  title: "Llum & Glow — Velas Artesanales",
+  title: "llum & glow — velas artesanales",
   description: "Velas artesanales elaboradas con cera de soja natural, mechas de algodón y fragancias únicas para transformar tu hogar.",
 };
 
