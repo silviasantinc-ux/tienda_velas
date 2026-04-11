@@ -85,37 +85,27 @@ export default function PaginaNosotros() {
         <div className="max-w-4xl mx-auto">
           <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-10 text-center">El camino</p>
           <div className="space-y-0">
-            {[
+            [
               {
                 año: '2025',
                 titulo: 'La primera vela',
                 texto: 'Una tarde de domingo, una olla y muchas ganas. La primera olía a quemado. La cuarta ya se podía regalar.',
               },
               {
-                año: '2026',
+                año: 'Principios de 2026',
                 titulo: 'Llum & Glow nace',
-                texto: 'De los regalos a los primeros pedidos. Montamos una tienda pequeña y empezamos a enviar velas.',
+                texto: 'De los regalos a los primeros pedidos. Montamos la tienda y empezamos a enviar velas.',
               },
               {
-                año: '2021',
-                titulo: 'Las primeras clientas fieles',
-                texto: 'Algunas personas empezaron a repetir. Eso fue la mejor señal de que íbamos por buen camino.',
-              },
-              {
-                año: '2022',
-                titulo: 'Taller propio',
-                texto: 'Dejamos la cocina de casa y alquilamos un pequeño local. Más espacio, más aromas, más posibilidades.',
-              },
-              {
-                año: '2026',
-                titulo: 'Hoy',
-                texto: 'Más de 2.000 velas elaboradas a mano. Cada una con los mismos ingredientes y el mismo cuidado que la primera.',
+                año: 'Hoy',
+                titulo: 'Creciendo despacio',
+                texto: 'Cada vela sigue elaborada a mano, con los mismos ingredientes y el mismo cuidado que la primera.',
               },
             ].map(({ año, titulo, texto }, i) => (
               <div key={año} className="flex gap-8 pb-10 relative">
                 <div className="flex flex-col items-center">
                   <div className="w-2 h-2 rounded-full bg-[#dcbcbc] mt-1 flex-shrink-0" />
-                  {i < 4 && <div className="w-px flex-1 bg-[#333] mt-2" />}
+                  {i < 2 && <div className="w-px flex-1 bg-[#333] mt-2" />}
                 </div>
                 <div className="pb-2">
                   <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc] mb-1">{año}</p>
