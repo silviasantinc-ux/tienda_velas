@@ -54,7 +54,7 @@ export default function PaginaNosotros() {
         </div>
         <div className="bg-[#ece9e4] flex items-center px-10 md:px-16 py-14">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-5">2019</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-5">2025</p>
             <p className="font-serif text-3xl italic text-[#1b1b1b] leading-snug mb-6">
               "La primera olía a quemado. La segunda, regular. La tercera ya era bastante buena. La cuarta la regalamos."
             </p>
@@ -87,7 +87,7 @@ export default function PaginaNosotros() {
           <div className="space-y-0">
             {[
               {
-                año: '2019',
+                año: '2025',
                 titulo: 'La primera vela',
                 texto: 'Una tarde de domingo, una olla y muchas ganas. La primera olía a quemado. La cuarta ya se podía regalar.',
               },
