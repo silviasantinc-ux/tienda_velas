@@ -30,13 +30,10 @@ export default function PaginaNosotros() {
 
         <div className="space-y-6 text-sm text-[#555] leading-[1.9]">
           <p>
-            Carmen lleva toda la vida rodeada de velas. Las encendía para cenar, para leer, para no hacer nada en particular. Su casa siempre olía bien y eso, según ella, es lo más importante que puede tener una casa.
+            En casa siempre había velas. Para cenar, para leer, para no hacer nada en particular. El olor a cera era algo tan normal como el olor a café por las mañanas.
           </p>
           <p>
-            Sofía, su hija, creció con esa costumbre y la hizo suya. Un día, buscando una vela con un aroma concreto que tenía en la cabeza —algo entre naranja y madera, cálido pero fresco— no encontró nada que le convenciera del todo. Se lo contó a su madre y Carmen, con esa naturalidad que tienen algunas personas para lanzarse, dijo: <strong>"Pues la hacemos nosotras."</strong>
-          </p>
-          <p>
-            Ese mismo fin de semana ya estaban en la cocina, con cera de soja, un termómetro de cocina y muchas ganas de experimentar.
+            Un día, buscando una vela con un aroma concreto —algo entre naranja y madera, cálido pero fresco— no encontramos nada que convenciera del todo. Así que decidimos hacerla nosotras. Ese mismo fin de semana ya estábamos en la cocina, con cera de soja, un termómetro de cocina y muchas ganas de experimentar.
           </p>
         </div>
       </section>
@@ -69,13 +66,13 @@ export default function PaginaNosotros() {
       <section className="max-w-3xl mx-auto px-6 py-20">
         <div className="space-y-6 text-sm text-[#555] leading-[1.9]">
           <p>
-            Los fines de semana se convirtieron en talleres improvisados. Probaban fragancias, ajustaban proporciones, llenaban la cocina de olores mezclados y discutían con cariño sobre si la lavanda necesitaba más bergamota o menos. Carmen apuntaba todo en un cuaderno. Sofía hacía fotos.
+            Los fines de semana se convirtieron en talleres improvisados. Probábamos fragancias, ajustábamos proporciones, llenábamos la cocina de olores mezclados. Todo quedaba apuntado en un cuaderno.
           </p>
           <p>
-            Las velas que iban saliendo bien las regalaban: a vecinas, a amigas, a la familia. La respuesta siempre era la misma — "¿Dónde las compráis?" — y ellas se miraban y se reían.
+            Las velas que iban saliendo bien las regalábamos: a vecinas, a amigas, a la familia. La respuesta siempre era la misma — "¿Dónde las compráis?" — y nos mirábamos y nos reíamos.
           </p>
           <p>
-            En 2020 decidieron darle una vuelta de tuerca. Si a tanta gente le gustaban, quizás valía la pena intentarlo de verdad. Sin grandes planes ni inversiones descabelladas, con la misma actitud con la que todo había empezado: <em>probamos y vemos qué pasa.</em>
+            Si a tanta gente le gustaban, quizás valía la pena intentarlo de verdad. Sin grandes planes, con la misma actitud con la que todo había empezado: <em>probamos y vemos qué pasa.</em>
           </p>
         </div>
       </section>
@@ -122,13 +119,13 @@ export default function PaginaNosotros() {
       <section className="max-w-3xl mx-auto px-6 py-20">
         <div className="space-y-6 text-sm text-[#555] leading-[1.9]">
           <p>
-            Hoy Carmen y Sofía siguen trabajando juntas, con el mismo espíritu de aquel primer domingo. Todavía discuten sobre fragancias —Carmen tira hacia los aromas cálidos y especiados, Sofía hacia los florales y frescos— y todavía se ríen mucho mientras trabajan.
+            Seguimos trabajando con el mismo espíritu de aquel primer domingo. Todavía discutimos sobre fragancias —entre los aromas cálidos y especiados y los florales y frescos— y todavía nos reímos mucho mientras trabajamos.
           </p>
           <p>
             Cada vela se sigue haciendo a mano, con los mismos ingredientes desde el principio: cera de soja, mecha de algodón y fragancias que huelen de verdad. Sin atajos.
           </p>
           <p>
-            Llum & Glow es eso: dos personas a las que les gusta lo que hacen y quieren que te guste a ti también.
+            Llum & Glow es eso: un pequeño equipo al que le gusta lo que hace y quiere que te guste a ti también.
           </p>
         </div>
 
@@ -136,7 +133,7 @@ export default function PaginaNosotros() {
           <p className="font-serif text-xl italic text-[#1b1b1b] leading-relaxed mb-3">
             "Una vela no cambia el mundo, pero sí puede cambiar cómo se siente una habitación. Y eso, para nosotras, es suficiente."
           </p>
-          <cite className="text-[10px] uppercase tracking-widest text-[#7d5d24] not-italic">— Carmen & Sofía</cite>
+          <cite className="text-[10px] uppercase tracking-widest text-[#7d5d24] not-italic">— Llum & Glow</cite>
         </blockquote>
       </section>
 
