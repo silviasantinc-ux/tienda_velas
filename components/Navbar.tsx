@@ -54,10 +54,10 @@ export default function Navbar() {
 
         {/* Iconos derecha */}
         <div className="flex items-center gap-5 text-[#1b1b1b]">
-          <Link href="/tienda" className="hidden md:block hover:text-[#7d5d24] transition-colors">
+          <Link href="/tienda" className="hover:text-[#7d5d24] transition-colors">
             <Search className="w-5 h-5" />
           </Link>
-          <Link href="/registro" className="hidden md:block hover:text-[#7d5d24] transition-colors">
+          <Link href="/registro" className="hover:text-[#7d5d24] transition-colors">
             <User className="w-5 h-5" />
           </Link>
           <div
@@ -84,8 +84,6 @@ export default function Navbar() {
           {[
             { href: '/tienda', label: 'Tienda' },
             { href: '/nosotros', label: 'El origen' },
-            { href: '/tienda', label: 'Buscar' },
-            { href: '/registro', label: 'Mi cuenta' },
           ].map(({ href, label }) => (
             <Link
               key={label}
