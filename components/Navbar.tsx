@@ -84,9 +84,11 @@ export default function Navbar() {
           {[
             { href: '/tienda', label: 'Tienda' },
             { href: '/nosotros', label: 'El origen' },
+            { href: '/tienda', label: 'Buscar' },
+            { href: '/registro', label: 'Mi cuenta' },
           ].map(({ href, label }) => (
             <Link
-              key={href}
+              key={label}
               href={href}
               onClick={() => setMenuAbierto(false)}
               className="text-[11px] uppercase tracking-widest text-[#1b1b1b] hover:text-[#7d5d24] transition-colors"

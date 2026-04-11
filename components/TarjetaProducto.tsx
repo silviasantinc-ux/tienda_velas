@@ -40,8 +40,8 @@ export default function TarjetaProducto({ producto }: { producto: Producto }) {
           </span>
         )}
 
-        {/* Botón hover */}
-        <div className="absolute bottom-0 left-0 right-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+        {/* Botón hover (siempre visible en móvil) */}
+        <div className="absolute bottom-0 left-0 right-0 md:translate-y-full md:group-hover:translate-y-0 transition-transform duration-300">
           <button
             onClick={(e) => {
               e.preventDefault()
