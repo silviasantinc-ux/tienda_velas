@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import SeccionNewsletter from '@/components/SeccionNewsletter'
 
 const RESENAS = [
   {
@@ -241,7 +240,6 @@ export default function PaginaResenas() {
         </Link>
       </section>
 
-      <SeccionNewsletter />
     </div>
   )
 }

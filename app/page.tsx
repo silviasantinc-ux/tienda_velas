@@ -2,7 +2,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { productosMock, colecciones } from '@/lib/productos-mock'
 import TarjetaProducto from '@/components/TarjetaProducto'
-import SeccionNewsletter from '@/components/SeccionNewsletter'
 
 const destacados = productosMock.filter((p) => p.badge === 'mas-vendido').slice(0, 4)
 const nuevos = productosMock.filter((p) => p.badge === 'nuevo').slice(0, 4)
@@ -346,8 +345,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── NEWSLETTER ───────────────────────────────────── */}
-      <SeccionNewsletter />
     </div>
   )
 }

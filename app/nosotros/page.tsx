@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import SeccionNewsletter from '@/components/SeccionNewsletter'
 
 export default function PaginaNosotros() {
   return (
@@ -247,7 +246,6 @@ export default function PaginaNosotros() {
         </Link>
       </section>
 
-      <SeccionNewsletter />
     </div>
   )
 }
