@@ -85,7 +85,7 @@ export const productosMock: Producto[] = [
     nombre: 'Bruma de Mar',
     descripcion: 'La esencia limpia y libre del océano. Notas de sal marina, maderas flotantes y algas frescas. Transporta la brisa del Mediterráneo directamente a tu hogar.',
     precio: 24.00,
-    imagen_url: V6,
+    imagen_url: '/vela-oso.jpg',
     categoria: 'Eventos',
     stock: 6,
     badge: 'edicion-limitada',
