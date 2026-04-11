@@ -168,53 +168,6 @@ export default function PaginaNosotros() {
         </div>
       </section>
 
-      {/* Las fundadoras */}
-      <section className="max-w-4xl mx-auto px-6 py-20">
-        <div className="text-center mb-14">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">Las personas detrás</p>
-          <h2 className="font-serif text-4xl italic text-[#1b1b1b]">Carmen y Sofía</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div>
-            <div className="relative aspect-square bg-[#ece9e4] mb-6 overflow-hidden">
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Mahogany_teakwood_scented_candle_%28cropped%29.jpg"
-                alt="Carmen"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b]/50 to-transparent" />
-              <div className="absolute bottom-5 left-5 text-[#f6f4f1]">
-                <p className="font-serif text-2xl italic">Carmen</p>
-                <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc]">La madre · Aromas & Alma</p>
-              </div>
-            </div>
-            <p className="text-sm text-[#555] leading-relaxed">
-              La que más sabe de fragancias y la que menos lo presume. Tiene un olfato extraordinario y una paciencia infinita para ajustar cada mezcla hasta que queda exactamente bien. Le gustan los aromas cálidos, el café por las mañanas y los domingos sin prisa.
-            </p>
-          </div>
-          <div>
-            <div className="relative aspect-square bg-[#ece9e4] mb-6 overflow-hidden">
-              <Image
-                src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Scented_candle.jpg"
-                alt="Sofía"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b]/50 to-transparent" />
-              <div className="absolute bottom-5 left-5 text-[#f6f4f1]">
-                <p className="font-serif text-2xl italic">Sofía</p>
-                <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc]">La hija · Diseño & Esencia</p>
-              </div>
-            </div>
-            <p className="text-sm text-[#555] leading-relaxed">
-              Se encarga de que todo tenga buen aspecto además de buen olor. Diseñadora de formación, perfeccionista por naturaleza. Prefiere las notas frescas y florales, aunque reconoce que la canela de su madre es imbatible. La que hace las fotos, lleva las redes y dice "esto podría quedar mejor" al menos tres veces al día.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* CTA final */}
       <section className="bg-[#1b1b1b] text-[#f6f4f1] py-20 px-6 text-center">
