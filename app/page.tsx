@@ -12,14 +12,125 @@ export default function Home() {
     <div>
       {/* ── HERO ─────────────────────────────────────────── */}
       <section className="relative h-[92vh] min-h-[540px] flex items-center justify-center overflow-hidden bg-[#1b1b1b]">
-        <Image
-          src="https://upload.wikimedia.org/wikipedia/commons/0/01/Scented_candle_candlelight.jpg"
-          alt="Velas artesanales SQVGlow"
-          fill
-          className="object-cover opacity-40"
-          priority
-          sizes="100vw"
-        />
+        {/* Ilustración SVG */}
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 1440 900"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <defs>
+            <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#c8903a" stopOpacity="0.5" />
+              <stop offset="100%" stopColor="#c8903a" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#dcbcbc" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#dcbcbc" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="flameGrad" cx="50%" cy="80%" r="60%">
+              <stop offset="0%" stopColor="#fff8e1" />
+              <stop offset="40%" stopColor="#ffb74d" />
+              <stop offset="100%" stopColor="#e65100" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="flameGrad2" cx="50%" cy="80%" r="60%">
+              <stop offset="0%" stopColor="#fff8e1" />
+              <stop offset="40%" stopColor="#ffcc80" />
+              <stop offset="100%" stopColor="#e65100" stopOpacity="0" />
+            </radialGradient>
+            <filter id="blur1">
+              <feGaussianBlur stdDeviation="18" />
+            </filter>
+            <filter id="blur2">
+              <feGaussianBlur stdDeviation="8" />
+            </filter>
+          </defs>
+
+          {/* Halos de luz */}
+          <ellipse cx="580" cy="420" rx="180" ry="160" fill="url(#glow1)" filter="url(#blur1)" />
+          <ellipse cx="860" cy="380" rx="140" ry="130" fill="url(#glow1)" filter="url(#blur1)" />
+          <ellipse cx="1050" cy="470" rx="110" ry="100" fill="url(#glow2)" filter="url(#blur1)" />
+
+          {/* ── VELA IZQUIERDA (grande) ── */}
+          {/* cuerpo */}
+          <rect x="540" y="320" width="80" height="240" rx="4" fill="#2e2a24" />
+          <rect x="540" y="320" width="80" height="240" rx="4" fill="none" stroke="#7d5d24" strokeWidth="1" strokeOpacity="0.4" />
+          {/* líneas de textura */}
+          <line x1="555" y1="370" x2="555" y2="540" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.25" />
+          <line x1="575" y1="360" x2="575" y2="545" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.25" />
+          <line x1="595" y1="365" x2="595" y2="543" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.25" />
+          {/* tapa */}
+          <ellipse cx="580" cy="320" rx="40" ry="8" fill="#3a3228" stroke="#7d5d24" strokeWidth="0.8" strokeOpacity="0.5" />
+          {/* mecha */}
+          <line x1="580" y1="320" x2="578" y2="300" stroke="#555" strokeWidth="2" strokeLinecap="round" />
+          {/* llama */}
+          <ellipse cx="578" cy="288" rx="14" ry="22" fill="url(#flameGrad)" filter="url(#blur2)" opacity="0.9" />
+          <path d="M578,302 C572,292 570,280 578,268 C586,280 586,292 578,302Z" fill="#fff8e1" opacity="0.95" />
+          <path d="M578,300 C574,292 573,283 578,274 C583,283 583,292 578,300Z" fill="white" opacity="0.7" />
+          {/* platillo */}
+          <ellipse cx="580" cy="558" rx="55" ry="10" fill="#2a2520" stroke="#7d5d24" strokeWidth="0.8" strokeOpacity="0.4" />
+
+          {/* ── VELA CENTRAL (mediana) ── */}
+          <rect x="820" y="280" width="70" height="200" rx="4" fill="#2e2a24" />
+          <rect x="820" y="280" width="70" height="200" rx="4" fill="none" stroke="#dcbcbc" strokeWidth="1" strokeOpacity="0.35" />
+          <line x1="833" y1="325" x2="833" y2="465" stroke="#dcbcbc" strokeWidth="0.5" strokeOpacity="0.2" />
+          <line x1="850" y1="318" x2="850" y2="468" stroke="#dcbcbc" strokeWidth="0.5" strokeOpacity="0.2" />
+          <line x1="867" y1="322" x2="867" y2="467" stroke="#dcbcbc" strokeWidth="0.5" strokeOpacity="0.2" />
+          <ellipse cx="855" cy="280" rx="35" ry="7" fill="#3a3228" stroke="#dcbcbc" strokeWidth="0.8" strokeOpacity="0.45" />
+          <line x1="855" y1="280" x2="853" y2="263" stroke="#555" strokeWidth="2" strokeLinecap="round" />
+          <ellipse cx="853" cy="252" rx="12" ry="19" fill="url(#flameGrad2)" filter="url(#blur2)" opacity="0.85" />
+          <path d="M853,264 C848,255 846,244 853,234 C860,244 860,255 853,264Z" fill="#fff8e1" opacity="0.95" />
+          <path d="M853,263 C850,255 849,247 853,239 C857,247 857,255 853,263Z" fill="white" opacity="0.65" />
+          <ellipse cx="855" cy="479" rx="48" ry="9" fill="#2a2520" stroke="#dcbcbc" strokeWidth="0.8" strokeOpacity="0.35" />
+
+          {/* ── VELA DERECHA (pequeña) ── */}
+          <rect x="1010" y="360" width="56" height="160" rx="4" fill="#2e2a24" />
+          <rect x="1010" y="360" width="56" height="160" rx="4" fill="none" stroke="#7d5d24" strokeWidth="1" strokeOpacity="0.3" />
+          <line x1="1021" y1="395" x2="1021" y2="508" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.2" />
+          <line x1="1038" y1="390" x2="1038" y2="510" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.2" />
+          <ellipse cx="1038" cy="360" rx="28" ry="6" fill="#3a3228" stroke="#7d5d24" strokeWidth="0.8" strokeOpacity="0.4" />
+          <line x1="1038" y1="360" x2="1036" y2="346" stroke="#555" strokeWidth="1.5" strokeLinecap="round" />
+          <ellipse cx="1036" cy="337" rx="10" ry="16" fill="url(#flameGrad)" filter="url(#blur2)" opacity="0.8" />
+          <path d="M1036,348 C1032,341 1030,332 1036,323 C1042,332 1042,341 1036,348Z" fill="#fff8e1" opacity="0.9" />
+          <path d="M1036,347 C1033,341 1032,334 1036,327 C1040,334 1040,341 1036,347Z" fill="white" opacity="0.6" />
+          <ellipse cx="1038" cy="519" rx="38" ry="7" fill="#2a2520" stroke="#7d5d24" strokeWidth="0.8" strokeOpacity="0.3" />
+
+          {/* ── RAMAS BOTÁNICAS IZQUIERDA ── */}
+          <g opacity="0.5" stroke="#7d5d24" strokeWidth="1" fill="none">
+            <path d="M200,600 Q280,520 360,480" strokeWidth="1.5" />
+            <path d="M260,555 Q240,510 270,480" />
+            <path d="M310,530 Q290,490 315,465" />
+            <path d="M340,510 Q340,475 360,455" />
+            {/* hojas */}
+            <ellipse cx="270" cy="479" rx="12" ry="7" transform="rotate(-30 270 479)" fill="#7d5d24" fillOpacity="0.3" />
+            <ellipse cx="316" cy="464" rx="11" ry="6" transform="rotate(-20 316 464)" fill="#7d5d24" fillOpacity="0.3" />
+            <ellipse cx="361" cy="454" rx="10" ry="6" transform="rotate(-10 361 454)" fill="#7d5d24" fillOpacity="0.25" />
+            <ellipse cx="225" cy="570" rx="13" ry="7" transform="rotate(40 225 570)" fill="#7d5d24" fillOpacity="0.25" />
+          </g>
+
+          {/* ── RAMAS BOTÁNICAS DERECHA ── */}
+          <g opacity="0.45" stroke="#dcbcbc" strokeWidth="1" fill="none">
+            <path d="M1280,580 Q1200,510 1140,480" strokeWidth="1.5" />
+            <path d="M1220,545 Q1230,505 1205,478" />
+            <path d="M1175,522 Q1180,488 1160,464" />
+            <ellipse cx="1204" cy="477" rx="11" ry="6" transform="rotate(25 1204 477)" fill="#dcbcbc" fillOpacity="0.25" />
+            <ellipse cx="1159" cy="463" rx="10" ry="6" transform="rotate(15 1159 463)" fill="#dcbcbc" fillOpacity="0.25" />
+            <ellipse cx="1260" cy="560" rx="13" ry="7" transform="rotate(-40 1260 560)" fill="#dcbcbc" fillOpacity="0.2" />
+          </g>
+
+          {/* Destellos pequeños */}
+          <circle cx="450" cy="250" r="1.5" fill="#dcbcbc" opacity="0.6" />
+          <circle cx="700" cy="180" r="1" fill="#7d5d24" opacity="0.5" />
+          <circle cx="1100" cy="220" r="1.5" fill="#dcbcbc" opacity="0.55" />
+          <circle cx="1200" cy="350" r="1" fill="#7d5d24" opacity="0.4" />
+          <circle cx="380" cy="400" r="1" fill="#dcbcbc" opacity="0.4" />
+          <circle cx="920" cy="160" r="1.5" fill="#dcbcbc" opacity="0.5" />
+
+          {/* Línea de suelo sutil */}
+          <line x1="300" y1="560" x2="1150" y2="560" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.2" />
+        </svg>
+
         <div className="relative z-10 text-center text-[#f6f4f1] px-6 max-w-2xl mx-auto">
           <p className="text-[11px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-6">
             Colección 2025
