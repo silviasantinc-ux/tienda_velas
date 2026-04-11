@@ -14,6 +14,7 @@ export default function LogoLlumGlow({ height = 52, variant = 'dark' }: Props) {
       <svg
         viewBox="0 0 320 80"
         height={height}
+        width={height * 4}
         xmlns="http://www.w3.org/2000/svg"
         aria-label="llum & glow"
         style={{ display: 'block' }}
