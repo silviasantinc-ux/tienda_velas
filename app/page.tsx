@@ -242,7 +242,7 @@ export default function Home() {
         <div className="relative h-80 md:h-auto min-h-[400px] bg-[#ece9e4]">
           <Image
             src="https://upload.wikimedia.org/wikipedia/commons/0/01/Scented_candle_candlelight.jpg"
-            alt="Taller artesanal Llum & Glow"
+            alt="Taller artesanal llum & glow"
             fill
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -258,7 +258,7 @@ export default function Home() {
               Carmen siempre olió a canela y lavanda. Cuando Sofía, su hija, no encontró ninguna vela que oliera a los domingos de su infancia, le preguntó: <em>"¿Y si las hacemos nosotras?"</em>
             </p>
             <p className="text-[#a0a0a0] text-sm leading-relaxed mb-8">
-              Así nació Llum & Glow en 2020. Con una olla vieja, cera de soja y más fracasos que éxitos al principio. Hoy cada vela sigue siendo un trozo de esa historia.
+              Así nació llum & glow en 2020. Con una olla vieja, cera de soja y más fracasos que éxitos al principio. Hoy cada vela sigue siendo un trozo de esa historia.
             </p>
             <Link
               href="/nosotros"

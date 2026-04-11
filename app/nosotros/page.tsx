@@ -8,7 +8,7 @@ export default function PaginaNosotros() {
       <section className="relative h-[60vh] min-h-96 flex items-end overflow-hidden bg-[#1b1b1b]">
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Byredo_1996_scented_candle.jpg"
-          alt="Taller Llum & Glow"
+          alt="Taller llum & glow"
           fill
           className="object-cover opacity-35"
           priority
@@ -90,7 +90,7 @@ export default function PaginaNosotros() {
               },
               {
                 año: 'Principios de 2026',
-                titulo: 'Llum & Glow nace',
+                titulo: 'llum & glow nace',
                 texto: 'De los regalos a los primeros pedidos. Montamos la tienda y empezamos a enviar velas.',
               },
               {
@@ -125,7 +125,7 @@ export default function PaginaNosotros() {
             Cada vela se sigue haciendo a mano, con los mismos ingredientes desde el principio: cera de soja, mecha de algodón y fragancias que huelen de verdad. Sin atajos.
           </p>
           <p>
-            Llum & Glow es eso: un pequeño equipo al que le gusta lo que hace y quiere que te guste a ti también.
+            llum & glow es eso: un pequeño equipo al que le gusta lo que hace y quiere que te guste a ti también.
           </p>
         </div>
 
@@ -133,7 +133,7 @@ export default function PaginaNosotros() {
           <p className="font-serif text-xl italic text-[#1b1b1b] leading-relaxed mb-3">
             "Una vela no cambia el mundo, pero sí puede cambiar cómo se siente una habitación. Y eso, para nosotras, es suficiente."
           </p>
-          <cite className="text-[10px] uppercase tracking-widest text-[#7d5d24] not-italic">— Llum & Glow</cite>
+          <cite className="text-[10px] uppercase tracking-widest text-[#7d5d24] not-italic">— llum & glow</cite>
         </blockquote>
       </section>
 
@@ -173,7 +173,7 @@ export default function PaginaNosotros() {
       <section className="bg-[#1b1b1b] text-[#f6f4f1] py-20 px-6 text-center">
         <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-4">Hecho con cariño, para tu hogar</p>
         <h2 className="font-serif text-4xl md:text-5xl italic mb-4 max-w-xl mx-auto leading-tight">
-          Una vela de Llum & Glow en cada rincón
+          Una vela de llum & glow en cada rincón
         </h2>
         <p className="text-[#a0a0a0] text-sm mb-10 max-w-sm mx-auto">
           Elaboradas a mano, con ingredientes naturales y muchas ganas de que te gusten.

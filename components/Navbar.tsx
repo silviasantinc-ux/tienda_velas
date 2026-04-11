@@ -47,7 +47,7 @@ export default function Navbar() {
         <Link
           href="/"
           className="absolute left-1/2 -translate-x-1/2"
-          aria-label="Llum & Glow — inicio"
+          aria-label="llum & glow — inicio"
         >
           <LogoLlumGlow height={72} />
         </Link>

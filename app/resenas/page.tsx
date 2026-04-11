@@ -96,7 +96,7 @@ const RESENAS = [
     estrellas: 5,
     producto: 'Higo & Musgo',
     titulo: 'Diferente a todo lo que había probado antes',
-    texto: 'No sabía qué esperar de una vela de higo y musgo. Compré a ciegas fiándome de las reseñas y acerté. Es un aroma verde, fresco, muy especial — nada convencional. Combina perfectamente con un salón moderno o una habitación con plantas. Me la han preguntado varias personas que han venido a casa. Llum & Glow tiene un criterio muy bueno para las fragancias, cada combinación tiene sentido y personalidad propia.',
+    texto: 'No sabía qué esperar de una vela de higo y musgo. Compré a ciegas fiándome de las reseñas y acerté. Es un aroma verde, fresco, muy especial — nada convencional. Combina perfectamente con un salón moderno o una habitación con plantas. Me la han preguntado varias personas que han venido a casa. llum & glow tiene un criterio muy bueno para las fragancias, cada combinación tiene sentido y personalidad propia.',
     verificado: true,
     util: 21,
   },
@@ -175,7 +175,7 @@ export default function PaginaResenas() {
           {/* Stats */}
           <div className="flex flex-col gap-5 flex-shrink-0 text-center md:text-left">
             {[
-              { valor: '98%', texto: 'recomendarían Llum & Glow' },
+              { valor: '98%', texto: 'recomendarían llum & glow' },
               { valor: '4.9', texto: 'valoración media' },
               { valor: '100%', texto: 'compra verificada' },
             ].map(({ valor, texto }) => (
