@@ -15,6 +15,7 @@ export default function Navbar() {
   const [busquedaAbierta, setBusquedaAbierta] = useState(false)
   const [termino, setTermino] = useState('')
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const router = useRouter()
 
   const abrirCarrito = () => {
@@ -120,16 +121,24 @@ export default function Navbar() {
                 if (e.key === 'Enter') buscar()
                 if (e.key === 'Escape') cerrarBusqueda()
               }}
+              onBlur={() => {
+                blurTimer.current = setTimeout(() => cerrarBusqueda(), 200)
+              }}
               placeholder="Buscar velas, aromas..."
               className="flex-1 bg-transparent text-sm text-[#1b1b1b] placeholder-[#aaa] outline-none"
             />
             <button
+              onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
               onClick={buscar}
               className="text-[10px] uppercase tracking-widest text-[#7d5d24] font-medium hover:text-[#1b1b1b] transition-colors flex-shrink-0"
             >
               Buscar
             </button>
-            <button onClick={cerrarBusqueda} className="text-[#999] hover:text-[#1b1b1b] transition-colors flex-shrink-0">
+            <button
+              onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
+              onClick={cerrarBusqueda}
+              className="text-[#999] hover:text-[#1b1b1b] transition-colors flex-shrink-0"
+            >
               <X className="w-4 h-4" />
             </button>
           </div>
@@ -144,7 +153,7 @@ export default function Navbar() {
             className="md:hidden fixed inset-0 z-40"
             onClick={() => setMenuAbierto(false)}
           />
-          <div className="md:hidden absolute left-0 right-0 z-50 bg-[#f6f4f1] border-b border-[#e0ddd8] shadow-md px-6 py-5 flex flex-col gap-4">
+          <div className="md:hidden absolute left-0 right-0 top-[48px] z-50 bg-[#f6f4f1] border-b border-[#e0ddd8] shadow-md px-6 py-5 flex flex-col gap-4">
             {[
               { href: '/tienda', label: 'Tienda' },
               { href: '/nosotros', label: 'El origen' },
