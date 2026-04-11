@@ -17,10 +17,11 @@ const ORDENAR = [
 function TiendaContenido() {
   const searchParams = useSearchParams()
   const catParam = searchParams.get('cat')
+  const qParam = searchParams.get('q')
 
   const [categoria, setCategoria] = useState(catParam || 'Todos')
   const [orden, setOrden] = useState('destacados')
-  const [busqueda, setBusqueda] = useState('')
+  const [busqueda, setBusqueda] = useState(qParam || '')
 
   const productos = useMemo(() => {
     let lista = [...productosMock]

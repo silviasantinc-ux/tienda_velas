@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { ShoppingBag, Search, Menu, X, User } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
 import { useState, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import CarritoDropdown from './CarritoDropdown'
 import LogoLlumGlow from './LogoLlumGlow'
 
@@ -11,7 +12,10 @@ export default function Navbar() {
   const totalItems = useCarrito((s) => s.totalItems())
   const [menuAbierto, setMenuAbierto] = useState(false)
   const [carritoAbierto, setCarritoAbierto] = useState(false)
+  const [busquedaAbierta, setBusquedaAbierta] = useState(false)
+  const [termino, setTermino] = useState('')
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const router = useRouter()
 
   const abrirCarrito = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
@@ -19,6 +23,25 @@ export default function Navbar() {
   }
   const cerrarCarrito = () => {
     closeTimer.current = setTimeout(() => setCarritoAbierto(false), 180)
+  }
+
+  const abrirBusqueda = () => {
+    setMenuAbierto(false)
+    setBusquedaAbierta(true)
+  }
+
+  const cerrarBusqueda = () => {
+    setBusquedaAbierta(false)
+    setTermino('')
+  }
+
+  const buscar = () => {
+    if (termino.trim()) {
+      router.push(`/tienda?q=${encodeURIComponent(termino.trim())}`)
+    } else {
+      router.push('/tienda')
+    }
+    cerrarBusqueda()
   }
 
   const carritoIcono = (
@@ -54,7 +77,9 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-5 text-[#1b1b1b]">
-          <Link href="/tienda" className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></Link>
+          <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors">
+            <Search className="w-5 h-5" />
+          </button>
           <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
           {carritoIcono}
         </div>
@@ -62,24 +87,54 @@ export default function Navbar() {
 
       {/* ── Mobile ── */}
       <div className="md:hidden max-w-7xl mx-auto px-6">
-        {/* Fila superior: hamburguesa + iconos */}
         <div className="flex items-center justify-between py-3">
           <button className="text-[#1b1b1b]" onClick={() => setMenuAbierto(!menuAbierto)}>
             {menuAbierto ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
           <div className="flex items-center gap-5 text-[#1b1b1b]">
-            <Link href="/tienda" className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></Link>
+            <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors">
+              <Search className="w-5 h-5" />
+            </button>
             <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
             {carritoIcono}
           </div>
         </div>
-        {/* Logo en su propia fila */}
         <div className="flex justify-center pb-3">
           <Link href="/" aria-label="llum & glow — inicio">
             <LogoLlumGlow height={56} />
           </Link>
         </div>
       </div>
+
+      {/* ── Barra de búsqueda desplegable ── */}
+      {busquedaAbierta && (
+        <div className="border-t border-[#e0ddd8] bg-[#f6f4f1] px-6 py-3">
+          <div className="max-w-7xl mx-auto flex items-center gap-3">
+            <Search className="w-4 h-4 text-[#999] flex-shrink-0" />
+            <input
+              autoFocus
+              type="text"
+              value={termino}
+              onChange={(e) => setTermino(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') buscar()
+                if (e.key === 'Escape') cerrarBusqueda()
+              }}
+              placeholder="Buscar velas, aromas..."
+              className="flex-1 bg-transparent text-sm text-[#1b1b1b] placeholder-[#aaa] outline-none"
+            />
+            <button
+              onClick={buscar}
+              className="text-[10px] uppercase tracking-widest text-[#7d5d24] font-medium hover:text-[#1b1b1b] transition-colors flex-shrink-0"
+            >
+              Buscar
+            </button>
+            <button onClick={cerrarBusqueda} className="text-[#999] hover:text-[#1b1b1b] transition-colors flex-shrink-0">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Menú mobile desplegable */}
       {menuAbierto && (
