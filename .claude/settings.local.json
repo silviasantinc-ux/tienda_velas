@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"c:\\\\poyectos\\\\tienda_velas\")",
+      "Bash(npm --version)",
+      "Bash(cmd.exe /c \"node --version && npm --version\")",
+      "Bash(cmd.exe /c \"node --version\")",
+      "Bash(cmd.exe /c \"npm --version\")",
+      "Bash(powershell.exe -Command \"node --version; npm --version\")",
+      "Bash(cmd.exe /c node --version)",
+      "Bash(cmd.exe /c npm --version)",
+      "WebFetch(domain:anaiscandle.com)",
+      "Bash(grep -E \"\\(^[^/]*$|/[^/]*$\\)\")",
+      "WebFetch(domain:unsplash.com)",
+      "WebSearch",
+      "WebFetch(domain:www.pexels.com)",
+      "WebFetch(domain:oembed.unsplash.com)",
+      "WebFetch(domain:gist.github.com)",
+      "WebFetch(domain:pixabay.com)",
+      "WebFetch(domain:commons.wikimedia.org)"
+    ]
+  }
+}
