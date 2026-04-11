@@ -85,7 +85,7 @@ export default function PaginaNosotros() {
         <div className="max-w-4xl mx-auto">
           <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-10 text-center">El camino</p>
           <div className="space-y-0">
-            [
+            {[
               {
                 año: '2025',
                 titulo: 'La primera vela',
