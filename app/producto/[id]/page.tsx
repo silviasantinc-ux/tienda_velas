@@ -161,8 +161,6 @@ export default function PaginaProducto() {
             <div className="mt-8 pt-6 border-t border-[#e0ddd8] grid grid-cols-1 gap-2">
               {[
                 'Envío gratuito en pedidos +50 €',
-                'Devoluciones gratuitas en 30 días',
-                'Elaborada artesanalmente',
               ].map((g) => (
                 <p key={g} className="text-[11px] text-[#999] uppercase tracking-widest flex items-center gap-2">
                   <span className="w-1 h-1 rounded-full bg-[#dcbcbc] flex-shrink-0" />
