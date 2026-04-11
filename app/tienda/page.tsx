@@ -75,18 +75,18 @@ function TiendaContenido() {
         </div>
 
         {/* Búsqueda + Ordenar */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 w-full md:w-auto">
           <input
             type="text"
             placeholder="Buscar..."
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
-            className="bg-white border border-[#e0ddd8] px-4 py-2 text-sm text-[#1b1b1b] placeholder-[#aaa] outline-none focus:border-[#1b1b1b] transition-colors w-40"
+            className="bg-white border border-[#e0ddd8] px-4 py-2 text-sm text-[#1b1b1b] placeholder-[#aaa] outline-none focus:border-[#1b1b1b] transition-colors flex-1 md:w-40 md:flex-none"
           />
           <select
             value={orden}
             onChange={(e) => setOrden(e.target.value)}
-            className="bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer"
+            className="bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer flex-1 md:flex-none"
           >
             {ORDENAR.map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>
