@@ -250,15 +250,15 @@ export default function Home() {
         </div>
         <div className="bg-[#1b1b1b] text-[#f6f4f1] flex items-center justify-center px-10 md:px-16 py-16">
           <div className="max-w-sm">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-5">Nuestra historia</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-5">el origen</p>
             <h2 className="font-serif text-4xl italic leading-tight mb-6">
-              Una madre, una hija y una cocina en Murcia
+              Una tarde de domingo, una olla y muchas ganas
             </h2>
             <p className="text-[#a0a0a0] text-sm leading-relaxed mb-5">
-              Carmen siempre olió a canela y lavanda. Cuando Sofía, su hija, no encontró ninguna vela que oliera a los domingos de su infancia, le preguntó: <em>"¿Y si las hacemos nosotras?"</em>
+              En casa siempre había velas. Un día, buscando una con el aroma exacto que teníamos en la cabeza, decidimos hacerla nosotras.
             </p>
             <p className="text-[#a0a0a0] text-sm leading-relaxed mb-8">
-              Así nació llum & glow en 2020. Con una olla vieja, cera de soja y más fracasos que éxitos al principio. Hoy cada vela sigue siendo un trozo de esa historia.
+              Así nació llum & glow. Con una olla vieja, cera de soja y más fracasos que éxitos al principio. Hoy cada vela sigue siendo un trozo de esa historia.
             </p>
             <Link
               href="/nosotros"

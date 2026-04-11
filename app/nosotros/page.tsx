@@ -15,7 +15,7 @@ export default function PaginaNosotros() {
           sizes="100vw"
         />
         <div className="relative z-10 max-w-4xl mx-auto px-6 pb-14 text-[#f6f4f1]">
-          <p className="text-[10px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-4">Nuestra historia</p>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-4">el origen</p>
           <h1 className="font-serif text-5xl md:text-7xl italic leading-tight">
             Dos personas, muchas velas<br />y muchas risas por el camino
           </h1>

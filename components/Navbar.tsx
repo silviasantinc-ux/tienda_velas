@@ -31,7 +31,7 @@ export default function Navbar() {
             Tienda
           </Link>
           <Link href="/nosotros" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">
-            Nosotros
+            El origen
           </Link>
         </div>
 
@@ -83,7 +83,7 @@ export default function Navbar() {
         <div className="md:hidden border-t border-[#e0ddd8] bg-[#f6f4f1] px-6 py-4 flex flex-col gap-4">
           {[
             { href: '/tienda', label: 'Tienda' },
-            { href: '/nosotros', label: 'Nosotros' },
+            { href: '/nosotros', label: 'El origen' },
           ].map(({ href, label }) => (
             <Link
               key={href}

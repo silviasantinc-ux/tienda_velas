@@ -56,7 +56,7 @@ export default function RootLayout({
                   <li><Link href="/tienda?cat=Bebidas" className="hover:text-[#dcbcbc] transition-colors">Bebidas</Link></li>
                   <li><Link href="/tienda?cat=Hogar" className="hover:text-[#dcbcbc] transition-colors">Hogar</Link></li>
                   <li><Link href="/tienda?cat=Eventos" className="hover:text-[#dcbcbc] transition-colors">Eventos</Link></li>
-                  <li><Link href="/nosotros" className="hover:text-[#dcbcbc] transition-colors">Nuestra historia</Link></li>
+                  <li><Link href="/nosotros" className="hover:text-[#dcbcbc] transition-colors">El origen</Link></li>
                   <li><Link href="/resenas" className="hover:text-[#dcbcbc] transition-colors">Reseñas</Link></li>
                 </ul>
               </div>
