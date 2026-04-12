@@ -2,11 +2,64 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useIdioma } from '@/lib/idioma-store'
+import { supabase } from '@/lib/supabase'
 
 export default function PaginaRegistro() {
   const [modo, setModo] = useState<'login' | 'registro'>('login')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [nombre, setNombre] = useState('')
+  const [repetir, setRepetir] = useState('')
+  const [cargando, setCargando] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [exito, setExito] = useState(false)
+
   const tr = useIdioma((s) => s.t.registro)
+  const router = useRouter()
+
+  const cambiarModo = (m: 'login' | 'registro') => {
+    setModo(m)
+    setError(null)
+    setExito(false)
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError(null)
+    setExito(false)
+
+    if (modo === 'registro' && password !== repetir) {
+      setError(tr.errorContrasenas)
+      return
+    }
+
+    setCargando(true)
+    try {
+      if (modo === 'registro') {
+        const { error: err } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { nombre } },
+        })
+        if (err) {
+          setError(err.message.includes('already') ? tr.errorEmailUsado : tr.errorGeneral)
+        } else {
+          setExito(true)
+        }
+      } else {
+        const { error: err } = await supabase.auth.signInWithPassword({ email, password })
+        if (err) {
+          setError(tr.errorCredenciales)
+        } else {
+          router.push('/')
+        }
+      }
+    } finally {
+      setCargando(false)
+    }
+  }
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center px-6 py-16">
@@ -25,7 +78,7 @@ export default function PaginaRegistro() {
         {/* Tabs */}
         <div className="flex border-b border-[#e0ddd8] mb-8">
           <button
-            onClick={() => setModo('login')}
+            onClick={() => cambiarModo('login')}
             className={`flex-1 pb-3 text-[11px] uppercase tracking-widest font-medium transition-colors ${
               modo === 'login'
                 ? 'text-[#1b1b1b] border-b-2 border-[#1b1b1b] -mb-px'
@@ -35,7 +88,7 @@ export default function PaginaRegistro() {
             {tr.tabEntrar}
           </button>
           <button
-            onClick={() => setModo('registro')}
+            onClick={() => cambiarModo('registro')}
             className={`flex-1 pb-3 text-[11px] uppercase tracking-widest font-medium transition-colors ${
               modo === 'registro'
                 ? 'text-[#1b1b1b] border-b-2 border-[#1b1b1b] -mb-px'
@@ -47,7 +100,7 @@ export default function PaginaRegistro() {
         </div>
 
         {/* Formulario */}
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-5">
 
           {modo === 'registro' && (
             <div>
@@ -56,7 +109,10 @@ export default function PaginaRegistro() {
               </label>
               <input
                 type="text"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
                 placeholder={tr.placeholderNombre}
+                required
                 className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
               />
             </div>
@@ -68,7 +124,10 @@ export default function PaginaRegistro() {
             </label>
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder={tr.placeholderCorreo}
+              required
               className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
             />
           </div>
@@ -79,7 +138,11 @@ export default function PaginaRegistro() {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
+              required
+              minLength={6}
               className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
             />
           </div>
@@ -91,7 +154,10 @@ export default function PaginaRegistro() {
               </label>
               <input
                 type="password"
+                value={repetir}
+                onChange={(e) => setRepetir(e.target.value)}
                 placeholder="••••••••"
+                required
                 className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
               />
             </div>
@@ -105,11 +171,19 @@ export default function PaginaRegistro() {
             </div>
           )}
 
+          {error && (
+            <p className="text-xs text-red-600 text-center leading-relaxed">{error}</p>
+          )}
+          {exito && (
+            <p className="text-xs text-[#7d5d24] text-center leading-relaxed">{tr.exitoRegistro}</p>
+          )}
+
           <button
             type="submit"
-            className="w-full bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors mt-2"
+            disabled={cargando}
+            className="w-full bg-[#1b1b1b] hover:bg-[#333] disabled:opacity-50 text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors mt-2"
           >
-            {modo === 'login' ? tr.botonEntrar : tr.botonCrear}
+            {cargando ? tr.cargando : (modo === 'login' ? tr.botonEntrar : tr.botonCrear)}
           </button>
 
           {modo === 'registro' && (
@@ -131,7 +205,7 @@ export default function PaginaRegistro() {
         <p className="text-center text-sm text-[#999]">
           {modo === 'login' ? tr.noTienesCuenta : tr.yaTienesCuenta}{' '}
           <button
-            onClick={() => setModo(modo === 'login' ? 'registro' : 'login')}
+            onClick={() => cambiarModo(modo === 'login' ? 'registro' : 'login')}
             className="text-[#1b1b1b] border-b border-[#1b1b1b] hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors"
           >
             {modo === 'login' ? tr.registrate : tr.entraAqui}

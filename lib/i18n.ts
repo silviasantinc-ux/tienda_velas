@@ -197,6 +197,12 @@ const traducciones = {
       registrate: 'Regístrate',
       entraAqui: 'Entra aquí',
       volverTienda: '← volver a la tienda',
+      errorContrasenas: 'Las contraseñas no coinciden.',
+      errorGeneral: 'Ha ocurrido un error. Inténtalo de nuevo.',
+      errorEmailUsado: 'Ya existe una cuenta con este correo.',
+      errorCredenciales: 'Correo o contraseña incorrectos.',
+      exitoRegistro: 'Revisa tu correo para confirmar tu cuenta.',
+      cargando: 'Un momento...',
     },
 
     // Página carrito
@@ -465,6 +471,12 @@ const traducciones = {
       registrate: "Registra't",
       entraAqui: 'Entra aquí',
       volverTienda: '← tornar a la botiga',
+      errorContrasenas: 'Les contrasenyes no coincideixen.',
+      errorGeneral: "S'ha produït un error. Torna-ho a intentar.",
+      errorEmailUsado: 'Ja existeix un compte amb aquest correu.',
+      errorCredenciales: 'Correu o contrasenya incorrectes.',
+      exitoRegistro: 'Revisa el teu correu per confirmar el compte.',
+      cargando: 'Un moment...',
     },
 
     carrito: {
