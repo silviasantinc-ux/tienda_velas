@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingBag, Search, Menu, X, User } from 'lucide-react'
+import { ShoppingBag, Search, X, User } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 import { useState, useRef } from 'react'
@@ -12,7 +12,6 @@ import LogoLlumGlow from './LogoLlumGlow'
 export default function Navbar() {
   const totalItems = useCarrito((s) => s.totalItems())
   const { idioma, setIdioma, t } = useIdioma()
-  const [menuAbierto, setMenuAbierto] = useState(false)
   const [carritoAbierto, setCarritoAbierto] = useState(false)
   const [busquedaAbierta, setBusquedaAbierta] = useState(false)
   const [termino, setTermino] = useState('')
@@ -28,10 +27,7 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setCarritoAbierto(false), 180)
   }
 
-  const abrirBusqueda = () => {
-    setMenuAbierto(false)
-    setBusquedaAbierta(true)
-  }
+  const abrirBusqueda = () => setBusquedaAbierta(true)
   const cerrarBusqueda = () => {
     setBusquedaAbierta(false)
     setTermino('')
@@ -95,9 +91,10 @@ export default function Navbar() {
       {/* ── Mobile ── */}
       <div className="md:hidden max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between py-3">
-          <button className="text-[#1b1b1b]" onClick={() => setMenuAbierto(!menuAbierto)}>
-            {menuAbierto ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b]">
+            <Link href="/tienda" className="hover:text-[#7d5d24] transition-colors">{t.nav.tienda}</Link>
+            <Link href="/nosotros" className="hover:text-[#7d5d24] transition-colors">{t.nav.elOrigen}</Link>
+          </div>
           <div className="flex items-center gap-4 text-[#1b1b1b]">
             {selectorIdioma}
             <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
@@ -143,24 +140,6 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      )}
-
-      {/* Menú mobile flotante */}
-      {menuAbierto && (
-        <>
-          <div className="md:hidden fixed inset-0 z-40" onClick={() => setMenuAbierto(false)} />
-          <div className="md:hidden absolute left-0 right-0 top-[48px] z-50 bg-[#f6f4f1] border-b border-[#e0ddd8] shadow-md px-6 py-5 flex flex-col gap-4">
-            {[
-              { href: '/tienda', label: t.nav.tienda },
-              { href: '/nosotros', label: t.nav.elOrigen },
-            ].map(({ href, label }) => (
-              <Link key={label} href={href} onClick={() => setMenuAbierto(false)}
-                className="text-[11px] uppercase tracking-widest text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">
-                {label}
-              </Link>
-            ))}
-          </div>
-        </>
       )}
     </nav>
   )

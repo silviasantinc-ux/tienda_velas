@@ -62,29 +62,23 @@ function TiendaContenido() {
       </div>
 
       {/* Barra de filtros */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#e0ddd8] pb-6 mb-10">
+      <div className="flex flex-row items-center gap-3 border-b border-[#e0ddd8] pb-6 mb-10">
         {/* Categorías */}
-        <div className="flex flex-wrap gap-3">
+        <select
+          value={categoria}
+          onChange={(e) => setCategoria(e.target.value)}
+          className="flex-1 bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer"
+        >
           {tt.categorias.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setCategoria(cat)}
-              className={`text-[10px] uppercase tracking-widest px-4 py-2 border transition-colors ${
-                categoria === cat
-                  ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
-                  : 'border-[#e0ddd8] text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b]'
-              }`}
-            >
-              {cat}
-            </button>
+            <option key={cat} value={cat}>{cat}</option>
           ))}
-        </div>
+        </select>
 
         {/* Ordenar */}
         <select
           value={orden}
           onChange={(e) => setOrden(e.target.value)}
-          className="bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer"
+          className="flex-1 bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer"
         >
           {tt.ordenar.map((o) => (
             <option key={o.value} value={o.value}>{o.label}</option>
