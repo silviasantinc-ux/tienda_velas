@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { useIdioma } from '@/lib/idioma-store'
 
 const RESENAS = [
   {
@@ -120,6 +123,7 @@ function Estrellas({ n }: { n: number }) {
 }
 
 export default function PaginaResenas() {
+  const tr = useIdioma((s) => s.t.resenas)
   const totalResenas = RESENAS.length
   const media = (RESENAS.reduce((a, r) => a + r.estrellas, 0) / totalResenas).toFixed(1)
   const cinco = RESENAS.filter((r) => r.estrellas === 5).length
@@ -129,12 +133,12 @@ export default function PaginaResenas() {
     <div>
       {/* Hero */}
       <section className="bg-[#1b1b1b] text-[#f6f4f1] py-20 px-6 text-center">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-4">Opiniones verificadas</p>
+        <p className="text-[10px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-4">{tr.opinionesVerificadas}</p>
         <h1 className="font-serif text-5xl md:text-6xl italic leading-tight mb-4">
-          Lo que dicen nuestras clientas
+          {tr.loQueDicen}
         </h1>
         <p className="text-[#a0a0a0] text-sm max-w-md mx-auto">
-          Opiniones reales de personas que han comprado y encendido nuestras velas en sus hogares.
+          {tr.subtitulo}
         </p>
       </section>
 
@@ -146,18 +150,18 @@ export default function PaginaResenas() {
             <p className="font-serif text-7xl italic text-[#1b1b1b] leading-none">{media}</p>
             <Estrellas n={5} />
             <p className="text-[10px] uppercase tracking-widest text-[#999] mt-2">
-              Sobre {totalResenas} reseñas
+              {tr.sobre} {totalResenas} {tr.resenas}
             </p>
           </div>
 
           {/* Barras */}
           <div className="flex-1 w-full max-w-sm">
             {[
-              { label: '5 estrellas', count: cinco, total: totalResenas },
-              { label: '4 estrellas', count: cuatro, total: totalResenas },
-              { label: '3 estrellas', count: 0, total: totalResenas },
-              { label: '2 estrellas', count: 0, total: totalResenas },
-              { label: '1 estrella',  count: 0, total: totalResenas },
+              { label: tr.estrellas[4], count: cinco, total: totalResenas },
+              { label: tr.estrellas[3], count: cuatro, total: totalResenas },
+              { label: tr.estrellas[2], count: 0, total: totalResenas },
+              { label: tr.estrellas[1], count: 0, total: totalResenas },
+              { label: tr.estrellas[0], count: 0, total: totalResenas },
             ].map(({ label, count, total }) => (
               <div key={label} className="flex items-center gap-3 mb-2">
                 <p className="text-[10px] uppercase tracking-widest text-[#666] w-24 flex-shrink-0">{label}</p>
@@ -175,9 +179,9 @@ export default function PaginaResenas() {
           {/* Stats */}
           <div className="flex flex-col gap-5 flex-shrink-0 text-center md:text-left">
             {[
-              { valor: '98%', texto: 'recomendarían llum & glow' },
-              { valor: '4.9', texto: 'valoración media' },
-              { valor: '100%', texto: 'compra verificada' },
+              { valor: '98%', texto: tr.stats[0] },
+              { valor: '4.9', texto: tr.stats[1] },
+              { valor: '100%', texto: tr.stats[2] },
             ].map(({ valor, texto }) => (
               <div key={texto}>
                 <p className="font-serif text-3xl italic text-[#1b1b1b]">{valor}</p>
@@ -199,7 +203,7 @@ export default function PaginaResenas() {
                     <Estrellas n={r.estrellas} />
                     {r.verificado && (
                       <span className="text-[9px] uppercase tracking-widest text-[#7d5d24] border border-[#7d5d24] px-2 py-0.5">
-                        Compra verificada
+                        {tr.compraVerificada}
                       </span>
                     )}
                   </div>
@@ -212,13 +216,13 @@ export default function PaginaResenas() {
               </div>
 
               <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-3">
-                Sobre: {r.producto}
+                {tr.sobreProducto} {r.producto}
               </p>
 
               <p className="text-sm text-[#555] leading-relaxed mb-4">{r.texto}</p>
 
               <p className="text-[10px] text-[#bbb] uppercase tracking-widest">
-                {r.util} personas encontraron esta reseña útil
+                {r.util} {tr.personasUtil}
               </p>
             </article>
           ))}
@@ -227,16 +231,16 @@ export default function PaginaResenas() {
 
       {/* CTA */}
       <section className="bg-[#ece9e4] py-16 px-6 text-center">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">¿Ya eres clienta?</p>
-        <h2 className="font-serif text-3xl italic text-[#1b1b1b] mb-4">Cuéntanos tu experiencia</h2>
+        <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{tr.yaEresClienta}</p>
+        <h2 className="font-serif text-3xl italic text-[#1b1b1b] mb-4">{tr.cuentanos}</h2>
         <p className="text-sm text-[#666] mb-8 max-w-xs mx-auto">
-          Escríbenos a <a href="mailto:hola@llumglow.com" className="text-[#1b1b1b] border-b border-[#1b1b1b]">hola@llumglow.com</a> con tu reseña y la publicamos.
+          {tr.escribenos} <a href="mailto:hola@llumglow.com" className="text-[#1b1b1b] border-b border-[#1b1b1b]">hola@llumglow.com</a> {tr.conTuResena}
         </p>
         <Link
           href="/tienda"
           className="inline-block bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium px-10 py-4 transition-colors"
         >
-          Descubrir las velas
+          {tr.descubrir}
         </Link>
       </section>
 

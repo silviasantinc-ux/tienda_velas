@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { ShoppingBag, Search, Menu, X, User } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
+import { useIdioma } from '@/lib/idioma-store'
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import CarritoDropdown from './CarritoDropdown'
@@ -10,6 +11,7 @@ import LogoLlumGlow from './LogoLlumGlow'
 
 export default function Navbar() {
   const totalItems = useCarrito((s) => s.totalItems())
+  const { idioma, setIdioma, t } = useIdioma()
   const [menuAbierto, setMenuAbierto] = useState(false)
   const [carritoAbierto, setCarritoAbierto] = useState(false)
   const [busquedaAbierta, setBusquedaAbierta] = useState(false)
@@ -30,27 +32,32 @@ export default function Navbar() {
     setMenuAbierto(false)
     setBusquedaAbierta(true)
   }
-
   const cerrarBusqueda = () => {
     setBusquedaAbierta(false)
     setTermino('')
   }
-
   const buscar = () => {
-    if (termino.trim()) {
-      router.push(`/tienda?q=${encodeURIComponent(termino.trim())}`)
-    } else {
-      router.push('/tienda')
-    }
+    if (termino.trim()) router.push(`/tienda?q=${encodeURIComponent(termino.trim())}`)
+    else router.push('/tienda')
     cerrarBusqueda()
   }
 
+  const selectorIdioma = (
+    <div className="flex items-center gap-1 text-[10px] uppercase tracking-widest font-medium">
+      <button
+        onClick={() => setIdioma('es')}
+        className={idioma === 'es' ? 'text-[#1b1b1b]' : 'text-[#bbb] hover:text-[#999] transition-colors'}
+      >ES</button>
+      <span className="text-[#e0ddd8]">|</span>
+      <button
+        onClick={() => setIdioma('ca')}
+        className={idioma === 'ca' ? 'text-[#1b1b1b]' : 'text-[#bbb] hover:text-[#999] transition-colors'}
+      >CA</button>
+    </div>
+  )
+
   const carritoIcono = (
-    <div
-      className="relative"
-      onMouseEnter={abrirCarrito}
-      onMouseLeave={cerrarCarrito}
-    >
+    <div className="relative" onMouseEnter={abrirCarrito} onMouseLeave={cerrarCarrito}>
       <Link href="/carrito" className="relative block hover:text-[#7d5d24] transition-colors">
         <ShoppingBag className="w-5 h-5" />
         {totalItems > 0 && (
@@ -69,8 +76,8 @@ export default function Navbar() {
       {/* ── Desktop ── */}
       <div className="hidden md:flex max-w-7xl mx-auto px-6 py-2 items-center justify-between min-h-[88px]">
         <div className="flex items-center gap-8 text-[11px] uppercase tracking-widest font-medium">
-          <Link href="/tienda" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">Tienda</Link>
-          <Link href="/nosotros" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">El origen</Link>
+          <Link href="/tienda" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">{t.nav.tienda}</Link>
+          <Link href="/nosotros" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">{t.nav.elOrigen}</Link>
         </div>
 
         <Link href="/" className="absolute left-1/2 -translate-x-1/2" aria-label="llum & glow — inicio">
@@ -78,9 +85,8 @@ export default function Navbar() {
         </Link>
 
         <div className="flex items-center gap-5 text-[#1b1b1b]">
-          <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors">
-            <Search className="w-5 h-5" />
-          </button>
+          {selectorIdioma}
+          <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
           <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
           {carritoIcono}
         </div>
@@ -92,10 +98,9 @@ export default function Navbar() {
           <button className="text-[#1b1b1b]" onClick={() => setMenuAbierto(!menuAbierto)}>
             {menuAbierto ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
-          <div className="flex items-center gap-5 text-[#1b1b1b]">
-            <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
+          <div className="flex items-center gap-4 text-[#1b1b1b]">
+            {selectorIdioma}
+            <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
             <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
             {carritoIcono}
           </div>
@@ -117,14 +122,9 @@ export default function Navbar() {
               type="text"
               value={termino}
               onChange={(e) => setTermino(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') buscar()
-                if (e.key === 'Escape') cerrarBusqueda()
-              }}
-              onBlur={() => {
-                blurTimer.current = setTimeout(() => cerrarBusqueda(), 200)
-              }}
-              placeholder="Buscar velas, aromas..."
+              onKeyDown={(e) => { if (e.key === 'Enter') buscar(); if (e.key === 'Escape') cerrarBusqueda() }}
+              onBlur={() => { blurTimer.current = setTimeout(() => cerrarBusqueda(), 200) }}
+              placeholder={t.nav.buscarPlaceholder}
               className="flex-1 bg-transparent text-sm text-[#1b1b1b] placeholder-[#aaa] outline-none"
             />
             <button
@@ -132,7 +132,7 @@ export default function Navbar() {
               onClick={buscar}
               className="text-[10px] uppercase tracking-widest text-[#7d5d24] font-medium hover:text-[#1b1b1b] transition-colors flex-shrink-0"
             >
-              Buscar
+              {t.nav.buscar}
             </button>
             <button
               onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
@@ -148,22 +148,14 @@ export default function Navbar() {
       {/* Menú mobile flotante */}
       {menuAbierto && (
         <>
-          {/* Capa de fondo para cerrar al tocar fuera */}
-          <div
-            className="md:hidden fixed inset-0 z-40"
-            onClick={() => setMenuAbierto(false)}
-          />
+          <div className="md:hidden fixed inset-0 z-40" onClick={() => setMenuAbierto(false)} />
           <div className="md:hidden absolute left-0 right-0 top-[48px] z-50 bg-[#f6f4f1] border-b border-[#e0ddd8] shadow-md px-6 py-5 flex flex-col gap-4">
             {[
-              { href: '/tienda', label: 'Tienda' },
-              { href: '/nosotros', label: 'El origen' },
+              { href: '/tienda', label: t.nav.tienda },
+              { href: '/nosotros', label: t.nav.elOrigen },
             ].map(({ href, label }) => (
-              <Link
-                key={label}
-                href={href}
-                onClick={() => setMenuAbierto(false)}
-                className="text-[11px] uppercase tracking-widest text-[#1b1b1b] hover:text-[#7d5d24] transition-colors"
-              >
+              <Link key={label} href={href} onClick={() => setMenuAbierto(false)}
+                className="text-[11px] uppercase tracking-widest text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">
                 {label}
               </Link>
             ))}

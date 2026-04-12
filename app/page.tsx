@@ -1,12 +1,18 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { productosMock, colecciones } from '@/lib/productos-mock'
 import TarjetaProducto from '@/components/TarjetaProducto'
+import { useIdioma } from '@/lib/idioma-store'
 
 const destacados = productosMock.filter((p) => p.badge === 'mas-vendido').slice(0, 4)
 const nuevos = productosMock.filter((p) => p.badge === 'nuevo').slice(0, 4)
 
 export default function Home() {
+  const { idioma, t } = useIdioma()
+  const th = t.home
+
   return (
     <div>
       {/* ── HERO ─────────────────────────────────────────── */}
@@ -52,22 +58,16 @@ export default function Home() {
           <ellipse cx="1050" cy="470" rx="110" ry="100" fill="url(#glow2)" filter="url(#blur1)" />
 
           {/* ── VELA IZQUIERDA (grande) ── */}
-          {/* cuerpo */}
           <rect x="540" y="320" width="80" height="240" rx="4" fill="#2e2a24" />
           <rect x="540" y="320" width="80" height="240" rx="4" fill="none" stroke="#7d5d24" strokeWidth="1" strokeOpacity="0.4" />
-          {/* líneas de textura */}
           <line x1="555" y1="370" x2="555" y2="540" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.25" />
           <line x1="575" y1="360" x2="575" y2="545" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.25" />
           <line x1="595" y1="365" x2="595" y2="543" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.25" />
-          {/* tapa */}
           <ellipse cx="580" cy="320" rx="40" ry="8" fill="#3a3228" stroke="#7d5d24" strokeWidth="0.8" strokeOpacity="0.5" />
-          {/* mecha */}
           <line x1="580" y1="320" x2="578" y2="300" stroke="#555" strokeWidth="2" strokeLinecap="round" />
-          {/* llama */}
           <ellipse cx="578" cy="288" rx="14" ry="22" fill="url(#flameGrad)" filter="url(#blur2)" opacity="0.9" />
           <path d="M578,302 C572,292 570,280 578,268 C586,280 586,292 578,302Z" fill="#fff8e1" opacity="0.95" />
           <path d="M578,300 C574,292 573,283 578,274 C583,283 583,292 578,300Z" fill="white" opacity="0.7" />
-          {/* platillo */}
           <ellipse cx="580" cy="558" rx="55" ry="10" fill="#2a2520" stroke="#7d5d24" strokeWidth="0.8" strokeOpacity="0.4" />
 
           {/* ── VELA CENTRAL (mediana) ── */}
@@ -101,7 +101,6 @@ export default function Home() {
             <path d="M260,555 Q240,510 270,480" />
             <path d="M310,530 Q290,490 315,465" />
             <path d="M340,510 Q340,475 360,455" />
-            {/* hojas */}
             <ellipse cx="270" cy="479" rx="12" ry="7" transform="rotate(-30 270 479)" fill="#7d5d24" fillOpacity="0.3" />
             <ellipse cx="316" cy="464" rx="11" ry="6" transform="rotate(-20 316 464)" fill="#7d5d24" fillOpacity="0.3" />
             <ellipse cx="361" cy="454" rx="10" ry="6" transform="rotate(-10 361 454)" fill="#7d5d24" fillOpacity="0.25" />
@@ -132,20 +131,19 @@ export default function Home() {
 
         <div className="relative z-10 text-center text-[#f6f4f1] px-6 max-w-2xl mx-auto">
           <p className="text-[11px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-6">
-            Colección 2026
+            {th.coleccion}
           </p>
           <h1 className="font-['EB_Garamond'] text-6xl md:text-7xl italic leading-tight mb-6">
-            El arte de la luz artesanal
+            {th.heroTitulo}
           </h1>
           <p className="text-[#ccc] text-sm leading-relaxed mb-10 max-w-md mx-auto">
-            Velas elaboradas a mano con cera de soja natural y fragancias únicas.
-            Diseñadas para transformar cada instante en una experiencia sensorial.
+            {th.heroTexto}
           </p>
           <Link
             href="/tienda"
             className="inline-block border border-[#f6f4f1] hover:bg-[#f6f4f1] hover:text-[#1b1b1b] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium px-10 py-4 transition-all duration-300"
           >
-            Descubrir la colección
+            {th.descubrir}
           </Link>
         </div>
       </section>
@@ -153,30 +151,35 @@ export default function Home() {
       {/* ── COLECCIONES ──────────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
-          <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">Explorar</p>
-          <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">Nuestras colecciones</h2>
+          <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{th.explorar}</p>
+          <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.nuestrasColecciones}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {colecciones.map((col) => (
-            <Link
-              key={col.id}
-              href={`/tienda?cat=${col.categoria}`}
-              className="group relative h-72 overflow-hidden bg-[#ece9e4]"
-            >
-              <Image
-                src={col.imagen_url}
-                alt={col.nombre}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-80"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b]/70 to-transparent" />
-              <div className="absolute bottom-6 left-6 text-[#f6f4f1]">
-                <p className="font-['EB_Garamond'] text-2xl italic mb-1">{col.nombre}</p>
-                <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc]">{col.descripcion}</p>
-              </div>
-            </Link>
-          ))}
+          {colecciones.map((col) => {
+            const nombre = idioma === 'ca' ? (col.nombre_ca ?? col.nombre) : col.nombre
+            const descripcion = idioma === 'ca' ? (col.descripcion_ca ?? col.descripcion) : col.descripcion
+            const catLink = idioma === 'ca' ? (col.categoria_ca ?? col.categoria) : col.categoria
+            return (
+              <Link
+                key={col.id}
+                href={`/tienda?cat=${catLink}`}
+                className="group relative h-72 overflow-hidden bg-[#ece9e4]"
+              >
+                <Image
+                  src={col.imagen_url}
+                  alt={nombre}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out opacity-80"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b]/70 to-transparent" />
+                <div className="absolute bottom-6 left-6 text-[#f6f4f1]">
+                  <p className="font-['EB_Garamond'] text-2xl italic mb-1">{nombre}</p>
+                  <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc]">{descripcion}</p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </section>
 
@@ -184,11 +187,11 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 py-10">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">Los favoritos</p>
-            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">Más vendidos</h2>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">{th.losFavoritos}</p>
+            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.masVendidos}</h2>
           </div>
           <Link href="/tienda" className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors hidden md:block">
-            Ver todos
+            {th.verTodos}
           </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
@@ -200,17 +203,12 @@ export default function Home() {
 
       {/* ── BANNER CENTRAL ───────────────────────────────── */}
       <section className="my-16 bg-[#ece9e4] py-20 px-6 text-center">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-4">Nuestra promesa</p>
+        <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-4">{th.nuestraPromesa}</p>
         <h2 className="font-['EB_Garamond'] text-4xl md:text-5xl italic text-[#1b1b1b] max-w-2xl mx-auto leading-tight mb-12">
-          Ingredientes puros, aromas que perduran
+          {th.ingredientesPuros}
         </h2>
         <div className="flex flex-col md:flex-row justify-center gap-12 md:gap-20">
-          {[
-            { valor: '100%', etiqueta: 'Cera de soja natural' },
-            { valor: '+40h', etiqueta: 'Duración garantizada' },
-            { valor: '0%', etiqueta: 'Parafina y tóxicos' },
-            { valor: '✦', etiqueta: 'Elaboradas artesanalmente' },
-          ].map(({ valor, etiqueta }) => (
+          {th.stats.map(({ valor, etiqueta }) => (
             <div key={etiqueta} className="text-center">
               <p className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b] mb-1">{valor}</p>
               <p className="text-[10px] uppercase tracking-widest text-[#7d5d24]">{etiqueta}</p>
@@ -223,11 +221,11 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 py-10">
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">Recién llegadas</p>
-            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">Nuevas incorporaciones</h2>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">{th.recienLlegadas}</p>
+            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.nuevasIncorporaciones}</h2>
           </div>
           <Link href="/tienda" className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors hidden md:block">
-            Ver todas
+            {th.verTodas}
           </Link>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
@@ -250,21 +248,21 @@ export default function Home() {
         </div>
         <div className="bg-[#1b1b1b] text-[#f6f4f1] flex items-center justify-center px-10 md:px-16 py-16">
           <div className="max-w-sm">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-5">el origen</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#dcbcbc] mb-5">{th.elOrigen}</p>
             <h2 className="font-serif text-4xl italic leading-tight mb-6">
-              Una tarde de domingo, una olla y muchas ganas
+              {th.historiaSubtitulo}
             </h2>
             <p className="text-[#a0a0a0] text-sm leading-relaxed mb-5">
-              En casa siempre había velas. Un día, buscando una con el aroma exacto que teníamos en la cabeza, decidimos hacerla nosotras.
+              {th.historiaPar1}
             </p>
             <p className="text-[#a0a0a0] text-sm leading-relaxed mb-8">
-              Así nació llum & glow. Con una olla vieja, cera de soja y más fracasos que éxitos al principio. Hoy cada vela sigue siendo un trozo de esa historia.
+              {th.historiaPar2}
             </p>
             <Link
               href="/nosotros"
               className="text-[11px] uppercase tracking-widest text-[#f6f4f1] border-b border-[#f6f4f1] pb-0.5 hover:text-[#dcbcbc] hover:border-[#dcbcbc] transition-colors"
             >
-              Leer la historia completa
+              {th.leerHistoria}
             </Link>
           </div>
         </div>
@@ -274,8 +272,8 @@ export default function Home() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-14">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">Opiniones verificadas</p>
-            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">Lo que dicen nuestras clientas</h2>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{th.opinionesVerificadas}</p>
+            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.loQueDicen}</h2>
           </div>
           <div className="hidden md:flex items-center gap-2">
             {[1,2,3,4,5].map((i) => (
@@ -283,39 +281,14 @@ export default function Home() {
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
             ))}
-            <span className="text-[11px] text-[#999] uppercase tracking-widest ml-2">4.9 · 9 reseñas</span>
+            <span className="text-[11px] text-[#999] uppercase tracking-widest ml-2">4.9 · 9 {t.resenas.resenas}</span>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              titulo: 'La mejor vela que he comprado nunca',
-              texto: 'Llevaba tiempo buscando una vela de lavanda que no oliera a limpiador de baño y por fin la encontré. El aroma es suave, profundo, completamente natural. La enciendo cuando llego del trabajo y en diez minutos el salón huele de maravilla.',
-              nombre: 'María José T.',
-              ciudad: 'Madrid',
-              producto: 'Lavanda & Bergamota',
-              estrellas: 5,
-            },
-            {
-              titulo: 'Pedí tres y ya he repetido dos veces',
-              texto: 'Empecé comprando una para probar. Al día siguiente ya había pedido dos más para regalar. La de vainilla y sándalo es adictiva — cálida, envolvente, sin resultar empalagosa. Todo el mundo que viene a casa pregunta de dónde es.',
-              nombre: 'Lucía F.',
-              ciudad: 'Valencia',
-              producto: 'Vainilla & Sándalo',
-              estrellas: 5,
-            },
-            {
-              titulo: 'Una obra de arte olfativa',
-              texto: 'El oud es profundo pero no pesado, la rosa negra le da un punto floral muy elegante. La enciendo por la tarde cuando leo y convierte cualquier momento en algo especial. Vale cada céntimo.',
-              nombre: 'Raquel M.',
-              ciudad: 'Barcelona',
-              producto: 'Oud & Rosa Negra',
-              estrellas: 5,
-            },
-          ].map(({ titulo, texto, nombre, ciudad, producto, estrellas }) => (
+          {th.testimonios.map(({ titulo, texto, nombre, ciudad, producto }) => (
             <div key={nombre} className="border border-[#e0ddd8] p-8 flex flex-col">
               <div className="flex gap-0.5 mb-4">
-                {Array.from({ length: estrellas }).map((_, i) => (
+                {Array.from({ length: 5 }).map((_, i) => (
                   <svg key={i} className="w-3.5 h-3.5 text-[#7d5d24]" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
@@ -325,13 +298,13 @@ export default function Home() {
               <p className="text-sm text-[#666] leading-relaxed mb-6 flex-1">{texto}</p>
               <div>
                 <p className="text-[9px] uppercase tracking-widest text-[#7d5d24] mb-3">
-                  Sobre: {producto}
+                  {th.sobre}: {producto}
                 </p>
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-px bg-[#dcbcbc]" />
                   <div>
                     <p className="text-[11px] font-medium text-[#1b1b1b] uppercase tracking-widest">{nombre}</p>
-                    <p className="text-[10px] text-[#999] uppercase tracking-widest">{ciudad} · Compra verificada</p>
+                    <p className="text-[10px] text-[#999] uppercase tracking-widest">{ciudad} · {th.compraVerificada}</p>
                   </div>
                 </div>
               </div>
@@ -340,7 +313,7 @@ export default function Home() {
         </div>
         <div className="text-center mt-10">
           <Link href="/resenas" className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors">
-            Ver las 9 reseñas
+            {th.verResenas}
           </Link>
         </div>
       </section>
