@@ -149,7 +149,7 @@ export default function Navbar() {
       {menuAbierto && (
         <>
           <div className="md:hidden fixed inset-0 z-40" onClick={() => setMenuAbierto(false)} />
-          <div className="md:hidden absolute left-0 right-0 top-full z-50 bg-[#f6f4f1] border-b border-[#e0ddd8] shadow-md px-6 py-5 flex flex-col gap-4">
+          <div className="md:hidden absolute left-0 right-0 top-[48px] z-50 bg-[#f6f4f1] border-b border-[#e0ddd8] shadow-md px-6 py-5 flex flex-col gap-4">
             {[
               { href: '/tienda', label: t.nav.tienda },
               { href: '/nosotros', label: t.nav.elOrigen },
