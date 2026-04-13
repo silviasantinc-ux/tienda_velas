@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { productosMock, colecciones } from '@/lib/productos-mock'
 import TarjetaProducto from '@/components/TarjetaProducto'
 import { useIdioma } from '@/lib/idioma-store'
+import ContadorEvento from '@/components/ContadorEvento'
 
 const destacados = productosMock.filter((p) => p.badge === 'mas-vendido').slice(0, 4)
 const nuevos = productosMock.filter((p) => p.badge === 'nuevo').slice(0, 4)
@@ -16,7 +17,7 @@ export default function Home() {
   return (
     <div>
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative h-[92vh] min-h-[540px] flex items-center justify-center overflow-hidden bg-[#1b1b1b]">
+      <section className="relative min-h-screen flex flex-col overflow-hidden bg-[#1b1b1b]">
         {/* Ilustración SVG */}
         <svg
           className="absolute inset-0 w-full h-full"
@@ -127,24 +128,75 @@ export default function Home() {
 
           {/* Línea de suelo sutil */}
           <line x1="300" y1="560" x2="1150" y2="560" stroke="#7d5d24" strokeWidth="0.5" strokeOpacity="0.2" />
+
+          {/* ── ROSAS DÍA DE LA MADRE ── */}
+          {/* Rosa izquierda grande */}
+          <g transform="translate(320, 430)" opacity="0.7">
+            <circle cx="0" cy="0" r="18" fill="#b97979" fillOpacity="0.15" />
+            <ellipse cx="0" cy="-10" rx="10" ry="14" fill="#dcbcbc" fillOpacity="0.6" transform="rotate(0)" />
+            <ellipse cx="9" cy="-5" rx="10" ry="13" fill="#dcbcbc" fillOpacity="0.5" transform="rotate(60)" />
+            <ellipse cx="9" cy="7" rx="10" ry="13" fill="#b97979" fillOpacity="0.45" transform="rotate(120)" />
+            <ellipse cx="0" cy="11" rx="10" ry="13" fill="#dcbcbc" fillOpacity="0.5" transform="rotate(180)" />
+            <ellipse cx="-9" cy="7" rx="10" ry="13" fill="#b97979" fillOpacity="0.4" transform="rotate(240)" />
+            <ellipse cx="-9" cy="-5" rx="10" ry="13" fill="#dcbcbc" fillOpacity="0.5" transform="rotate(300)" />
+            <circle cx="0" cy="0" r="6" fill="#e8c4a0" fillOpacity="0.7" />
+            <line x1="0" y1="18" x2="0" y2="55" stroke="#7d5d24" strokeWidth="1.5" strokeOpacity="0.5" />
+            <ellipse cx="-8" cy="40" rx="10" ry="6" fill="#7d5d24" fillOpacity="0.25" transform="rotate(-20 -8 40)" />
+          </g>
+
+          {/* Rosa derecha junto a vela pequeña */}
+          <g transform="translate(1130, 400)" opacity="0.65">
+            <ellipse cx="0" cy="-9" rx="9" ry="12" fill="#dcbcbc" fillOpacity="0.55" />
+            <ellipse cx="8" cy="-4" rx="9" ry="12" fill="#b97979" fillOpacity="0.45" transform="rotate(60)" />
+            <ellipse cx="8" cy="6" rx="9" ry="12" fill="#dcbcbc" fillOpacity="0.5" transform="rotate(120)" />
+            <ellipse cx="0" cy="10" rx="9" ry="12" fill="#b97979" fillOpacity="0.4" transform="rotate(180)" />
+            <ellipse cx="-8" cy="6" rx="9" ry="12" fill="#dcbcbc" fillOpacity="0.45" transform="rotate(240)" />
+            <ellipse cx="-8" cy="-4" rx="9" ry="12" fill="#dcbcbc" fillOpacity="0.5" transform="rotate(300)" />
+            <circle cx="0" cy="0" r="5" fill="#e8c4a0" fillOpacity="0.65" />
+            <line x1="0" y1="16" x2="2" y2="48" stroke="#7d5d24" strokeWidth="1.2" strokeOpacity="0.45" />
+            <ellipse cx="10" cy="35" rx="9" ry="5" fill="#7d5d24" fillOpacity="0.2" transform="rotate(20 10 35)" />
+          </g>
+
+          {/* Rosa pequeña encima vela izquierda */}
+          <g transform="translate(490, 380)" opacity="0.5">
+            <ellipse cx="0" cy="-7" rx="7" ry="9" fill="#dcbcbc" fillOpacity="0.5" />
+            <ellipse cx="7" cy="-3" rx="7" ry="9" fill="#b97979" fillOpacity="0.4" transform="rotate(72)" />
+            <ellipse cx="4" cy="6" rx="7" ry="9" fill="#dcbcbc" fillOpacity="0.45" transform="rotate(144)" />
+            <ellipse cx="-4" cy="6" rx="7" ry="9" fill="#dcbcbc" fillOpacity="0.4" transform="rotate(216)" />
+            <ellipse cx="-7" cy="-3" rx="7" ry="9" fill="#b97979" fillOpacity="0.4" transform="rotate(288)" />
+            <circle cx="0" cy="0" r="4" fill="#e8c4a0" fillOpacity="0.6" />
+          </g>
+
+          {/* Pétalos sueltos */}
+          <ellipse cx="420" cy="510" rx="6" ry="3" fill="#dcbcbc" fillOpacity="0.3" transform="rotate(-30 420 510)" />
+          <ellipse cx="1180" cy="490" rx="5" ry="3" fill="#dcbcbc" fillOpacity="0.25" transform="rotate(20 1180 490)" />
+          <ellipse cx="750" cy="200" rx="5" ry="3" fill="#dcbcbc" fillOpacity="0.2" transform="rotate(45 750 200)" />
         </svg>
 
-        <div className="relative z-10 text-center text-[#f6f4f1] px-6 max-w-2xl mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-6">
-            {th.coleccion}
-          </p>
-          <h1 className="font-['EB_Garamond'] text-6xl md:text-7xl italic leading-tight mb-6">
-            {th.heroTitulo}
-          </h1>
-          <p className="text-[#ccc] text-sm leading-relaxed mb-10 max-w-md mx-auto">
-            {th.heroTexto}
-          </p>
-          <Link
-            href="/tienda"
-            className="inline-block border border-[#f6f4f1] hover:bg-[#f6f4f1] hover:text-[#1b1b1b] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium px-10 py-4 transition-all duration-300"
-          >
-            {th.descubrir}
-          </Link>
+        {/* Contador — arriba del hero */}
+        <div className="relative z-10">
+          <ContadorEvento />
+        </div>
+
+        {/* Texto hero — ocupa el espacio restante, centrado */}
+        <div className="relative z-10 flex-1 flex items-center justify-center text-center text-[#f6f4f1] px-6">
+          <div className="max-w-2xl mx-auto">
+            <p className="text-[11px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-4">
+              {th.coleccion}
+            </p>
+            <h1 className="font-['EB_Garamond'] text-5xl md:text-6xl italic leading-tight mb-4 whitespace-nowrap">
+              {th.heroTitulo}
+            </h1>
+            <p className="text-[#ccc] text-sm leading-relaxed mb-6 max-w-md mx-auto">
+              {th.heroTexto}
+            </p>
+            <Link
+              href="/tienda"
+              className="inline-block border border-[#f6f4f1] hover:bg-[#f6f4f1] hover:text-[#1b1b1b] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium px-10 py-4 transition-all duration-300"
+            >
+              {th.descubrir}
+            </Link>
+          </div>
         </div>
       </section>
 
