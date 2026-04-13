@@ -25,13 +25,6 @@ export default function FooterClient() {
             <p className="text-sm text-[#a0a0a0] leading-relaxed max-w-xs">
               {tf.descripcion}
             </p>
-            <div className="flex gap-4 mt-6">
-              {['Instagram', 'TikTok', 'Pinterest'].map((red) => (
-                <span key={red} className="text-[10px] uppercase tracking-widest text-[#666] hover:text-[#dcbcbc] cursor-pointer transition-colors">
-                  {red}
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* Navegación */}
