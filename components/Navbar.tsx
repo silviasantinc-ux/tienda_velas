@@ -75,7 +75,7 @@ export default function Navbar() {
           </span>
         )}
       </button>
-      {carritoAbierto && <CarritoDropdown />}
+      {carritoAbierto && <CarritoDropdown onCerrar={cerrarCarrito} />}
     </div>
   )
 

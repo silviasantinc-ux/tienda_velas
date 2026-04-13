@@ -2,12 +2,12 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Trash2, ShoppingBag, Plus, Minus } from 'lucide-react'
+import { Trash2, ShoppingBag, Plus, Minus, X } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 import { useState } from 'react'
 
-export default function CarritoDropdown() {
+export default function CarritoDropdown({ onCerrar }: { onCerrar?: () => void }) {
   const { items, quitar, actualizarCantidad, total } = useCarrito()
   const t = useIdioma((s) => s.t)
   const { idioma } = useIdioma()
@@ -22,11 +22,18 @@ export default function CarritoDropdown() {
       {/* Cabecera */}
       <div className="px-5 py-4 border-b border-[#e0ddd8] flex items-center justify-between">
         <p className="font-['EB_Garamond'] text-lg italic text-[#1b1b1b]">{cd.titulo}</p>
-        {items.length > 0 && (
-          <p className="text-[10px] uppercase tracking-widest text-[#999]">
-            {totalArticulos} {totalArticulos !== 1 ? cd.articulos : cd.articulo}
-          </p>
-        )}
+        <div className="flex items-center gap-3">
+          {items.length > 0 && (
+            <p className="text-[10px] uppercase tracking-widest text-[#999]">
+              {totalArticulos} {totalArticulos !== 1 ? cd.articulos : cd.articulo}
+            </p>
+          )}
+          {onCerrar && (
+            <button onClick={onCerrar} className="text-[#999] hover:text-[#1b1b1b] transition-colors">
+              <X className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </div>
 
       {items.length === 0 ? (
