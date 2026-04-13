@@ -77,7 +77,7 @@ export default function Navbar() {
       </button>
       {carritoAbierto && (
         <>
-          <div className="fixed inset-0 z-40" onClick={() => setCarritoAbierto(false)} />
+          <div className="fixed inset-0 z-40 md:hidden" onClick={() => setCarritoAbierto(false)} />
           <div className="relative z-50"><CarritoDropdown /></div>
         </>
       )}
