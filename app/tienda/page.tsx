@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 import { productosMock } from '@/lib/productos-mock'
@@ -23,6 +23,10 @@ function TiendaContenido() {
   const [categoria, setCategoria] = useState(catParam || tt.categorias[0])
   const [orden, setOrden] = useState('destacados')
   const [busqueda, setBusqueda] = useState(qParam || '')
+
+  useEffect(() => {
+    setCategoria(catParam || tt.categorias[0])
+  }, [catParam])
 
   const productos = useMemo(() => {
     let lista = [...productosMock]
