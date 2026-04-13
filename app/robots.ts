@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
 
-const BASE = 'https://tiendavelas.vercel.app'
+const BASE = 'https://www.llumandglow.com'
 
 export default function robots(): MetadataRoute.Robots {
   return {

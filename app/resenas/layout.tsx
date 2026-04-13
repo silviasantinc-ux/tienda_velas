@@ -6,10 +6,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Opiniones y reseñas — llum & glow',
     description: '9 reseñas verificadas. Valoración media 4,9/5.',
-    url: 'https://tiendavelas.vercel.app/resenas',
+    url: 'https://www.llumandglow.com/resenas',
   },
   alternates: {
-    canonical: 'https://tiendavelas.vercel.app/resenas',
+    canonical: 'https://www.llumandglow.com/resenas',
   },
 }
 

@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import AnuncioBar from "@/components/AnuncioBar";
 import FooterClient from "@/components/FooterClient";
 
-const BASE = 'https://tiendavelas.vercel.app'
+const BASE = 'https://www.llumandglow.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),

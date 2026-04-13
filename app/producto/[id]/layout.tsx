@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: titulo,
       description: descripcion,
-      url: `https://tiendavelas.vercel.app/producto/${p.id}`,
+      url: `https://www.llumandglow.com/producto/${p.id}`,
       images: [{ url: p.imagen_url, alt: p.nombre }],
       type: 'website',
     },
@@ -56,7 +56,7 @@ export default async function Layout({
             p.stock > 0
               ? 'https://schema.org/InStock'
               : 'https://schema.org/OutOfStock',
-          url: `https://tiendavelas.vercel.app/producto/${p.id}`,
+          url: `https://www.llumandglow.com/producto/${p.id}`,
         },
       }
     : null

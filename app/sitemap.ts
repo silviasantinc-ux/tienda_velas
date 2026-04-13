@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { productosMock } from '@/lib/productos-mock'
 
-const BASE = 'https://tiendavelas.vercel.app'
+const BASE = 'https://www.llumandglow.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const productos = productosMock.map((p) => ({
