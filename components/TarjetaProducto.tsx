@@ -31,24 +31,13 @@ export default function TarjetaProducto({ producto }: { producto: Producto }) {
     <div className="group cursor-pointer">
       {/* Imagen */}
       <Link href={`/producto/${producto.id}`} className="block relative aspect-square overflow-hidden bg-[#ece9e4] mb-3">
-        {producto.video_url ? (
-          <video
-            src={producto.video_url}
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-          />
-        ) : (
-          <Image
-            src={producto.imagen_url}
-            alt={nombre}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          />
-        )}
+        <Image
+          src={producto.imagen_url}
+          alt={nombre}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        />
 
         {/* Badge */}
         {producto.badge && (
