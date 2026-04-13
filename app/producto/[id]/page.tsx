@@ -55,7 +55,18 @@ export default function PaginaProducto() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <div className="relative aspect-square overflow-hidden bg-[#ece9e4]">
-            <Image src={producto.imagen_url} alt={nombre} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
+            {producto.video_url ? (
+              <video
+                src={producto.video_url}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+            ) : (
+              <Image src={producto.imagen_url} alt={nombre} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
+            )}
             {producto.badge && (
               <span className="absolute top-4 left-4 bg-[#f6f4f1] text-[#1b1b1b] text-[10px] uppercase tracking-widest font-medium px-3 py-1.5">
                 {tp.badges[producto.badge]}
