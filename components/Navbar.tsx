@@ -62,7 +62,7 @@ export default function Navbar() {
           </span>
         )}
       </Link>
-      {carritoAbierto && <CarritoDropdown />}
+      {carritoAbierto && <div className="hidden md:block"><CarritoDropdown /></div>}
     </div>
   )
 
