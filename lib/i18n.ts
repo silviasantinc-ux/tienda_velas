@@ -247,6 +247,15 @@ const traducciones = {
       descubrir: 'Descubrir las velas',
     },
 
+    // Contador evento
+    contador: {
+      ofertasEspeciales: 'Ofertas especiales',
+      evento: 'Día de la madre · 3 de mayo',
+      dias: 'días',
+      horas: 'horas',
+      minutos: 'minutos',
+    },
+
     // Newsletter
     newsletter: {
       label: 'Únete a la comunidad',
@@ -517,6 +526,15 @@ const traducciones = {
       escribenos: 'Escriu-nos a',
       conTuResena: 'amb la teva ressenya i la publiquem.',
       descubrir: 'Descobrir les espelmes',
+    },
+
+    // Contador evento
+    contador: {
+      ofertasEspeciales: 'Ofertes especials',
+      evento: 'Dia de la mare · 3 de maig',
+      dias: 'dies',
+      horas: 'hores',
+      minutos: 'minuts',
     },
 
     newsletter: {

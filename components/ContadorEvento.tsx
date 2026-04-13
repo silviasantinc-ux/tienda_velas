@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useIdioma } from '@/lib/idioma-store'
 
 const TARGET = new Date('2026-05-03T00:00:00')
 
@@ -15,6 +16,7 @@ function calcularTiempo() {
 }
 
 export default function ContadorEvento() {
+  const tc = useIdioma((s) => s.t.contador)
   const [tiempo, setTiempo] = useState(calcularTiempo())
 
   useEffect(() => {
@@ -27,16 +29,16 @@ export default function ContadorEvento() {
   return (
     <div className="py-8 text-center text-[#f6f4f1]">
       <p className="font-['EB_Garamond'] text-2xl md:text-4xl italic mb-1">
-        Ofertas especiales
+        {tc.ofertasEspeciales}
       </p>
       <p className="text-[10px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-5">
-        Día de la madre · 3 de mayo
+        {tc.evento}
       </p>
       <div className="flex items-center justify-center gap-5 md:gap-14">
         {[
-          { valor: tiempo.dias, label: 'días' },
-          { valor: tiempo.horas, label: 'horas' },
-          { valor: tiempo.minutos, label: 'minutos' },
+          { valor: tiempo.dias, label: tc.dias },
+          { valor: tiempo.horas, label: tc.horas },
+          { valor: tiempo.minutos, label: tc.minutos },
         ].map(({ valor, label }, i) => (
           <div key={label} className="flex items-center gap-8 md:gap-14">
             {i > 0 && <span className="text-[#7d5d24] text-xl">·</span>}
