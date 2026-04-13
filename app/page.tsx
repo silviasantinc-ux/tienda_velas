@@ -184,7 +184,7 @@ export default function Home() {
             <p className="text-[11px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-4">
               {th.coleccion}
             </p>
-            <h1 className="font-['EB_Garamond'] text-5xl md:text-6xl italic leading-tight mb-4 whitespace-nowrap">
+            <h1 className="font-['EB_Garamond'] text-4xl md:text-6xl italic leading-tight mb-4 md:whitespace-nowrap">
               {th.heroTitulo}
             </h1>
             <p className="text-[#ccc] text-sm leading-relaxed mb-6 max-w-md mx-auto">

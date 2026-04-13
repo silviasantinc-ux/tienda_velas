@@ -26,13 +26,13 @@ export default function ContadorEvento() {
 
   return (
     <div className="py-8 text-center text-[#f6f4f1]">
-      <p className="font-['EB_Garamond'] text-3xl md:text-4xl italic mb-1">
+      <p className="font-['EB_Garamond'] text-2xl md:text-4xl italic mb-1">
         Ofertas especiales
       </p>
       <p className="text-[10px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-5">
         Día de la madre · 3 de mayo
       </p>
-      <div className="flex items-center justify-center gap-8 md:gap-14">
+      <div className="flex items-center justify-center gap-5 md:gap-14">
         {[
           { valor: tiempo.dias, label: 'días' },
           { valor: tiempo.horas, label: 'horas' },
@@ -41,7 +41,7 @@ export default function ContadorEvento() {
           <div key={label} className="flex items-center gap-8 md:gap-14">
             {i > 0 && <span className="text-[#7d5d24] text-xl">·</span>}
             <div className="text-center">
-              <p className="font-['EB_Garamond'] text-5xl md:text-6xl italic leading-none">
+              <p className="font-['EB_Garamond'] text-4xl md:text-6xl italic leading-none">
                 {String(valor).padStart(2, '0')}
               </p>
               <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc] mt-1">{label}</p>
