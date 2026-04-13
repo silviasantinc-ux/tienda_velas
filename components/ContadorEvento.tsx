@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useIdioma } from '@/lib/idioma-store'
+import traducciones from '@/lib/i18n'
 
 const TARGET = new Date('2026-05-03T00:00:00')
 
@@ -16,7 +17,8 @@ function calcularTiempo() {
 }
 
 export default function ContadorEvento() {
-  const tc = useIdioma((s) => s.t.contador)
+  const idioma = useIdioma((s) => s.idioma)
+  const tc = traducciones[idioma].contador
   const [tiempo, setTiempo] = useState(calcularTiempo())
 
   useEffect(() => {
