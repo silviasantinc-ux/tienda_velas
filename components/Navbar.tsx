@@ -54,7 +54,8 @@ export default function Navbar() {
 
   const carritoIcono = (
     <div className="relative" onMouseEnter={abrirCarrito} onMouseLeave={cerrarCarrito}>
-      <Link href="/carrito" className="relative block hover:text-[#7d5d24] transition-colors">
+      {/* Desktop: Link que navega al carrito */}
+      <Link href="/carrito" className="relative hidden md:block hover:text-[#7d5d24] transition-colors">
         <ShoppingBag className="w-5 h-5" />
         {totalItems > 0 && (
           <span className="absolute -top-2 -right-2 bg-[#dcbcbc] text-[#1b1b1b] text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
@@ -62,7 +63,19 @@ export default function Navbar() {
           </span>
         )}
       </Link>
-      {carritoAbierto && <div className="hidden md:block"><CarritoDropdown /></div>}
+      {/* Móvil: botón que abre/cierra el dropdown */}
+      <button
+        onClick={() => setCarritoAbierto(!carritoAbierto)}
+        className="relative md:hidden hover:text-[#7d5d24] transition-colors"
+      >
+        <ShoppingBag className="w-5 h-5" />
+        {totalItems > 0 && (
+          <span className="absolute -top-2 -right-2 bg-[#dcbcbc] text-[#1b1b1b] text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
+            {totalItems}
+          </span>
+        )}
+      </button>
+      {carritoAbierto && <CarritoDropdown />}
     </div>
   )
 
