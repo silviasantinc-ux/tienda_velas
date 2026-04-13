@@ -86,6 +86,20 @@ function TiendaContenido() {
         </select>
       </div>
 
+      {/* Vídeo Postre */}
+      {(categoria === 'Postre' || categoria === 'Postres') && (
+        <div className="mb-10 rounded overflow-hidden">
+          <video
+            src="/postre_01.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full max-h-[400px] object-cover"
+          />
+        </div>
+      )}
+
       {/* Conteo */}
       <p className="text-[11px] uppercase tracking-widest text-[#999] mb-8">
         {productos.length} {productos.length === 1 ? tt.producto : tt.productos}
