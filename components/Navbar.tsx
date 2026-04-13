@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ShoppingBag, Search, X, User } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import CarritoDropdown from './CarritoDropdown'
 import LogoLlumGlow from './LogoLlumGlow'
@@ -17,23 +17,6 @@ export default function Navbar() {
   const [termino, setTermino] = useState('')
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const carritoRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
-      if (carritoRef.current && !carritoRef.current.contains(e.target as Node)) {
-        setCarritoAbierto(false)
-      }
-    }
-    if (carritoAbierto) {
-      document.addEventListener('mousedown', handleClickOutside)
-      document.addEventListener('touchstart', handleClickOutside)
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-      document.removeEventListener('touchstart', handleClickOutside)
-    }
-  }, [carritoAbierto])
   const router = useRouter()
 
   const abrirCarrito = () => {
@@ -70,7 +53,7 @@ export default function Navbar() {
   )
 
   const carritoIcono = (
-    <div ref={carritoRef} className="relative" onMouseEnter={abrirCarrito} onMouseLeave={cerrarCarrito}>
+    <div className="relative" onMouseEnter={abrirCarrito} onMouseLeave={cerrarCarrito}>
       {/* Desktop: Link que navega al carrito */}
       <Link href="/carrito" className="relative hidden md:block hover:text-[#7d5d24] transition-colors">
         <ShoppingBag className="w-5 h-5" />
@@ -92,7 +75,12 @@ export default function Navbar() {
           </span>
         )}
       </button>
-      {carritoAbierto && <CarritoDropdown />}
+      {carritoAbierto && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setCarritoAbierto(false)} />
+          <div className="relative z-50"><CarritoDropdown /></div>
+        </>
+      )}
     </div>
   )
 
