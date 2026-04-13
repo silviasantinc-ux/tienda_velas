@@ -56,7 +56,7 @@ export default function FooterClient() {
               <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">{tf.envios}</span></li>
               <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">{tf.cuidado}</span></li>
               <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">{tf.faq}</span></li>
-              <li><a href="mailto:hola@llumglow.com" className="hover:text-[#dcbcbc] transition-colors">hola@llumglow.com</a></li>
+              <li><a href="mailto:info@llumandglow.com" className="hover:text-[#dcbcbc] transition-colors">info@llumandglow.com</a></li>
             </ul>
           </div>
         </div>

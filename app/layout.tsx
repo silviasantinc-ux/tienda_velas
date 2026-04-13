@@ -45,7 +45,7 @@ const jsonLdOrganizacion = {
   name: 'llum & glow',
   url: BASE,
   description: 'Velas artesanales elaboradas a mano con cera de soja natural, mechas de algodón y fragancias únicas.',
-  email: 'hola@llumglow.com',
+  email: 'info@llumandglow.com',
   sameAs: [],
 }
 

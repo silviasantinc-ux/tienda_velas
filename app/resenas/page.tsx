@@ -234,7 +234,7 @@ export default function PaginaResenas() {
         <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{tr.yaEresClienta}</p>
         <h2 className="font-serif text-3xl italic text-[#1b1b1b] mb-4">{tr.cuentanos}</h2>
         <p className="text-sm text-[#666] mb-8 max-w-xs mx-auto">
-          {tr.escribenos} <a href="mailto:hola@llumglow.com" className="text-[#1b1b1b] border-b border-[#1b1b1b]">hola@llumglow.com</a> {tr.conTuResena}
+          {tr.escribenos} <a href="mailto:info@llumandglow.com" className="text-[#1b1b1b] border-b border-[#1b1b1b]">info@llumandglow.com</a> {tr.conTuResena}
         </p>
         <Link
           href="/tienda"
