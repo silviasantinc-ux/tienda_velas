@@ -93,18 +93,6 @@ function TiendaContenido() {
 
       {/* Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
-        {(categoria === 'Postre' || categoria === 'Postres') && (
-          <div className="relative aspect-square overflow-hidden bg-[#ece9e4]">
-            <video
-              src="/postre_01.mp4"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
-        )}
         {productos.map((p) => (
           <TarjetaProducto key={p.id} producto={p} />
         ))}

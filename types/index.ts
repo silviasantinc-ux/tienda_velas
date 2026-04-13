@@ -6,6 +6,7 @@ export type Producto = {
   descripcion_ca?: string
   precio: number
   imagen_url: string
+  video_url?: string
   categoria: string
   categoria_ca?: string
   stock: number

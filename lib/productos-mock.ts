@@ -133,6 +133,17 @@ export const productosMock: Producto[] = [
     creado_en: new Date().toISOString(),
   },
   {
+    id: '13',
+    nombre: 'Tarta de Azahar',
+    nombre_ca: 'Pastís de Taronja',
+    descripcion: 'Una vela inspirada en la repostería mediterránea más delicada. Notas de azahar fresco, almendra tostada y un fondo cálido de vainilla. Como el postre de los domingos en casa de la abuela.',
+    descripcion_ca: "Una espelma inspirada en la rebosteria mediterrània més delicada. Notes de flor de taronger fresca, ametlla torrada i un fons càlid de vainilla. Com la postres dels diumenges a casa de l'àvia.",
+    precio: 26.00, imagen_url: V2, video_url: '/postre_01.mp4', categoria: 'Postre', categoria_ca: 'Postres', stock: 10, badge: 'nuevo', duracion_horas: 48, peso_gr: 230,
+    notas_aromaticas: ['Azahar', 'Almendra', 'Vainilla'],
+    notas_aromaticas_ca: ['Flor de taronger', 'Ametlla', 'Vainilla'],
+    creado_en: new Date().toISOString(),
+  },
+  {
     id: '12',
     nombre: 'Pomelo & Jengibre',
     nombre_ca: 'Pomelo & Gingebre',
