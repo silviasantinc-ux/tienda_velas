@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { Producto } from '@/types'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Upload, X } from 'lucide-react'
 
 type Props = {
   modo: 'nuevo' | 'editar'
@@ -21,6 +21,8 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
   const [error, setError] = useState<string | null>(null)
   const [categorias, setCategorias] = useState<Categoria[]>([])
   const [badges, setBadges] = useState<Badge[]>([])
+  const [subiendoImagen, setSubiendoImagen] = useState(false)
+  const fileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     supabase.from('categorias').select('*').order('nombre').then(({ data }) => setCategorias(data ?? []))
@@ -43,11 +45,27 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
     badge: productoInicial?.badge ?? '',
     duracion_horas: productoInicial?.duracion_horas?.toString() ?? '',
     peso_gr: productoInicial?.peso_gr?.toString() ?? '',
+    alto_cm: productoInicial?.alto_cm?.toString() ?? '',
+    ancho_cm: productoInicial?.ancho_cm?.toString() ?? '',
     notas_aromaticas: productoInicial?.notas_aromaticas?.join(', ') ?? '',
     notas_aromaticas_ca: productoInicial?.notas_aromaticas_ca?.join(', ') ?? '',
   })
 
   const set = (campo: string, valor: string) => setForm((f) => ({ ...f, [campo]: valor }))
+
+  const subirImagen = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setSubiendoImagen(true)
+    setError(null)
+    const ext = file.name.split('.').pop()
+    const nombre = `${Date.now()}.${ext}`
+    const { error: err } = await supabase.storage.from('productos').upload(nombre, file, { upsert: true })
+    if (err) { setError('Error al subir imagen: ' + err.message); setSubiendoImagen(false); return }
+    const { data } = supabase.storage.from('productos').getPublicUrl(nombre)
+    set('imagen_url', data.publicUrl)
+    setSubiendoImagen(false)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -73,6 +91,8 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
       badge: form.badge || null,
       duracion_horas: form.duracion_horas ? parseInt(form.duracion_horas) : null,
       peso_gr: form.peso_gr ? parseInt(form.peso_gr) : null,
+      alto_cm: form.alto_cm ? parseFloat(form.alto_cm) : null,
+      ancho_cm: form.ancho_cm ? parseFloat(form.ancho_cm) : null,
       notas_aromaticas: form.notas_aromaticas ? form.notas_aromaticas.split(',').map((s) => s.trim()).filter(Boolean) : null,
       notas_aromaticas_ca: form.notas_aromaticas_ca ? form.notas_aromaticas_ca.split(',').map((s) => s.trim()).filter(Boolean) : null,
     }
@@ -140,7 +160,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
           <div className="grid grid-cols-2 gap-4">
             <Field label="Texto detallado (ES)">
               <textarea value={form.detalle} onChange={(e) => set('detalle', e.target.value)}
-                rows={5} placeholder="Texto completo que aparece en la página de detalle del producto..."
+                rows={5} placeholder="Texto completo que aparece en la página de detalle..."
                 className={inputCls + ' resize-none'} />
             </Field>
             <Field label="Texto detallado (CA)">
@@ -174,25 +194,50 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             </Field>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Field label="URL imagen" required>
-              <input type="text" value={form.imagen_url} onChange={(e) => set('imagen_url', e.target.value)}
-                required placeholder="/imagen.jpg o https://..." className={inputCls} />
-            </Field>
-            <Field label="URL vídeo (opcional)">
-              <input type="text" value={form.video_url} onChange={(e) => set('video_url', e.target.value)}
-                placeholder="/video.mp4" className={inputCls} />
-            </Field>
-          </div>
+          {/* Imagen */}
+          <Field label="Imagen" required>
+            <div className="flex gap-3 items-start">
+              <div className="flex-1">
+                <input type="text" value={form.imagen_url} onChange={(e) => set('imagen_url', e.target.value)}
+                  required placeholder="/imagen.jpg o https://..." className={inputCls} />
+              </div>
+              <div className="flex-shrink-0">
+                <input ref={fileRef} type="file" accept="image/*" onChange={subirImagen} className="hidden" />
+                <button type="button" onClick={() => fileRef.current?.click()} disabled={subiendoImagen}
+                  className="flex items-center gap-2 border border-[#e0ddd8] bg-white px-4 py-3 text-[10px] uppercase tracking-widest text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b] transition-colors disabled:opacity-50 whitespace-nowrap">
+                  <Upload className="w-3.5 h-3.5" />
+                  {subiendoImagen ? 'Subiendo...' : 'Subir foto'}
+                </button>
+              </div>
+              {form.imagen_url && (
+                <img src={form.imagen_url} alt="" className="w-16 h-16 object-cover border border-[#e0ddd8] flex-shrink-0" />
+              )}
+            </div>
+          </Field>
 
-          <div className="grid grid-cols-2 gap-4">
+          {/* Vídeo */}
+          <Field label="URL vídeo (opcional)">
+            <input type="text" value={form.video_url} onChange={(e) => set('video_url', e.target.value)}
+              placeholder="/video.mp4" className={inputCls} />
+          </Field>
+
+          {/* Medidas y peso */}
+          <div className="grid grid-cols-4 gap-4">
             <Field label="Duración (horas)">
               <input type="number" min="0" value={form.duracion_horas}
                 onChange={(e) => set('duracion_horas', e.target.value)} className={inputCls} />
             </Field>
-            <Field label="Peso (gramos)">
+            <Field label="Peso (gr)">
               <input type="number" min="0" value={form.peso_gr}
                 onChange={(e) => set('peso_gr', e.target.value)} className={inputCls} />
+            </Field>
+            <Field label="Alto (cm)">
+              <input type="number" step="0.1" min="0" value={form.alto_cm}
+                onChange={(e) => set('alto_cm', e.target.value)} className={inputCls} />
+            </Field>
+            <Field label="Ancho (cm)">
+              <input type="number" step="0.1" min="0" value={form.ancho_cm}
+                onChange={(e) => set('ancho_cm', e.target.value)} className={inputCls} />
             </Field>
           </div>
 
