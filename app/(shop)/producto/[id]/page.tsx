@@ -65,8 +65,8 @@ export default function PaginaProducto() {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <Link href="/tienda" className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] mb-6 transition-colors w-fit">
+      <div className="max-w-7xl mx-auto px-6 pt-2 pb-4">
+        <Link href="/tienda" className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] mb-4 transition-colors w-fit">
           <ArrowLeft className="w-3 h-3" />
           {tp.volver}
         </Link>
