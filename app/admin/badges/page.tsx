@@ -7,12 +7,12 @@ import { supabase } from '@/lib/supabase'
 import { verificarAdmin } from '@/lib/admin-auth'
 import { ArrowLeft, Plus, Pencil, Trash2, Check, X } from 'lucide-react'
 
-type Badge = { id: string; nombre: string; nombre_ca: string }
+type Etiqueta = { id: string; nombre: string; nombre_ca: string }
 
-export default function AdminBadges() {
-  const [items, setItems] = useState<Badge[]>([])
+export default function AdminEtiquetas() {
+  const [items, setItems] = useState<Etiqueta[]>([])
   const [cargando, setCargando] = useState(true)
-  const [editando, setEditando] = useState<Badge | null>(null)
+  const [editando, setEditando] = useState<Etiqueta | null>(null)
   const [nuevo, setNuevo] = useState(false)
   const [form, setForm] = useState({ id: '', nombre: '', nombre_ca: '' })
   const [error, setError] = useState<string | null>(null)
@@ -24,7 +24,7 @@ export default function AdminBadges() {
 
   const cargar = async () => {
     setCargando(true)
-    const { data } = await supabase.from('badges').select('*').order('nombre')
+    const { data } = await supabase.from('etiquetas').select('*').order('nombre')
     setItems(data ?? [])
     setCargando(false)
   }
@@ -34,10 +34,10 @@ export default function AdminBadges() {
     if (!form.nombre.trim()) { setError('El nombre es obligatorio'); return }
     if (nuevo && !form.id.trim()) { setError('El ID es obligatorio'); return }
     if (nuevo) {
-      const { error: err } = await supabase.from('badges').insert(form)
+      const { error: err } = await supabase.from('etiquetas').insert(form)
       if (err) { setError(err.message); return }
     } else {
-      const { error: err } = await supabase.from('badges').update({ nombre: form.nombre, nombre_ca: form.nombre_ca }).eq('id', form.id)
+      const { error: err } = await supabase.from('etiquetas').update({ nombre: form.nombre, nombre_ca: form.nombre_ca }).eq('id', form.id)
       if (err) { setError(err.message); return }
     }
     setNuevo(false); setEditando(null); setForm({ id: '', nombre: '', nombre_ca: '' })
@@ -45,12 +45,12 @@ export default function AdminBadges() {
   }
 
   const eliminar = async (id: string) => {
-    if (!confirm('¿Eliminar este badge?')) return
-    await supabase.from('badges').delete().eq('id', id)
+    if (!confirm('¿Eliminar este etiqueta?')) return
+    await supabase.from('etiquetas').delete().eq('id', id)
     cargar()
   }
 
-  const iniciarEdicion = (b: Badge) => { setEditando(b); setNuevo(false); setForm({ id: b.id, nombre: b.nombre, nombre_ca: b.nombre_ca ?? '' }); setError(null) }
+  const iniciarEdicion = (b: Etiqueta) => { setEditando(b); setNuevo(false); setForm({ id: b.id, nombre: b.nombre, nombre_ca: b.nombre_ca ?? '' }); setError(null) }
   const iniciarNuevo = () => { setNuevo(true); setEditando(null); setForm({ id: '', nombre: '', nombre_ca: '' }); setError(null) }
   const cancelar = () => { setNuevo(false); setEditando(null); setForm({ id: '', nombre: '', nombre_ca: '' }); setError(null) }
 
@@ -59,11 +59,11 @@ export default function AdminBadges() {
       <header className="bg-white border-b border-[#e0ddd8] px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="/admin" className="text-[#999] hover:text-[#1b1b1b] transition-colors"><ArrowLeft className="w-4 h-4" /></Link>
-          <span className="text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b]">Badges</span>
+          <span className="text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b]">Etiquetas</span>
         </div>
         <button onClick={iniciarNuevo}
           className="flex items-center gap-2 bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[10px] uppercase tracking-widest font-medium px-5 py-3 transition-colors">
-          <Plus className="w-3.5 h-3.5" /> Nuevo badge
+          <Plus className="w-3.5 h-3.5" /> Nuevo etiqueta
         </button>
       </header>
 
@@ -71,7 +71,7 @@ export default function AdminBadges() {
         {(nuevo || editando) && (
           <div className="bg-white border border-[#e0ddd8] p-6">
             <h2 className="text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b] mb-4">
-              {nuevo ? 'Nuevo badge' : 'Editar badge'}
+              {nuevo ? 'Nuevo etiqueta' : 'Editar etiqueta'}
             </h2>
             <div className="grid grid-cols-3 gap-4">
               {nuevo && (

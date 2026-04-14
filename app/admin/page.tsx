@@ -50,6 +50,7 @@ export default function AdminPanel() {
     'edicion-limitada': 'Ed. limitada',
   }
 
+
   return (
     <div className="min-h-screen bg-[#f6f4f1]">
       {/* Header */}
@@ -67,7 +68,7 @@ export default function AdminPanel() {
           </Link>
           <Link href="/admin/badges" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
             <Tag className="w-3.5 h-3.5" />
-            Badges
+            Etiquetas
           </Link>
           <Link href="/admin/usuarios" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
             <Users className="w-3.5 h-3.5" />
@@ -113,7 +114,7 @@ export default function AdminPanel() {
                   <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Categoría</th>
                   <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Precio</th>
                   <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Stock</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Badge</th>
+                  <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Etiqueta</th>
                   <th className="px-4 py-4" />
                 </tr>
               </thead>

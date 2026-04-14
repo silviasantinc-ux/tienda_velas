@@ -165,10 +165,10 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                 {categorias.map((c) => <option key={c.id} value={c.nombre}>{c.nombre}</option>)}
               </select>
             </Field>
-            <Field label="Badge">
+            <Field label="Etiqueta">
               <select value={form.badge} onChange={(e) => set('badge', e.target.value)}
                 className={inputCls}>
-                <option value="">— Ninguno —</option>
+                <option value="">— Sin etiqueta —</option>
                 {badges.map((b) => <option key={b.id} value={b.id}>{b.nombre}</option>)}
               </select>
             </Field>
