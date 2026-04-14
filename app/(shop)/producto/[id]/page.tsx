@@ -27,6 +27,7 @@ export default function PaginaProducto() {
     supabase.from('productos').select('*').eq('id', id).single().then(({ data }) => {
       if (data) {
         setProducto(data as Producto)
+        document.title = data.nombre + ' — Llum & Glow'
         supabase.from('productos').select('*')
           .eq('categoria', data.categoria).neq('id', id).limit(4)
           .then(({ data: rel }) => setRelacionados((rel as Producto[]) ?? []))
