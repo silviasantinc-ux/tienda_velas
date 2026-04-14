@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { Producto } from '@/types'
-import { ArrowLeft, Upload, X } from 'lucide-react'
+import { ArrowLeft, Upload } from 'lucide-react'
 
 type Props = {
   modo: 'nuevo' | 'editar'
@@ -22,7 +22,9 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
   const [categorias, setCategorias] = useState<Categoria[]>([])
   const [badges, setBadges] = useState<Badge[]>([])
   const [subiendoImagen, setSubiendoImagen] = useState(false)
+  const [subiendoVideo, setSubiendoVideo] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  const videoRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     supabase.from('categorias').select('*').order('nombre').then(({ data }) => setCategorias(data ?? []))
@@ -53,18 +55,22 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
 
   const set = (campo: string, valor: string) => setForm((f) => ({ ...f, [campo]: valor }))
 
-  const subirImagen = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const subirArchivo = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    campo: string,
+    setCargando: (v: boolean) => void
+  ) => {
     const file = e.target.files?.[0]
     if (!file) return
-    setSubiendoImagen(true)
+    setCargando(true)
     setError(null)
     const ext = file.name.split('.').pop()
     const nombre = `${Date.now()}.${ext}`
     const { error: err } = await supabase.storage.from('productos').upload(nombre, file, { upsert: true })
-    if (err) { setError('Error al subir imagen: ' + err.message); setSubiendoImagen(false); return }
+    if (err) { setError('Error al subir archivo: ' + err.message); setCargando(false); return }
     const { data } = supabase.storage.from('productos').getPublicUrl(nombre)
-    set('imagen_url', data.publicUrl)
-    setSubiendoImagen(false)
+    set(campo, data.publicUrl)
+    setCargando(false)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -128,17 +134,20 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
       <main className="max-w-3xl mx-auto px-8 py-10">
         <form onSubmit={handleSubmit} className="space-y-6">
 
-          {modo === 'nuevo' && (
-            <Field label="ID (único, sin espacios)" required>
-              <input type="text" value={form.id} onChange={(e) => set('id', e.target.value)}
-                required placeholder="ej: vela-rosa" className={inputCls} />
-            </Field>
-          )}
+          {/* ID oculto en nuevo — se genera automáticamente al escribir el nombre */}
 
           <div className="grid grid-cols-2 gap-4">
             <Field label="Nombre (ES)" required>
-              <input type="text" value={form.nombre} onChange={(e) => set('nombre', e.target.value)}
-                required className={inputCls} />
+              <input type="text" value={form.nombre} onChange={(e) => {
+                set('nombre', e.target.value)
+                if (modo === 'nuevo') {
+                  const id = e.target.value.toLowerCase()
+                    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^a-z0-9\s-]/g, '').trim()
+                    .replace(/\s+/g, '-')
+                  set('id', id || String(Date.now()))
+                }
+              }} required className={inputCls} />
             </Field>
             <Field label="Nombre (CA)">
               <input type="text" value={form.nombre_ca} onChange={(e) => set('nombre_ca', e.target.value)}
@@ -202,7 +211,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                   required placeholder="/imagen.jpg o https://..." className={inputCls} />
               </div>
               <div className="flex-shrink-0">
-                <input ref={fileRef} type="file" accept="image/*" onChange={subirImagen} className="hidden" />
+                <input ref={fileRef} type="file" accept="image/*" onChange={(e) => subirArchivo(e, 'imagen_url', setSubiendoImagen)} className="hidden" />
                 <button type="button" onClick={() => fileRef.current?.click()} disabled={subiendoImagen}
                   className="flex items-center gap-2 border border-[#e0ddd8] bg-white px-4 py-3 text-[10px] uppercase tracking-widest text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b] transition-colors disabled:opacity-50 whitespace-nowrap">
                   <Upload className="w-3.5 h-3.5" />
@@ -216,9 +225,17 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
           </Field>
 
           {/* Vídeo */}
-          <Field label="URL vídeo (opcional)">
-            <input type="text" value={form.video_url} onChange={(e) => set('video_url', e.target.value)}
-              placeholder="/video.mp4" className={inputCls} />
+          <Field label="Vídeo (opcional)">
+            <div className="flex gap-3 items-center">
+              <input type="text" value={form.video_url} onChange={(e) => set('video_url', e.target.value)}
+                placeholder="URL o sube un archivo..." className={inputCls} />
+              <input ref={videoRef} type="file" accept="video/*" onChange={(e) => subirArchivo(e, 'video_url', setSubiendoVideo)} className="hidden" />
+              <button type="button" onClick={() => videoRef.current?.click()} disabled={subiendoVideo}
+                className="flex items-center gap-2 border border-[#e0ddd8] bg-white px-4 py-3 text-[10px] uppercase tracking-widest text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b] transition-colors disabled:opacity-50 whitespace-nowrap flex-shrink-0">
+                <Upload className="w-3.5 h-3.5" />
+                {subiendoVideo ? 'Subiendo...' : 'Subir vídeo'}
+              </button>
+            </div>
           </Field>
 
           {/* Medidas y peso */}
