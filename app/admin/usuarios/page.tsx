@@ -10,7 +10,7 @@ type Usuario = {
   id: string
   email: string
   created_at: string
-  user_metadata: { nombre?: string }
+  user_metadata: { nombre?: string; role?: string }
 }
 
 export default function AdminUsuarios() {
