@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import AnuncioBar from "@/components/AnuncioBar";
-import FooterClient from "@/components/FooterClient";
 
 const BASE = 'https://www.llumandglow.com'
 
@@ -66,11 +63,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganizacion) }}
         />
-        <AnuncioBar />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-
-        <FooterClient />
+        {children}
       </body>
     </html>
   );

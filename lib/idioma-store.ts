@@ -11,11 +11,17 @@ type IdiomaStore = {
 
 export const useIdioma = create<IdiomaStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       idioma: 'es',
       t: traducciones['es'],
       setIdioma: (idioma) => set({ idioma, t: traducciones[idioma] }),
     }),
-    { name: 'llum-idioma' }
+    {
+      name: 'llum-idioma',
+      partialize: (state) => ({ idioma: state.idioma }),
+      onRehydrateStorage: () => (state) => {
+        if (state) state.t = traducciones[state.idioma]
+      },
+    }
   )
 )
