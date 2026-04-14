@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { verificarAdmin } from '@/lib/admin-auth'
 import { Producto } from '@/types'
-import { Plus, Pencil, Trash2, LogOut, Package, Users } from 'lucide-react'
+import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen } from 'lucide-react'
 
 export default function AdminPanel() {
   const [productos, setProductos] = useState<Producto[]>([])
@@ -61,10 +61,15 @@ export default function AdminPanel() {
           </span>
         </div>
         <div className="flex items-center gap-6">
-          <Link
-            href="/admin/usuarios"
-            className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors"
-          >
+          <Link href="/admin/categorias" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+            <FolderOpen className="w-3.5 h-3.5" />
+            Categorías
+          </Link>
+          <Link href="/admin/badges" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+            <Tag className="w-3.5 h-3.5" />
+            Badges
+          </Link>
+          <Link href="/admin/usuarios" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
             <Users className="w-3.5 h-3.5" />
             Usuarios
           </Link>

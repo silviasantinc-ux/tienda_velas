@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
@@ -12,16 +12,20 @@ type Props = {
   productoInicial?: Producto
 }
 
-const categorias = ['Otoño', 'Postre', 'Bebidas', 'Hogar', 'Eventos']
-const categorias_ca: Record<string, string> = {
-  'Otoño': 'Tardor', 'Postre': 'Postres', 'Bebidas': 'Begudes',
-  'Hogar': 'Llar', 'Eventos': 'Esdeveniments',
-}
+type Categoria = { id: string; nombre: string; nombre_ca: string }
+type Badge = { id: string; nombre: string; nombre_ca: string }
 
 export default function ProductoForm({ modo, productoInicial }: Props) {
   const router = useRouter()
   const [guardando, setGuardando] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [categorias, setCategorias] = useState<Categoria[]>([])
+  const [badges, setBadges] = useState<Badge[]>([])
+
+  useEffect(() => {
+    supabase.from('categorias').select('*').order('nombre').then(({ data }) => setCategorias(data ?? []))
+    supabase.from('badges').select('*').order('nombre').then(({ data }) => setBadges(data ?? []))
+  }, [])
 
   const [form, setForm] = useState({
     id: productoInicial?.id ?? '',
@@ -29,10 +33,12 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
     nombre_ca: productoInicial?.nombre_ca ?? '',
     descripcion: productoInicial?.descripcion ?? '',
     descripcion_ca: productoInicial?.descripcion_ca ?? '',
+    detalle: productoInicial?.detalle ?? '',
+    detalle_ca: productoInicial?.detalle_ca ?? '',
     precio: productoInicial?.precio?.toString() ?? '',
     imagen_url: productoInicial?.imagen_url ?? '',
     video_url: productoInicial?.video_url ?? '',
-    categoria: productoInicial?.categoria ?? 'Otoño',
+    categoria: productoInicial?.categoria ?? '',
     stock: productoInicial?.stock?.toString() ?? '',
     badge: productoInicial?.badge ?? '',
     duracion_horas: productoInicial?.duracion_horas?.toString() ?? '',
@@ -48,17 +54,21 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
     setError(null)
     setGuardando(true)
 
+    const catObj = categorias.find((c) => c.nombre === form.categoria)
+
     const payload = {
       id: form.id.trim(),
       nombre: form.nombre.trim(),
       nombre_ca: form.nombre_ca.trim() || null,
       descripcion: form.descripcion.trim(),
       descripcion_ca: form.descripcion_ca.trim() || null,
+      detalle: form.detalle.trim() || null,
+      detalle_ca: form.detalle_ca.trim() || null,
       precio: parseFloat(form.precio),
       imagen_url: form.imagen_url.trim(),
       video_url: form.video_url.trim() || null,
       categoria: form.categoria,
-      categoria_ca: categorias_ca[form.categoria] ?? null,
+      categoria_ca: catObj?.nombre_ca ?? null,
       stock: parseInt(form.stock),
       badge: form.badge || null,
       duracion_horas: form.duracion_horas ? parseInt(form.duracion_horas) : null,
@@ -98,7 +108,6 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
       <main className="max-w-3xl mx-auto px-8 py-10">
         <form onSubmit={handleSubmit} className="space-y-6">
 
-          {/* ID — solo en nuevo */}
           {modo === 'nuevo' && (
             <Field label="ID (único, sin espacios)" required>
               <input type="text" value={form.id} onChange={(e) => set('id', e.target.value)}
@@ -106,7 +115,6 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             </Field>
           )}
 
-          {/* Nombres */}
           <div className="grid grid-cols-2 gap-4">
             <Field label="Nombre (ES)" required>
               <input type="text" value={form.nombre} onChange={(e) => set('nombre', e.target.value)}
@@ -118,19 +126,29 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             </Field>
           </div>
 
-          {/* Descripciones */}
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Descripción (ES)" required>
+            <Field label="Descripción corta (ES)" required>
               <textarea value={form.descripcion} onChange={(e) => set('descripcion', e.target.value)}
-                required rows={4} className={inputCls + ' resize-none'} />
+                required rows={3} className={inputCls + ' resize-none'} />
             </Field>
-            <Field label="Descripción (CA)">
+            <Field label="Descripción corta (CA)">
               <textarea value={form.descripcion_ca} onChange={(e) => set('descripcion_ca', e.target.value)}
-                rows={4} className={inputCls + ' resize-none'} />
+                rows={3} className={inputCls + ' resize-none'} />
             </Field>
           </div>
 
-          {/* Precio, stock, categoría, badge */}
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Texto detallado (ES)">
+              <textarea value={form.detalle} onChange={(e) => set('detalle', e.target.value)}
+                rows={5} placeholder="Texto completo que aparece en la página de detalle del producto..."
+                className={inputCls + ' resize-none'} />
+            </Field>
+            <Field label="Texto detallado (CA)">
+              <textarea value={form.detalle_ca} onChange={(e) => set('detalle_ca', e.target.value)}
+                rows={5} className={inputCls + ' resize-none'} />
+            </Field>
+          </div>
+
           <div className="grid grid-cols-4 gap-4">
             <Field label="Precio (€)" required>
               <input type="number" step="0.01" min="0" value={form.precio}
@@ -142,22 +160,20 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             </Field>
             <Field label="Categoría" required>
               <select value={form.categoria} onChange={(e) => set('categoria', e.target.value)}
-                className={inputCls}>
-                {categorias.map((c) => <option key={c} value={c}>{c}</option>)}
+                required className={inputCls}>
+                <option value="">— Seleccionar —</option>
+                {categorias.map((c) => <option key={c.id} value={c.nombre}>{c.nombre}</option>)}
               </select>
             </Field>
             <Field label="Badge">
               <select value={form.badge} onChange={(e) => set('badge', e.target.value)}
                 className={inputCls}>
                 <option value="">— Ninguno —</option>
-                <option value="nuevo">Nuevo</option>
-                <option value="mas-vendido">Más vendido</option>
-                <option value="edicion-limitada">Ed. limitada</option>
+                {badges.map((b) => <option key={b.id} value={b.id}>{b.nombre}</option>)}
               </select>
             </Field>
           </div>
 
-          {/* Imagen y vídeo */}
           <div className="grid grid-cols-2 gap-4">
             <Field label="URL imagen" required>
               <input type="text" value={form.imagen_url} onChange={(e) => set('imagen_url', e.target.value)}
@@ -169,7 +185,6 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             </Field>
           </div>
 
-          {/* Duración y peso */}
           <div className="grid grid-cols-2 gap-4">
             <Field label="Duración (horas)">
               <input type="number" min="0" value={form.duracion_horas}
@@ -181,7 +196,6 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             </Field>
           </div>
 
-          {/* Notas aromáticas */}
           <div className="grid grid-cols-2 gap-4">
             <Field label="Notas aromáticas ES (separadas por coma)">
               <input type="text" value={form.notas_aromaticas}
@@ -198,11 +212,8 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
           {error && <p className="text-xs text-red-600">{error}</p>}
 
           <div className="flex items-center gap-4 pt-2">
-            <button
-              type="submit"
-              disabled={guardando}
-              className="bg-[#1b1b1b] hover:bg-[#333] disabled:opacity-50 text-[#f6f4f1] text-[10px] uppercase tracking-widest font-medium px-8 py-4 transition-colors"
-            >
+            <button type="submit" disabled={guardando}
+              className="bg-[#1b1b1b] hover:bg-[#333] disabled:opacity-50 text-[#f6f4f1] text-[10px] uppercase tracking-widest font-medium px-8 py-4 transition-colors">
               {guardando ? 'Guardando...' : (modo === 'nuevo' ? 'Crear producto' : 'Guardar cambios')}
             </button>
             <Link href="/admin"

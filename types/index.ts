@@ -11,7 +11,9 @@ export type Producto = {
   categoria_ca?: string
   stock: number
   creado_en: string
-  badge?: 'nuevo' | 'mas-vendido' | 'edicion-limitada'
+  badge?: string
+  detalle?: string
+  detalle_ca?: string
   duracion_horas?: number
   peso_gr?: number
   notas_aromaticas?: string[]

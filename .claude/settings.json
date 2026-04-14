@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git push:*)",
+      "Bash(vercel --version)",
+      "Bash(git commit --allow-empty -m ':*)",
+      "Bash(git commit -m ':*)",
+      "mcp__claude_ai_Supabase__list_projects",
+      "mcp__claude_ai_Supabase__list_organizations",
+      "mcp__claude_ai_Supabase__apply_migration"
+    ]
+  }
+}
