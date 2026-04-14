@@ -132,6 +132,18 @@ export default function PaginaProducto() {
               </div>
             </div>
 
+            <div className="relative group mb-6 w-fit">
+              <p className="text-[11px] text-[#999] leading-relaxed cursor-default border-b border-dotted border-[#ccc]">
+                Elaboradas únicamente con materiales (cera, esencias y colorantes) 100% conformes a la normativa de la UE
+              </p>
+              <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
+                <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-1.5">Compromiso y Seguridad</p>
+                <p className="text-[11px] text-[#666] leading-relaxed">
+                  Todos nuestros materiales cuentan con fichas MSDS y cumplen los reglamentos REACH y CLP de la UE. Garantizamos productos libres de sustancias tóxicas y 100% conformes a la normativa europea de seguridad.
+                </p>
+              </div>
+            </div>
+
             {producto.stock <= 3 && producto.stock > 0 && (
               <p className="text-[10px] uppercase tracking-widest text-[#b97979] mb-4">
                 {tp.ultimasUnidades} {producto.stock} {tp.unidades}
