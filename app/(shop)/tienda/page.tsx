@@ -8,6 +8,8 @@ import { useIdioma } from '@/lib/idioma-store'
 import TarjetaProducto from '@/components/TarjetaProducto'
 import { Producto } from '@/types'
 
+type Categoria = { id: string; nombre: string; nombre_ca: string }
+
 function TiendaContenido() {
   const searchParams = useSearchParams()
   const catParam = searchParams.get('cat')
@@ -15,34 +17,45 @@ function TiendaContenido() {
   const { idioma, t } = useIdioma()
   const tt = t.tienda
 
-  const catMap: Record<string, string> = {
-    Tardor: 'Otoño', Postres: 'Postre', Begudes: 'Bebidas', Llar: 'Hogar', Esdeveniments: 'Eventos',
-  }
-  const resolveCategoria = (cat: string) => catMap[cat] ?? cat
-
   const [todosProductos, setTodosProductos] = useState<Producto[]>([])
-  const [categoria, setCategoria] = useState(catParam || tt.categorias[0])
+  const [categorias, setCategorias] = useState<Categoria[]>([])
+  const [categoriaES, setCategoriaES] = useState<string>('')
   const [orden, setOrden] = useState('destacados')
-  const [busqueda, setBusqueda] = useState(qParam || '')
+  const busqueda = qParam || ''
   const [cargando, setCargando] = useState(true)
 
   useEffect(() => {
-    supabase.from('productos').select('*').then(({ data }) => {
-      setTodosProductos((data as Producto[]) ?? [])
+    Promise.all([
+      supabase.from('productos').select('*'),
+      supabase.from('categorias').select('*').order('nombre'),
+    ]).then(([{ data: prods }, { data: cats }]) => {
+      setTodosProductos((prods as Producto[]) ?? [])
+      const lista = (cats as Categoria[]) ?? []
+      setCategorias(lista)
+      if (catParam) {
+        // catParam puede llegar en ES o CA
+        const match = lista.find(
+          (c) => c.nombre === catParam || c.nombre_ca === catParam
+        )
+        setCategoriaES(match?.nombre ?? '')
+      }
       setCargando(false)
     })
   }, [])
 
   useEffect(() => {
-    setCategoria(catParam || tt.categorias[0])
+    if (!catParam) { setCategoriaES(''); return }
+    const match = categorias.find(
+      (c) => c.nombre === catParam || c.nombre_ca === catParam
+    )
+    setCategoriaES(match?.nombre ?? '')
   }, [catParam])
 
   const productos = (() => {
     let lista = [...todosProductos]
-    const catES = resolveCategoria(categoria)
 
-    if (catES !== 'Todos' && catES !== 'Tots') {
-      lista = lista.filter((p) => p.categoria === catES)
+    if (categoriaES) {
+      lista = lista.filter((p) => p.categoria === categoriaES)
     }
 
     if (busqueda.trim()) {
@@ -66,6 +79,11 @@ function TiendaContenido() {
     return lista
   })()
 
+  const todoLabel = idioma === 'ca' ? 'Tots' : 'Todos'
+
+  const catLabel = (c: Categoria) =>
+    idioma === 'ca' ? (c.nombre_ca || c.nombre) : c.nombre
+
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
       {/* Cabecera */}
@@ -76,20 +94,30 @@ function TiendaContenido() {
 
       {/* Barra de filtros */}
       <div className="border-b border-[#e0ddd8] pb-6 mb-10">
-        {/* Categorías — botones en desktop, select en móvil */}
+        {/* Categorías — botones en desktop */}
         <div className="hidden md:flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 flex-wrap">
-            {tt.categorias.map((cat) => (
+            <button
+              onClick={() => setCategoriaES('')}
+              className={`px-4 py-1.5 text-[11px] uppercase tracking-widest border transition-colors ${
+                categoriaES === ''
+                  ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
+                  : 'bg-white text-[#666] border-[#e0ddd8] hover:border-[#1b1b1b] hover:text-[#1b1b1b]'
+              }`}
+            >
+              {todoLabel}
+            </button>
+            {categorias.map((c) => (
               <button
-                key={cat}
-                onClick={() => setCategoria(cat)}
+                key={c.id}
+                onClick={() => setCategoriaES(c.nombre)}
                 className={`px-4 py-1.5 text-[11px] uppercase tracking-widest border transition-colors ${
-                  categoria === cat
+                  categoriaES === c.nombre
                     ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
                     : 'bg-white text-[#666] border-[#e0ddd8] hover:border-[#1b1b1b] hover:text-[#1b1b1b]'
                 }`}
               >
-                {cat}
+                {catLabel(c)}
               </button>
             ))}
           </div>
@@ -107,12 +135,13 @@ function TiendaContenido() {
         {/* Móvil: dos selects */}
         <div className="flex md:hidden flex-row items-center gap-3">
           <select
-            value={categoria}
-            onChange={(e) => setCategoria(e.target.value)}
+            value={categoriaES}
+            onChange={(e) => setCategoriaES(e.target.value)}
             className="flex-1 bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer"
           >
-            {tt.categorias.map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
+            <option value="">{todoLabel}</option>
+            {categorias.map((c) => (
+              <option key={c.id} value={c.nombre}>{catLabel(c)}</option>
             ))}
           </select>
           <select
