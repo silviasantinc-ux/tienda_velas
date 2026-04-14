@@ -4,8 +4,9 @@ import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, Minus, Plus } from 'lucide-react'
-import { useState } from 'react'
-import { productosMock } from '@/lib/productos-mock'
+import { useState, useEffect } from 'react'
+import { supabase } from '@/lib/supabase'
+import { Producto } from '@/types'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 import Toast, { useToast } from '@/components/Toast'
@@ -13,16 +14,32 @@ import TarjetaProducto from '@/components/TarjetaProducto'
 
 export default function PaginaProducto() {
   const { id } = useParams()
-  const producto = productosMock.find((p) => p.id === id)
+  const [producto, setProducto] = useState<Producto | null>(null)
+  const [relacionados, setRelacionados] = useState<Producto[]>([])
+  const [cargando, setCargando] = useState(true)
   const agregar = useCarrito((s) => s.agregar)
   const { visible, mensaje, mostrar } = useToast()
   const { idioma, t } = useIdioma()
   const tp = t.producto
   const [cantidad, setCantidad] = useState(1)
 
-  const relacionados = productosMock
-    .filter((p) => p.id !== id && p.categoria === producto?.categoria)
-    .slice(0, 4)
+  useEffect(() => {
+    supabase.from('productos').select('*').eq('id', id).single().then(({ data }) => {
+      if (data) {
+        setProducto(data as Producto)
+        supabase.from('productos').select('*')
+          .eq('categoria', data.categoria).neq('id', id).limit(4)
+          .then(({ data: rel }) => setRelacionados((rel as Producto[]) ?? []))
+      }
+      setCargando(false)
+    })
+  }, [id])
+
+  if (cargando) return (
+    <div className="max-w-7xl mx-auto px-6 py-24 text-center">
+      <p className="text-sm text-[#999]">Cargando...</p>
+    </div>
+  )
 
   if (!producto) {
     return (

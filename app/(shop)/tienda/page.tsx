@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
-import { productosMock } from '@/lib/productos-mock'
+import { supabase } from '@/lib/supabase'
 import { useIdioma } from '@/lib/idioma-store'
 import TarjetaProducto from '@/components/TarjetaProducto'
+import { Producto } from '@/types'
 
 function TiendaContenido() {
   const searchParams = useSearchParams()
@@ -14,22 +15,30 @@ function TiendaContenido() {
   const { idioma, t } = useIdioma()
   const tt = t.tienda
 
-  // Mapeo de categorías CA → ES para filtrar el mock (que usa ES internamente)
   const catMap: Record<string, string> = {
     Tardor: 'Otoño', Postres: 'Postre', Begudes: 'Bebidas', Llar: 'Hogar', Esdeveniments: 'Eventos',
   }
   const resolveCategoria = (cat: string) => catMap[cat] ?? cat
 
+  const [todosProductos, setTodosProductos] = useState<Producto[]>([])
   const [categoria, setCategoria] = useState(catParam || tt.categorias[0])
   const [orden, setOrden] = useState('destacados')
   const [busqueda, setBusqueda] = useState(qParam || '')
+  const [cargando, setCargando] = useState(true)
+
+  useEffect(() => {
+    supabase.from('productos').select('*').then(({ data }) => {
+      setTodosProductos((data as Producto[]) ?? [])
+      setCargando(false)
+    })
+  }, [])
 
   useEffect(() => {
     setCategoria(catParam || tt.categorias[0])
   }, [catParam])
 
-  const productos = useMemo(() => {
-    let lista = [...productosMock]
+  const productos = (() => {
+    let lista = [...todosProductos]
     const catES = resolveCategoria(categoria)
 
     if (catES !== 'Todos' && catES !== 'Tots') {
@@ -55,7 +64,7 @@ function TiendaContenido() {
     if (orden === 'nuevos') lista.sort((a) => (a.badge === 'nuevo' ? -1 : 1))
 
     return lista
-  }, [categoria, orden, busqueda, idioma])
+  })()
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
@@ -124,11 +133,15 @@ function TiendaContenido() {
       </p>
 
       {/* Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
-        {productos.map((p) => (
-          <TarjetaProducto key={p.id} producto={p} />
-        ))}
-      </div>
+      {cargando ? (
+        <p className="text-sm text-[#999] text-center py-20">Cargando...</p>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+          {productos.map((p) => (
+            <TarjetaProducto key={p.id} producto={p} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
