@@ -8,6 +8,16 @@ export default function AdminLogin() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [cargando, setCargando] = useState(false)
+  const [resetEnviado, setResetEnviado] = useState(false)
+
+  const handleReset = async () => {
+    if (!email) { setError('Introduce tu email primero'); return }
+    setError(null)
+    await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/admin/reset-password`,
+    })
+    setResetEnviado(true)
+  }
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,6 +69,7 @@ export default function AdminLogin() {
           </div>
 
           {error && <p className="text-xs text-red-600 text-center">{error}</p>}
+          {resetEnviado && <p className="text-xs text-green-700 text-center">Revisa tu email para restablecer la contraseña.</p>}
 
           <button
             type="submit"
@@ -66,6 +77,14 @@ export default function AdminLogin() {
             className="w-full bg-[#1b1b1b] hover:bg-[#333] disabled:opacity-50 text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors mt-2"
           >
             {cargando ? 'Entrando...' : 'Entrar'}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleReset}
+            className="w-full text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors pt-2"
+          >
+            ¿Has olvidado tu contraseña?
           </button>
         </form>
       </div>
