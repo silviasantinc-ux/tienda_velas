@@ -134,7 +134,7 @@ export default function PaginaRegistro() {
         )}
 
         {/* Tabs + formulario (ocultos cuando está el modo reset) */}
-        {!modoReset && <div className="flex border-b border-[#e0ddd8] mb-8">
+        {!modoReset && (<><div className="flex border-b border-[#e0ddd8] mb-8">
           <button
             onClick={() => cambiarModo('login')}
             className={`flex-1 pb-3 text-[11px] uppercase tracking-widest font-medium transition-colors ${
@@ -280,6 +280,7 @@ export default function PaginaRegistro() {
             {tr.volverTienda}
           </Link>
         </div>
+        </>)}
 
       </div>
     </div>
