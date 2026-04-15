@@ -129,6 +129,12 @@ export default function PaginaProducto() {
                   {tp.badges[producto.badge]}
                 </span>
               )}
+              {mediaActual?.tipo === 'video' && (
+                <div className="absolute top-4 right-4 bg-black/50 text-white px-2.5 py-1.5 flex items-center gap-1.5">
+                  <Play className="w-3 h-3 fill-white" />
+                  <span className="text-[9px] uppercase tracking-widest">Vídeo</span>
+                </div>
+              )}
               {galeria.length > 1 && (
                 <>
                   <button onClick={irAnterior} className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1.5 transition-colors">
