@@ -27,6 +27,14 @@ export type ItemCarrito = {
   cantidad: number
 }
 
+export type ProductoImagen = {
+  id: string
+  producto_id: string
+  url: string
+  tipo: 'imagen' | 'video'
+  orden: number
+}
+
 export type Coleccion = {
   id: string
   nombre: string

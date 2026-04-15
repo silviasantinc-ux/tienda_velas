@@ -3,10 +3,10 @@
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, Minus, Plus } from 'lucide-react'
+import { ArrowLeft, Minus, Plus, ChevronLeft, ChevronRight, Play } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Producto } from '@/types'
+import { Producto, ProductoImagen } from '@/types'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 import Toast, { useToast } from '@/components/Toast'
@@ -15,6 +15,8 @@ import TarjetaProducto from '@/components/TarjetaProducto'
 export default function PaginaProducto() {
   const { id } = useParams()
   const [producto, setProducto] = useState<Producto | null>(null)
+  const [galeria, setGaleria] = useState<ProductoImagen[]>([])
+  const [seleccionado, setSeleccionado] = useState(0)
   const [relacionados, setRelacionados] = useState<Producto[]>([])
   const [cargando, setCargando] = useState(true)
   const agregar = useCarrito((s) => s.agregar)
@@ -28,6 +30,30 @@ export default function PaginaProducto() {
       if (data) {
         setProducto(data as Producto)
         document.title = data.nombre + ' — Llum & Glow'
+
+        // Cargar galería
+        supabase
+          .from('producto_imagenes')
+          .select('*')
+          .eq('producto_id', data.id)
+          .order('orden')
+          .then(({ data: imgs }) => {
+            if (imgs && imgs.length > 0) {
+              // Imágenes primero, vídeo al final
+              const ordenada = [
+                ...(imgs as ProductoImagen[]).filter(m => m.tipo === 'imagen'),
+                ...(imgs as ProductoImagen[]).filter(m => m.tipo === 'video'),
+              ]
+              setGaleria(ordenada)
+            } else {
+              // Fallback a campos legacy
+              const fallback: ProductoImagen[] = []
+              if (data.imagen_url) fallback.push({ id: '0', producto_id: data.id, url: data.imagen_url, tipo: 'imagen', orden: 0 })
+              if (data.video_url) fallback.push({ id: '1', producto_id: data.id, url: data.video_url, tipo: 'video', orden: fallback.length })
+              setGaleria(fallback)
+            }
+          })
+
         supabase.from('productos').select('*')
           .eq('categoria', data.categoria).neq('id', id).limit(4)
           .then(({ data: rel }) => setRelacionados((rel as Producto[]) ?? []))
@@ -63,6 +89,10 @@ export default function PaginaProducto() {
     mostrar(idioma === 'ca' ? `${nombre} afegit a la cistella` : `${nombre} añadido al carrito`)
   }
 
+  const mediaActual = galeria[seleccionado]
+  const irAnterior = () => setSeleccionado((s) => (s - 1 + galeria.length) % galeria.length)
+  const irSiguiente = () => setSeleccionado((s) => (s + 1) % galeria.length)
+
   return (
     <div>
       <div className="max-w-7xl mx-auto px-6 pt-2 pb-4">
@@ -72,23 +102,69 @@ export default function PaginaProducto() {
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          <div className="relative aspect-square overflow-hidden bg-[#ece9e4]">
-            {producto.video_url ? (
-              <video
-                src={producto.video_url}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            ) : (
-              <Image src={producto.imagen_url} alt={nombre} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
-            )}
-            {producto.badge && (
-              <span className="absolute top-4 left-4 bg-[#f6f4f1] text-[#1b1b1b] text-[10px] uppercase tracking-widest font-medium px-3 py-1.5">
-                {tp.badges[producto.badge]}
-              </span>
+          {/* Columna izquierda: visor + miniaturas */}
+          <div className="flex flex-col gap-3">
+            <div className="relative aspect-square overflow-hidden bg-[#ece9e4]">
+              {!mediaActual || mediaActual.tipo === 'imagen' ? (
+                <Image
+                  src={mediaActual?.url ?? producto.imagen_url}
+                  alt={nombre}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                />
+              ) : (
+                <video
+                  src={mediaActual.url}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
+              {producto.badge && (
+                <span className="absolute top-4 left-4 bg-[#f6f4f1] text-[#1b1b1b] text-[10px] uppercase tracking-widest font-medium px-3 py-1.5">
+                  {tp.badges[producto.badge]}
+                </span>
+              )}
+              {galeria.length > 1 && (
+                <>
+                  <button onClick={irAnterior} className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1.5 transition-colors">
+                    <ChevronLeft className="w-4 h-4 text-[#1b1b1b]" />
+                  </button>
+                  <button onClick={irSiguiente} className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-1.5 transition-colors">
+                    <ChevronRight className="w-4 h-4 text-[#1b1b1b]" />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Miniaturas */}
+            {galeria.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {galeria.map((item, idx) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setSeleccionado(idx)}
+                    className={`relative flex-shrink-0 w-16 h-16 overflow-hidden border-2 transition-colors ${
+                      seleccionado === idx ? 'border-[#1b1b1b]' : 'border-transparent hover:border-[#ccc]'
+                    }`}
+                  >
+                    {item.tipo === 'video' ? (
+                      <>
+                        <video src={item.url} className="w-full h-full object-cover" muted />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                          <Play className="w-4 h-4 text-white fill-white" />
+                        </div>
+                      </>
+                    ) : (
+                      <Image src={item.url} alt="" fill className="object-cover" sizes="64px" />
+                    )}
+                  </button>
+                ))}
+              </div>
             )}
           </div>
 
@@ -138,9 +214,7 @@ export default function PaginaProducto() {
               </p>
               <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
                 <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-1.5">{tp.normativaUETooltipTitulo}</p>
-                <p className="text-[11px] text-[#666] leading-relaxed">
-                  {tp.normativaUETooltipTexto}
-                </p>
+                <p className="text-[11px] text-[#666] leading-relaxed">{tp.normativaUETooltipTexto}</p>
               </div>
             </div>
 
