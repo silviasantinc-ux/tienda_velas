@@ -90,8 +90,51 @@ export default function PaginaRegistro() {
           </h1>
         </div>
 
-        {/* Tabs */}
-        <div className="flex border-b border-[#e0ddd8] mb-8">
+        {/* Vista reset contraseña */}
+        {modoReset && (
+          <div className="space-y-5">
+            {!resetEnviado ? (
+              <>
+                <p className="text-sm text-[#666] leading-relaxed">
+                  {idioma === 'ca'
+                    ? 'Introdueix el teu correu i t\'enviarem un enllaç per restablir la contrasenya.'
+                    : 'Introduce tu email y te enviaremos un enlace para restablecer la contraseña.'}
+                </p>
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">{tr.correo}</label>
+                  <input type="email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)}
+                    placeholder={tr.placeholderCorreo} autoFocus
+                    className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors" />
+                </div>
+                <button type="button" onClick={handleReset} disabled={enviando || !resetEmail}
+                  className="w-full bg-[#1b1b1b] hover:bg-[#333] disabled:opacity-40 text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors">
+                  {enviando ? '...' : (idioma === 'ca' ? 'Enviar enllaç' : 'Enviar enlace')}
+                </button>
+                <p className="text-center">
+                  <button type="button" onClick={() => setModoReset(false)}
+                    className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+                    {idioma === 'ca' ? 'Tornar' : 'Volver'}
+                  </button>
+                </p>
+              </>
+            ) : (
+              <div className="text-center space-y-6">
+                <p className="text-sm text-[#666] leading-relaxed">
+                  {idioma === 'ca'
+                    ? 'Revisa la teva bústia (i la carpeta de spam). T\'hem enviat un enllaç per restablir la contrasenya.'
+                    : 'Revisa tu bandeja de entrada (y la carpeta de spam). Te hemos enviado un enlace para restablecer la contraseña.'}
+                </p>
+                <button type="button" onClick={() => { setModoReset(false); setResetEnviado(false) }}
+                  className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors underline underline-offset-4">
+                  {idioma === 'ca' ? 'Tornar al login' : 'Volver al login'}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Tabs + formulario (ocultos cuando está el modo reset) */}
+        {!modoReset && <div className="flex border-b border-[#e0ddd8] mb-8">
           <button
             onClick={() => cambiarModo('login')}
             className={`flex-1 pb-3 text-[11px] uppercase tracking-widest font-medium transition-colors ${
@@ -178,50 +221,12 @@ export default function PaginaRegistro() {
             </div>
           )}
 
-          {modo === 'login' && !modoReset && (
+          {modo === 'login' && (
             <div className="text-right">
               <button type="button" onClick={() => setModoReset(true)}
                 className="text-[11px] text-[#999] hover:text-[#1b1b1b] transition-colors uppercase tracking-widest underline underline-offset-4">
                 {tr.olvidaste}
               </button>
-            </div>
-          )}
-
-          {modoReset && (
-            <div className="border border-[#e0ddd8] p-4 space-y-4">
-              {!resetEnviado ? (
-                <>
-                  <p className="text-[11px] text-[#999] leading-relaxed">
-                    {idioma === 'ca'
-                      ? 'Introdueix el teu correu i t\'enviarem un enllaç per restablir la contrasenya.'
-                      : 'Introduce tu email y te enviaremos un enlace para restablecer la contraseña.'}
-                  </p>
-                  <input
-                    type="email"
-                    value={resetEmail}
-                    onChange={(e) => setResetEmail(e.target.value)}
-                    placeholder={tr.placeholderCorreo}
-                    className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
-                  />
-                  <div className="flex gap-3">
-                    <button type="button" onClick={handleReset}
-                      disabled={enviando || !resetEmail}
-                      className="flex-1 bg-[#1b1b1b] hover:bg-[#333] disabled:opacity-40 text-[#f6f4f1] text-[10px] uppercase tracking-widest font-medium py-3 transition-colors">
-                      {enviando ? '...' : (idioma === 'ca' ? 'Enviar' : 'Enviar')}
-                    </button>
-                    <button type="button" onClick={() => setModoReset(false)}
-                      className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors px-3">
-                      ✕
-                    </button>
-                  </div>
-                </>
-              ) : (
-                <p className="text-[11px] text-[#7d5d24] leading-relaxed">
-                  {idioma === 'ca'
-                    ? 'Revisa el teu correu (i la carpeta de spam).'
-                    : 'Revisa tu email (y la carpeta de spam).'}
-                </p>
-              )}
             </div>
           )}
 
