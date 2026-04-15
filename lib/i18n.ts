@@ -106,6 +106,7 @@ const traducciones = {
       ],
       producto: 'producto',
       productos: 'productos',
+      buscarPlaceholder: 'Buscar por nombre, aroma...',
     },
 
     // Página producto
@@ -395,6 +396,7 @@ const traducciones = {
       ],
       producto: 'producte',
       productos: 'productes',
+      buscarPlaceholder: 'Cercar per nom, aroma...',
     },
 
     producto: {
