@@ -15,9 +15,24 @@ export default function PaginaRegistro() {
   const [cargando, setCargando] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [exito, setExito] = useState(false)
+  const [modoReset, setModoReset] = useState(false)
+  const [resetEmail, setResetEmail] = useState('')
+  const [resetEnviado, setResetEnviado] = useState(false)
+  const [enviando, setEnviando] = useState(false)
 
-  const tr = useIdioma((s) => s.t.registro)
+  const { t, idioma } = useIdioma()
+  const tr = t.registro
   const router = useRouter()
+
+  const handleReset = async () => {
+    if (!resetEmail) return
+    setEnviando(true)
+    await supabase.auth.resetPasswordForEmail(resetEmail, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    })
+    setEnviando(false)
+    setResetEnviado(true)
+  }
 
   const cambiarModo = (m: 'login' | 'registro') => {
     setModo(m)
@@ -163,11 +178,50 @@ export default function PaginaRegistro() {
             </div>
           )}
 
-          {modo === 'login' && (
+          {modo === 'login' && !modoReset && (
             <div className="text-right">
-              <button type="button" className="text-[11px] text-[#999] hover:text-[#1b1b1b] transition-colors uppercase tracking-widest">
+              <button type="button" onClick={() => setModoReset(true)}
+                className="text-[11px] text-[#999] hover:text-[#1b1b1b] transition-colors uppercase tracking-widest underline underline-offset-4">
                 {tr.olvidaste}
               </button>
+            </div>
+          )}
+
+          {modoReset && (
+            <div className="border border-[#e0ddd8] p-4 space-y-4">
+              {!resetEnviado ? (
+                <>
+                  <p className="text-[11px] text-[#999] leading-relaxed">
+                    {idioma === 'ca'
+                      ? 'Introdueix el teu correu i t\'enviarem un enllaç per restablir la contrasenya.'
+                      : 'Introduce tu email y te enviaremos un enlace para restablecer la contraseña.'}
+                  </p>
+                  <input
+                    type="email"
+                    value={resetEmail}
+                    onChange={(e) => setResetEmail(e.target.value)}
+                    placeholder={tr.placeholderCorreo}
+                    className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
+                  />
+                  <div className="flex gap-3">
+                    <button type="button" onClick={handleReset}
+                      disabled={enviando || !resetEmail}
+                      className="flex-1 bg-[#1b1b1b] hover:bg-[#333] disabled:opacity-40 text-[#f6f4f1] text-[10px] uppercase tracking-widest font-medium py-3 transition-colors">
+                      {enviando ? '...' : (idioma === 'ca' ? 'Enviar' : 'Enviar')}
+                    </button>
+                    <button type="button" onClick={() => setModoReset(false)}
+                      className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors px-3">
+                      ✕
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p className="text-[11px] text-[#7d5d24] leading-relaxed">
+                  {idioma === 'ca'
+                    ? 'Revisa el teu correu (i la carpeta de spam).'
+                    : 'Revisa tu email (y la carpeta de spam).'}
+                </p>
+              )}
             </div>
           )}
 
