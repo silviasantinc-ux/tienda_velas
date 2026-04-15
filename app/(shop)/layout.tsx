@@ -1,6 +1,7 @@
 import AnuncioBar from "@/components/AnuncioBar";
 import Navbar from "@/components/Navbar";
 import FooterClient from "@/components/FooterClient";
+import CookieBanner from "@/components/CookieBanner";
 import type { ReactNode } from "react";
 
 export default function ShopLayout({ children }: { children: ReactNode }) {
@@ -10,6 +11,7 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
       <Navbar />
       <main className="flex-1">{children}</main>
       <FooterClient />
+      <CookieBanner />
     </>
   )
 }

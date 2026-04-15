@@ -60,7 +60,7 @@ export default function FooterClient() {
           <div className="flex gap-6 text-[11px] text-[#555]">
             <span className="hover:text-[#a0a0a0] cursor-pointer transition-colors">{tf.privacidad}</span>
             <span className="hover:text-[#a0a0a0] cursor-pointer transition-colors">{tf.terminos}</span>
-            <span className="hover:text-[#a0a0a0] cursor-pointer transition-colors">{tf.cookies}</span>
+            <Link href="/cookies" className="hover:text-[#a0a0a0] transition-colors">{tf.cookies}</Link>
           </div>
         </div>
       </div>
