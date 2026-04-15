@@ -46,7 +46,7 @@ export default function FooterClient() {
           <div>
             <p className="text-[10px] uppercase tracking-widest text-[#666] mb-5">{tf.seccionAyuda}</p>
             <ul className="space-y-3 text-sm text-[#a0a0a0]">
-              <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">{tf.envios}</span></li>
+              <li><Link href="/envios" className="hover:text-[#dcbcbc] transition-colors">{tf.envios}</Link></li>
               <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">{tf.cuidado}</span></li>
               <li><span className="hover:text-[#dcbcbc] cursor-pointer transition-colors">{tf.faq}</span></li>
               <li><a href="mailto:info@llumandglow.com" className="hover:text-[#dcbcbc] transition-colors">info@llumandglow.com</a></li>
