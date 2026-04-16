@@ -22,9 +22,19 @@ export type Producto = {
   notas_aromaticas_ca?: string[]
 }
 
+export type ProductoVariante = {
+  id: string
+  producto_id: string
+  nombre: string
+  stock: number
+  precio_extra: number | null
+  orden: number
+}
+
 export type ItemCarrito = {
   producto: Producto
   cantidad: number
+  variante?: ProductoVariante
 }
 
 export type ProductoImagen = {

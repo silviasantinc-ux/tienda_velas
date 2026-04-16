@@ -4,8 +4,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
-import { Producto, ProductoImagen } from '@/types'
-import { ArrowLeft, Upload, X, GripVertical } from 'lucide-react'
+import { Producto, ProductoImagen, ProductoVariante } from '@/types'
+import { ArrowLeft, Upload, X, GripVertical, Plus } from 'lucide-react'
 
 type Props = {
   modo: 'nuevo' | 'editar'
@@ -15,6 +15,7 @@ type Props = {
 type Categoria = { id: string; nombre: string; nombre_ca: string }
 type Badge = { id: string; nombre: string; nombre_ca: string }
 type MediaItem = { id?: string; url: string; tipo: 'imagen' | 'video'; orden: number }
+type VarianteForm = { id?: string; nombre: string; stock: string }
 
 const MAX_IMAGENES = 6
 
@@ -26,6 +27,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
   const [badges, setBadges] = useState<Badge[]>([])
   const [galeria, setGaleria] = useState<MediaItem[]>([])
   const [subiendo, setSubiendo] = useState(false)
+  const [variantes, setVariantes] = useState<VarianteForm[]>([])
   const fileRef = useRef<HTMLInputElement>(null)
   const videoRef = useRef<HTMLInputElement>(null)
 
@@ -48,6 +50,21 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             if (productoInicial.imagen_url) items.push({ url: productoInicial.imagen_url, tipo: 'imagen', orden: 0 })
             if (productoInicial.video_url) items.push({ url: productoInicial.video_url, tipo: 'video', orden: items.length })
             setGaleria(items)
+          }
+        })
+
+      supabase
+        .from('producto_variantes')
+        .select('*')
+        .eq('producto_id', productoInicial.id)
+        .order('orden')
+        .then(({ data }) => {
+          if (data && data.length > 0) {
+            setVariantes((data as ProductoVariante[]).map((v) => ({
+              id: v.id,
+              nombre: v.nombre,
+              stock: v.stock.toString(),
+            })))
           }
         })
     }
@@ -165,6 +182,21 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
         const rows = galeria.map((m) => ({ producto_id: productoId, url: m.url, tipo: m.tipo, orden: m.orden }))
         const { error: errGal } = await supabase.from('producto_imagenes').insert(rows)
         if (errGal) throw errGal
+      }
+
+      // Reemplazar variantes
+      await supabase.from('producto_variantes').delete().eq('producto_id', productoId)
+      const variantesValidas = variantes.filter((v) => v.nombre.trim())
+      if (variantesValidas.length > 0) {
+        const rows = variantesValidas.map((v, i) => ({
+          producto_id: productoId,
+          nombre: v.nombre.trim(),
+          stock: parseInt(v.stock) || 0,
+          precio_extra: null,
+          orden: i,
+        }))
+        const { error: errVar } = await supabase.from('producto_variantes').insert(rows)
+        if (errVar) throw errVar
       }
 
       router.push('/admin')
@@ -323,6 +355,62 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
               </div>
             )}
             <p className="text-[10px] text-[#ccc] mt-2">La primera foto es la portada. Pasa el ratón sobre una imagen para reordenar o eliminar.</p>
+          </div>
+
+          {/* Variantes */}
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <label className="block text-[10px] uppercase tracking-widest text-[#999]">
+                Variantes — modelos, colores, aromas… ({variantes.length})
+              </label>
+              <button
+                type="button"
+                onClick={() => setVariantes((prev) => [...prev, { nombre: '', stock: '0' }])}
+                className="flex items-center gap-1.5 border border-[#e0ddd8] bg-white px-3 py-2 text-[10px] uppercase tracking-widest text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b] transition-colors"
+              >
+                <Plus className="w-3 h-3" />
+                Añadir variante
+              </button>
+            </div>
+            {variantes.length === 0 ? (
+              <div className="border border-dashed border-[#e0ddd8] bg-white h-14 flex items-center justify-center">
+                <p className="text-[11px] text-[#ccc] uppercase tracking-widest">Sin variantes — producto único</p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {variantes.map((v, idx) => (
+                  <div key={idx} className="flex gap-2 items-center">
+                    <input
+                      type="text"
+                      value={v.nombre}
+                      onChange={(e) => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, nombre: e.target.value } : x))}
+                      placeholder="Nombre del modelo (ej: Rosa palo, Vainilla…)"
+                      className={inputCls + ' flex-1'}
+                    />
+                    <div className="w-28 flex-shrink-0">
+                      <input
+                        type="number"
+                        min="0"
+                        value={v.stock}
+                        onChange={(e) => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, stock: e.target.value } : x))}
+                        placeholder="Stock"
+                        className={inputCls}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setVariantes((prev) => prev.filter((_, i) => i !== idx))}
+                      className="text-[#ccc] hover:text-[#b97979] transition-colors flex-shrink-0 p-2"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            {variantes.length > 0 && (
+              <p className="text-[10px] text-[#ccc] mt-2">Si hay variantes, el stock del producto base se ignora y se usa el stock de cada variante.</p>
+            )}
           </div>
 
           {/* Medidas y peso */}

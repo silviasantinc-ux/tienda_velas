@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Trash2, Plus, Minus, ArrowLeft } from 'lucide-react'
-import { useCarrito } from '@/lib/carrito-store'
+import { useCarrito, carritoKey } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 
 export default function PaginaCarrito() {
@@ -71,12 +71,14 @@ export default function PaginaCarrito() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Items */}
         <div className="lg:col-span-2 divide-y divide-[#e0ddd8]">
-          {items.map(({ producto, cantidad }) => {
+          {items.map(({ producto, cantidad, variante }) => {
             const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
             const categoria = idioma === 'ca' ? (producto.categoria_ca ?? producto.categoria) : producto.categoria
             const notas = idioma === 'ca' ? (producto.notas_aromaticas_ca ?? producto.notas_aromaticas) : producto.notas_aromaticas
+            const key = carritoKey(producto.id, variante?.id)
+            const precioUd = producto.precio + (variante?.precio_extra ?? 0)
             return (
-              <div key={producto.id} className="py-7 flex gap-6">
+              <div key={key} className="py-7 flex gap-6">
                 <Link href={`/producto/${producto.id}`} className="relative w-28 h-28 bg-[#ece9e4] flex-shrink-0 overflow-hidden">
                   <Image
                     src={producto.imagen_url}
@@ -94,6 +96,9 @@ export default function PaginaCarrito() {
                       {nombre}
                     </h3>
                   </Link>
+                  {variante && (
+                    <p className="text-[10px] text-[#7d5d24] mb-1 uppercase tracking-widest">{variante.nombre}</p>
+                  )}
                   {notas && (
                     <p className="text-[10px] text-[#999] mb-3">
                       {notas.join(' · ')}
@@ -101,14 +106,14 @@ export default function PaginaCarrito() {
                   )}
                   <div className="flex items-center gap-3">
                     <button
-                      onClick={() => actualizarCantidad(producto.id, cantidad - 1)}
+                      onClick={() => actualizarCantidad(key, cantidad - 1)}
                       className="w-8 h-8 border border-[#e0ddd8] hover:border-[#1b1b1b] flex items-center justify-center transition-colors"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
                     <span className="text-sm text-[#1b1b1b] w-5 text-center font-medium">{cantidad}</span>
                     <button
-                      onClick={() => actualizarCantidad(producto.id, cantidad + 1)}
+                      onClick={() => actualizarCantidad(key, cantidad + 1)}
                       className="w-8 h-8 border border-[#e0ddd8] hover:border-[#1b1b1b] flex items-center justify-center transition-colors"
                     >
                       <Plus className="w-3 h-3" />
@@ -118,17 +123,17 @@ export default function PaginaCarrito() {
 
                 <div className="flex flex-col items-end justify-between flex-shrink-0">
                   <button
-                    onClick={() => quitar(producto.id)}
+                    onClick={() => quitar(key)}
                     className="text-[#ccc] hover:text-[#1b1b1b] transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
                   <div className="text-right">
                     <p className="text-sm font-medium text-[#1b1b1b]">
-                      {(producto.precio * cantidad).toFixed(2)} €
+                      {(precioUd * cantidad).toFixed(2)} €
                     </p>
                     {cantidad > 1 && (
-                      <p className="text-[10px] text-[#999]">{producto.precio.toFixed(2)} € {tc.udAbrev}</p>
+                      <p className="text-[10px] text-[#999]">{precioUd.toFixed(2)} € {tc.udAbrev}</p>
                     )}
                   </div>
                 </div>
@@ -143,12 +148,16 @@ export default function PaginaCarrito() {
             <p className="font-['EB_Garamond'] text-2xl italic text-[#1b1b1b] mb-6">{tc.resumen}</p>
 
             <div className="space-y-3 mb-5">
-              {items.map(({ producto, cantidad }) => {
+              {items.map(({ producto, cantidad, variante }) => {
                 const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
+                const key = carritoKey(producto.id, variante?.id)
+                const precioUd = producto.precio + (variante?.precio_extra ?? 0)
                 return (
-                  <div key={producto.id} className="flex justify-between text-sm text-[#666]">
-                    <span className="truncate mr-2">{nombre} × {cantidad}</span>
-                    <span className="flex-shrink-0">{(producto.precio * cantidad).toFixed(2)} €</span>
+                  <div key={key} className="flex justify-between text-sm text-[#666]">
+                    <span className="truncate mr-2">
+                      {nombre}{variante ? ` · ${variante.nombre}` : ''} × {cantidad}
+                    </span>
+                    <span className="flex-shrink-0">{(precioUd * cantidad).toFixed(2)} €</span>
                   </div>
                 )
               })}

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Trash2, ShoppingBag, Plus, Minus } from 'lucide-react'
-import { useCarrito } from '@/lib/carrito-store'
+import { useCarrito, carritoKey } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 import { useState } from 'react'
 
@@ -64,10 +64,12 @@ export default function CarritoDropdown() {
 
           {/* Lista de items */}
           <div className="divide-y divide-[#e0ddd8] max-h-64 overflow-y-auto">
-            {items.map(({ producto, cantidad }) => {
+            {items.map(({ producto, cantidad, variante }) => {
               const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
+              const key = carritoKey(producto.id, variante?.id)
+              const precioUd = producto.precio + (variante?.precio_extra ?? 0)
               return (
-                <div key={producto.id} className="px-5 py-4 flex gap-3">
+                <div key={key} className="px-5 py-4 flex gap-3">
                   <Link href={`/producto/${producto.id}`} className="relative w-16 h-16 bg-[#ece9e4] flex-shrink-0 overflow-hidden">
                     <Image src={producto.imagen_url} alt={nombre} fill className="object-cover" sizes="64px" />
                   </Link>
@@ -77,22 +79,25 @@ export default function CarritoDropdown() {
                         {nombre}
                       </p>
                     </Link>
-                    <p className="text-[10px] text-[#999] mt-0.5">{cantidad} × {producto.precio.toFixed(2)} €</p>
+                    {variante && (
+                      <p className="text-[10px] text-[#7d5d24] mt-0.5 truncate">{variante.nombre}</p>
+                    )}
+                    <p className="text-[10px] text-[#999] mt-0.5">{cantidad} × {precioUd.toFixed(2)} €</p>
                   </div>
                   <div className="flex flex-col items-end justify-between flex-shrink-0 gap-2">
-                    <button onClick={() => quitar(producto.id)} className="text-[#ccc] hover:text-[#b97979] transition-colors">
+                    <button onClick={() => quitar(key)} className="text-[#ccc] hover:text-[#b97979] transition-colors">
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                     <div className="flex items-center border border-[#e0ddd8]">
-                      <button onClick={() => actualizarCantidad(producto.id, cantidad - 1)} className="px-1.5 py-1 hover:bg-[#ece9e4] transition-colors">
+                      <button onClick={() => actualizarCantidad(key, cantidad - 1)} className="px-1.5 py-1 hover:bg-[#ece9e4] transition-colors">
                         <Minus className="w-2.5 h-2.5" />
                       </button>
                       <span className="px-2 text-xs font-medium text-[#1b1b1b] min-w-[1.25rem] text-center">{cantidad}</span>
-                      <button onClick={() => actualizarCantidad(producto.id, cantidad + 1)} className="px-1.5 py-1 hover:bg-[#ece9e4] transition-colors">
+                      <button onClick={() => actualizarCantidad(key, cantidad + 1)} className="px-1.5 py-1 hover:bg-[#ece9e4] transition-colors">
                         <Plus className="w-2.5 h-2.5" />
                       </button>
                     </div>
-                    <p className="text-xs font-medium text-[#1b1b1b]">{(producto.precio * cantidad).toFixed(2)} €</p>
+                    <p className="text-xs font-medium text-[#1b1b1b]">{(precioUd * cantidad).toFixed(2)} €</p>
                   </div>
                 </div>
               )

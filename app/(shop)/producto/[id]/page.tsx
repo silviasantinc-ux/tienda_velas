@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { ArrowLeft, Minus, Plus, ChevronLeft, ChevronRight, Play } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { Producto, ProductoImagen } from '@/types'
+import { Producto, ProductoImagen, ProductoVariante } from '@/types'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 import Toast, { useToast } from '@/components/Toast'
@@ -18,6 +18,8 @@ export default function PaginaProducto() {
   const [galeria, setGaleria] = useState<ProductoImagen[]>([])
   const [seleccionado, setSeleccionado] = useState(0)
   const [relacionados, setRelacionados] = useState<Producto[]>([])
+  const [variantes, setVariantes] = useState<ProductoVariante[]>([])
+  const [varianteSeleccionada, setVarianteSeleccionada] = useState<ProductoVariante | null>(null)
   const [cargando, setCargando] = useState(true)
   const agregar = useCarrito((s) => s.agregar)
   const { visible, mensaje, mostrar } = useToast()
@@ -57,6 +59,15 @@ export default function PaginaProducto() {
         supabase.from('productos').select('*')
           .eq('categoria', data.categoria).neq('id', id).limit(4)
           .then(({ data: rel }) => setRelacionados((rel as Producto[]) ?? []))
+
+        supabase
+          .from('producto_variantes')
+          .select('*')
+          .eq('producto_id', data.id)
+          .order('orden')
+          .then(({ data: vars }) => {
+            if (vars && vars.length > 0) setVariantes(vars as ProductoVariante[])
+          })
       }
       setCargando(false)
     })
@@ -84,9 +95,12 @@ export default function PaginaProducto() {
   const categoria = idioma === 'ca' ? (producto.categoria_ca ?? producto.categoria) : producto.categoria
   const notas = idioma === 'ca' ? (producto.notas_aromaticas_ca ?? producto.notas_aromaticas) : producto.notas_aromaticas
 
+  const stockActual = varianteSeleccionada ? varianteSeleccionada.stock : (variantes.length === 0 ? producto.stock : 0)
+
   const handleAgregar = () => {
-    for (let i = 0; i < cantidad; i++) agregar(producto)
-    mostrar(idioma === 'ca' ? `${nombre} afegit a la cistella` : `${nombre} añadido al carrito`)
+    for (let i = 0; i < cantidad; i++) agregar(producto, varianteSeleccionada ?? undefined)
+    const sufijo = varianteSeleccionada ? ` · ${varianteSeleccionada.nombre}` : ''
+    mostrar(idioma === 'ca' ? `${nombre}${sufijo} afegit a la cistella` : `${nombre}${sufijo} añadido al carrito`)
   }
 
   const mediaActual = galeria[seleccionado]
@@ -224,9 +238,41 @@ export default function PaginaProducto() {
               </div>
             </div>
 
-            {producto.stock <= 3 && producto.stock > 0 && (
+            {variantes.length > 0 && (
+              <div className="mb-6">
+                <p className="text-[10px] uppercase tracking-widest text-[#999] mb-3">
+                  {idioma === 'ca' ? 'Model' : 'Modelo'}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {variantes.map((v) => (
+                    <button
+                      key={v.id}
+                      type="button"
+                      onClick={() => { setVarianteSeleccionada(v); setCantidad(1) }}
+                      disabled={v.stock === 0}
+                      className={`px-4 py-2.5 text-[11px] uppercase tracking-widest transition-colors border ${
+                        varianteSeleccionada?.id === v.id
+                          ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
+                          : v.stock === 0
+                          ? 'border-[#e0ddd8] text-[#ccc] line-through cursor-not-allowed'
+                          : 'border-[#e0ddd8] text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b]'
+                      }`}
+                    >
+                      {v.nombre}
+                    </button>
+                  ))}
+                </div>
+                {variantes.length > 0 && !varianteSeleccionada && (
+                  <p className="text-[10px] text-[#b97979] mt-2">
+                    {idioma === 'ca' ? 'Selecciona un model per continuar' : 'Selecciona un modelo para continuar'}
+                  </p>
+                )}
+              </div>
+            )}
+
+            {stockActual <= 3 && stockActual > 0 && (
               <p className="text-[10px] uppercase tracking-widest text-[#b97979] mb-4">
-                {tp.ultimasUnidades} {producto.stock} {tp.unidades}
+                {tp.ultimasUnidades} {stockActual} {tp.unidades}
               </p>
             )}
 
@@ -236,16 +282,16 @@ export default function PaginaProducto() {
                   <Minus className="w-3 h-3" />
                 </button>
                 <span className="px-4 text-sm font-medium min-w-[2rem] text-center">{cantidad}</span>
-                <button onClick={() => setCantidad(Math.min(producto.stock, cantidad + 1))} className="px-4 py-4 hover:bg-[#ece9e4] transition-colors">
+                <button onClick={() => setCantidad(Math.min(stockActual, cantidad + 1))} className="px-4 py-4 hover:bg-[#ece9e4] transition-colors">
                   <Plus className="w-3 h-3" />
                 </button>
               </div>
               <button
                 onClick={handleAgregar}
-                disabled={producto.stock === 0}
+                disabled={stockActual === 0 || (variantes.length > 0 && !varianteSeleccionada)}
                 className="flex-1 bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#e0ddd8] disabled:text-[#999] disabled:cursor-not-allowed text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
               >
-                {producto.stock === 0 ? tp.agotado : tp.añadir}
+                {stockActual === 0 ? tp.agotado : tp.añadir}
               </button>
             </div>
 
