@@ -274,9 +274,15 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
               <input type="number" step="0.01" min="0" value={form.precio}
                 onChange={(e) => set('precio', e.target.value)} required className={inputCls} />
             </Field>
-            <Field label="Stock" required>
-              <input type="number" min="0" value={form.stock}
-                onChange={(e) => set('stock', e.target.value)} required className={inputCls} />
+            <Field label={variantes.length > 0 ? 'Stock (suma variantes)' : 'Stock'} required={variantes.length === 0}>
+              <input
+                type="number" min="0" value={form.stock}
+                onChange={(e) => set('stock', e.target.value)}
+                required={variantes.length === 0}
+                readOnly={variantes.length > 0}
+                title={variantes.length > 0 ? 'Se calcula automáticamente sumando el stock de cada variante' : undefined}
+                className={inputCls + (variantes.length > 0 ? ' bg-[#f6f4f1] text-[#999] cursor-not-allowed' : '')}
+              />
             </Field>
             <Field label="Categoría" required>
               <select value={form.categoria} onChange={(e) => set('categoria', e.target.value)}
