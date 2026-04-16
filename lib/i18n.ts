@@ -34,6 +34,7 @@ const traducciones = {
       añadido: 'Añadido al carrito',
       agotado: 'Agotado',
       ultimasUnidades: 'Últimas unidades',
+      elegirModelo: 'Elegir modelo',
     },
 
     // Página home
@@ -328,6 +329,7 @@ const traducciones = {
       añadido: 'Afegit a la cistella',
       agotado: 'Esgotat',
       ultimasUnidades: 'Últimes unitats',
+      elegirModelo: 'Triar model',
     },
 
     home: {

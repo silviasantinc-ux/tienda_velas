@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Producto } from '@/types'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
@@ -18,10 +19,11 @@ const BADGE_LABELS_CA: Record<string, string> = {
   'edicion-limitada': 'Ed. Limitada',
 }
 
-export default function TarjetaProducto({ producto }: { producto: Producto }) {
+export default function TarjetaProducto({ producto, tieneVariantes = false }: { producto: Producto; tieneVariantes?: boolean }) {
   const agregar = useCarrito((s) => s.agregar)
   const { visible, mensaje, mostrar } = useToast()
   const { idioma, t } = useIdioma()
+  const router = useRouter()
 
   const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
   const categoria = idioma === 'ca' ? (producto.categoria_ca ?? producto.categoria) : producto.categoria
@@ -56,15 +58,17 @@ export default function TarjetaProducto({ producto }: { producto: Producto }) {
           <button
             onClick={(e) => {
               e.preventDefault()
-              if (producto.stock > 0) {
+              if (tieneVariantes) {
+                router.push(`/producto/${producto.id}`)
+              } else if (producto.stock > 0) {
                 agregar(producto)
                 mostrar(t.tarjeta.añadido)
               }
             }}
-            disabled={producto.stock === 0}
+            disabled={!tieneVariantes && producto.stock === 0}
             className="w-full bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#999] text-[#f6f4f1] text-[10px] uppercase tracking-widest font-medium py-3.5 transition-colors"
           >
-            {producto.stock === 0 ? t.tarjeta.agotado : t.tarjeta.añadir}
+            {producto.stock === 0 && !tieneVariantes ? t.tarjeta.agotado : tieneVariantes ? t.tarjeta.elegirModelo : t.tarjeta.añadir}
           </button>
         </div>
       </Link>

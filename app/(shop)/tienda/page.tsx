@@ -22,16 +22,20 @@ function TiendaContenido() {
   const [categoriaES, setCategoriaES] = useState<string>('')
   const [orden, setOrden] = useState('destacados')
   const [busqueda, setBusqueda] = useState(qParam || '')
+  const [productosConVariantes, setProductosConVariantes] = useState<Set<string>>(new Set())
   const [cargando, setCargando] = useState(true)
 
   useEffect(() => {
     Promise.all([
       supabase.from('productos').select('*'),
       supabase.from('categorias').select('*').order('nombre'),
-    ]).then(([{ data: prods }, { data: cats }]) => {
+      supabase.from('producto_variantes').select('producto_id'),
+    ]).then(([{ data: prods }, { data: cats }, { data: vars }]) => {
       setTodosProductos((prods as Producto[]) ?? [])
       const lista = (cats as Categoria[]) ?? []
       setCategorias(lista)
+      const ids = new Set((vars ?? []).map((v: { producto_id: string }) => v.producto_id))
+      setProductosConVariantes(ids)
       if (catParam) {
         // catParam puede llegar en ES o CA
         const match = lista.find(
@@ -178,7 +182,7 @@ function TiendaContenido() {
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
           {productos.map((p) => (
-            <TarjetaProducto key={p.id} producto={p} />
+            <TarjetaProducto key={p.id} producto={p} tieneVariantes={productosConVariantes.has(p.id)} />
           ))}
         </div>
       )}
