@@ -28,12 +28,15 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
   const [galeria, setGaleria] = useState<MediaItem[]>([])
   const [subiendo, setSubiendo] = useState(false)
   const [variantes, setVariantes] = useState<VarianteForm[]>([])
+  const [variantesListas, setVariantesListas] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const videoRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     supabase.from('categorias').select('*').order('nombre').then(({ data }) => setCategorias(data ?? []))
     supabase.from('badges').select('*').order('nombre').then(({ data }) => setBadges(data ?? []))
+
+    if (modo === 'nuevo') setVariantesListas(true)
 
     if (modo === 'editar' && productoInicial) {
       supabase
@@ -60,13 +63,17 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
         .order('orden')
         .then(({ data }) => {
           if (data && data.length > 0) {
-            setVariantes((data as ProductoVariante[]).map((v) => ({
+            const lista = (data as ProductoVariante[]).map((v) => ({
               id: v.id,
               nombre: v.nombre,
               nombre_ca: v.nombre_ca ?? '',
               stock: v.stock.toString(),
-            })))
+            }))
+            setVariantes(lista)
+            const suma = lista.reduce((acc, v) => acc + (parseInt(v.stock) || 0), 0)
+            setForm((f) => ({ ...f, stock: suma.toString() }))
           }
+          setVariantesListas(true)
         })
     }
   }, [])
@@ -92,6 +99,12 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
   })
 
   const set = (campo: string, valor: string) => setForm((f) => ({ ...f, [campo]: valor }))
+
+  useEffect(() => {
+    if (!variantesListas || variantes.length === 0) return
+    const suma = variantes.reduce((acc, v) => acc + (parseInt(v.stock) || 0), 0)
+    setForm((f) => ({ ...f, stock: suma.toString() }))
+  }, [variantes, variantesListas])
 
   const subirArchivo = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -274,16 +287,21 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
               <input type="number" step="0.01" min="0" value={form.precio}
                 onChange={(e) => set('precio', e.target.value)} required className={inputCls} />
             </Field>
-            <Field label={variantes.length > 0 ? 'Stock (suma variantes)' : 'Stock'} required={variantes.length === 0}>
-              <input
-                type="number" min="0" value={form.stock}
-                onChange={(e) => set('stock', e.target.value)}
-                required={variantes.length === 0}
-                readOnly={variantes.length > 0}
-                title={variantes.length > 0 ? 'Se calcula automáticamente sumando el stock de cada variante' : undefined}
-                className={inputCls + (variantes.length > 0 ? ' bg-[#f6f4f1] text-[#999] cursor-not-allowed' : '')}
-              />
-            </Field>
+            {(() => {
+              const conVariantes = variantesListas && variantes.length > 0
+              return (
+                <Field label={conVariantes ? 'Stock (suma variantes)' : 'Stock'} required={!conVariantes}>
+                  <input
+                    type="number" min="0" value={form.stock}
+                    onChange={(e) => set('stock', e.target.value)}
+                    required={!conVariantes}
+                    readOnly={conVariantes}
+                    title={conVariantes ? 'Se calcula automáticamente sumando el stock de cada variante' : undefined}
+                    className={inputCls + (conVariantes ? ' bg-[#f6f4f1] text-[#999] cursor-not-allowed' : '')}
+                  />
+                </Field>
+              )
+            })()}
             <Field label="Categoría" required>
               <select value={form.categoria} onChange={(e) => set('categoria', e.target.value)}
                 required className={inputCls}>
