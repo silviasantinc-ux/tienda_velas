@@ -203,7 +203,7 @@ export default function PaginaProducto() {
             <p className="text-2xl text-[#1b1b1b] font-medium mb-6">{producto.precio.toFixed(2)} €</p>
             <p className="text-sm text-[#666] leading-relaxed mb-4 max-w-sm">{descripcion}</p>
             {detalle && (
-              <p className="text-sm text-[#666] leading-relaxed mb-8 max-w-sm whitespace-pre-line">{detalle}</p>
+              <p className="text-sm text-[#666] leading-relaxed mb-8 whitespace-pre-line">{detalle}</p>
             )}
 
             {notas && (
