@@ -15,7 +15,7 @@ type Props = {
 type Categoria = { id: string; nombre: string; nombre_ca: string }
 type Badge = { id: string; nombre: string; nombre_ca: string }
 type MediaItem = { id?: string; url: string; tipo: 'imagen' | 'video'; orden: number }
-type VarianteForm = { id?: string; nombre: string; stock: string }
+type VarianteForm = { id?: string; nombre: string; nombre_ca: string; stock: string }
 
 const MAX_IMAGENES = 6
 
@@ -63,6 +63,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             setVariantes((data as ProductoVariante[]).map((v) => ({
               id: v.id,
               nombre: v.nombre,
+              nombre_ca: v.nombre_ca ?? '',
               stock: v.stock.toString(),
             })))
           }
@@ -191,6 +192,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
         const rows = variantesValidas.map((v, i) => ({
           producto_id: productoId,
           nombre: v.nombre.trim(),
+          nombre_ca: v.nombre_ca.trim() || null,
           stock: parseInt(v.stock) || 0,
           precio_extra: null,
           orden: i,
@@ -365,7 +367,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
               </label>
               <button
                 type="button"
-                onClick={() => setVariantes((prev) => [...prev, { nombre: '', stock: '0' }])}
+                onClick={() => setVariantes((prev) => [...prev, { nombre: '', nombre_ca: '', stock: '0' }])}
                 className="flex items-center gap-1.5 border border-[#e0ddd8] bg-white px-3 py-2 text-[10px] uppercase tracking-widest text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b] transition-colors"
               >
                 <Plus className="w-3 h-3" />
@@ -384,7 +386,14 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                       type="text"
                       value={v.nombre}
                       onChange={(e) => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, nombre: e.target.value } : x))}
-                      placeholder="Nombre del modelo (ej: Rosa palo, Vainilla…)"
+                      placeholder="Nombre ES (ej: Rosa palo)"
+                      className={inputCls + ' flex-1'}
+                    />
+                    <input
+                      type="text"
+                      value={v.nombre_ca}
+                      onChange={(e) => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, nombre_ca: e.target.value } : x))}
+                      placeholder="Nom CA (ex: Rosa pàl·lid)"
                       className={inputCls + ' flex-1'}
                     />
                     <div className="w-28 flex-shrink-0">

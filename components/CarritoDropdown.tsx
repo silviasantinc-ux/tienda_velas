@@ -80,7 +80,9 @@ export default function CarritoDropdown() {
                       </p>
                     </Link>
                     {variante && (
-                      <p className="text-[10px] text-[#7d5d24] mt-0.5 truncate">{variante.nombre}</p>
+                      <p className="text-[10px] text-[#7d5d24] mt-0.5 truncate">
+                        {idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}
+                      </p>
                     )}
                     <p className="text-[10px] text-[#999] mt-0.5">{cantidad} × {precioUd.toFixed(2)} €</p>
                   </div>

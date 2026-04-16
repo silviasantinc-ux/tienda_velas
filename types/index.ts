@@ -26,6 +26,7 @@ export type ProductoVariante = {
   id: string
   producto_id: string
   nombre: string
+  nombre_ca?: string
   stock: number
   precio_extra: number | null
   orden: number

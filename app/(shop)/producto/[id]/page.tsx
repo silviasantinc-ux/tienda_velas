@@ -99,7 +99,10 @@ export default function PaginaProducto() {
 
   const handleAgregar = () => {
     for (let i = 0; i < cantidad; i++) agregar(producto, varianteSeleccionada ?? undefined)
-    const sufijo = varianteSeleccionada ? ` · ${varianteSeleccionada.nombre}` : ''
+    const nombreVar = varianteSeleccionada
+      ? (idioma === 'ca' ? (varianteSeleccionada.nombre_ca ?? varianteSeleccionada.nombre) : varianteSeleccionada.nombre)
+      : null
+    const sufijo = nombreVar ? ` · ${nombreVar}` : ''
     mostrar(idioma === 'ca' ? `${nombre}${sufijo} afegit a la cistella` : `${nombre}${sufijo} añadido al carrito`)
   }
 
@@ -244,23 +247,26 @@ export default function PaginaProducto() {
                   {tp.varianteModelo}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {variantes.map((v) => (
-                    <button
-                      key={v.id}
-                      type="button"
-                      onClick={() => { setVarianteSeleccionada(v); setCantidad(1) }}
-                      disabled={v.stock === 0}
-                      className={`px-4 py-2.5 text-[11px] uppercase tracking-widest transition-colors border ${
-                        varianteSeleccionada?.id === v.id
-                          ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
-                          : v.stock === 0
-                          ? 'border-[#e0ddd8] text-[#ccc] line-through cursor-not-allowed'
-                          : 'border-[#e0ddd8] text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b]'
-                      }`}
-                    >
-                      {v.nombre}
-                    </button>
-                  ))}
+                  {variantes.map((v) => {
+                    const nombreVariante = idioma === 'ca' ? (v.nombre_ca ?? v.nombre) : v.nombre
+                    return (
+                      <button
+                        key={v.id}
+                        type="button"
+                        onClick={() => { setVarianteSeleccionada(v); setCantidad(1) }}
+                        disabled={v.stock === 0}
+                        className={`px-4 py-2.5 text-[11px] uppercase tracking-widest transition-colors border ${
+                          varianteSeleccionada?.id === v.id
+                            ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
+                            : v.stock === 0
+                            ? 'border-[#e0ddd8] text-[#ccc] line-through cursor-not-allowed'
+                            : 'border-[#e0ddd8] text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b]'
+                        }`}
+                      >
+                        {nombreVariante}
+                      </button>
+                    )
+                  })}
                 </div>
                 {variantes.length > 0 && !varianteSeleccionada && (
                   <p className="text-[10px] text-[#b97979] mt-2">

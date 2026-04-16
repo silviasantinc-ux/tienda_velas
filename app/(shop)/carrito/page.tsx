@@ -97,7 +97,9 @@ export default function PaginaCarrito() {
                     </h3>
                   </Link>
                   {variante && (
-                    <p className="text-[10px] text-[#7d5d24] mb-1 uppercase tracking-widest">{variante.nombre}</p>
+                    <p className="text-[10px] text-[#7d5d24] mb-1 uppercase tracking-widest">
+                      {idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}
+                    </p>
                   )}
                   {notas && (
                     <p className="text-[10px] text-[#999] mb-3">
@@ -155,7 +157,7 @@ export default function PaginaCarrito() {
                 return (
                   <div key={key} className="flex justify-between text-sm text-[#666]">
                     <span className="truncate mr-2">
-                      {nombre}{variante ? ` · ${variante.nombre}` : ''} × {cantidad}
+                      {nombre}{variante ? ` · ${idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}` : ''} × {cantidad}
                     </span>
                     <span className="flex-shrink-0">{(precioUd * cantidad).toFixed(2)} €</span>
                   </div>
