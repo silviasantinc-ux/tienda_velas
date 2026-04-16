@@ -241,7 +241,7 @@ export default function PaginaProducto() {
             {variantes.length > 0 && (
               <div className="mb-6">
                 <p className="text-[10px] uppercase tracking-widest text-[#999] mb-3">
-                  {idioma === 'ca' ? 'Model' : 'Modelo'}
+                  {tp.varianteModelo}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {variantes.map((v) => (
@@ -264,7 +264,7 @@ export default function PaginaProducto() {
                 </div>
                 {variantes.length > 0 && !varianteSeleccionada && (
                   <p className="text-[10px] text-[#b97979] mt-2">
-                    {idioma === 'ca' ? 'Selecciona un model per continuar' : 'Selecciona un modelo para continuar'}
+                    {tp.varianteSelecciona}
                   </p>
                 )}
               </div>
