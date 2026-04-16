@@ -66,7 +66,12 @@ export default function PaginaProducto() {
           .eq('producto_id', data.id)
           .order('orden')
           .then(({ data: vars }) => {
-            if (vars && vars.length > 0) setVariantes(vars as ProductoVariante[])
+            if (vars && vars.length > 0) {
+              const lista = vars as ProductoVariante[]
+              setVariantes(lista)
+              const primera = lista.find((v) => v.stock > 0) ?? lista[0]
+              setVarianteSeleccionada(primera)
+            }
           })
       }
       setCargando(false)
