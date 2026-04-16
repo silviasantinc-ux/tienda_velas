@@ -97,6 +97,7 @@ export default function PaginaProducto() {
 
   const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
   const descripcion = idioma === 'ca' ? (producto.descripcion_ca ?? producto.descripcion) : producto.descripcion
+  const detalle = idioma === 'ca' ? (producto.detalle_ca ?? producto.detalle) : producto.detalle
   const categoria = idioma === 'ca' ? (producto.categoria_ca ?? producto.categoria) : producto.categoria
   const notas = idioma === 'ca' ? (producto.notas_aromaticas_ca ?? producto.notas_aromaticas) : producto.notas_aromaticas
 
@@ -200,7 +201,10 @@ export default function PaginaProducto() {
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{categoria}</p>
             <h1 className="font-['EB_Garamond'] text-5xl italic text-[#1b1b1b] mb-3 leading-tight">{nombre}</h1>
             <p className="text-2xl text-[#1b1b1b] font-medium mb-6">{producto.precio.toFixed(2)} €</p>
-            <p className="text-sm text-[#666] leading-relaxed mb-8 max-w-sm">{descripcion}</p>
+            <p className="text-sm text-[#666] leading-relaxed mb-4 max-w-sm">{descripcion}</p>
+            {detalle && (
+              <p className="text-sm text-[#666] leading-relaxed mb-8 max-w-sm whitespace-pre-line">{detalle}</p>
+            )}
 
             {notas && (
               <div className="mb-8">
