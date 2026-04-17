@@ -17,7 +17,7 @@ export default function PaginaCookies() {
           {ca ? 'Política de cookies' : 'Política de cookies'}
         </h1>
         <p className="text-sm text-[#767676] mt-3">
-          {ca ? 'Última actualització: abril 2026' : 'Última actualización: abril 2026'}
+          {ca ? 'Última actualització: abril 2026 · Pendent de revisió legal' : 'Última actualización: abril 2026 · Pendiente de revisión legal'}
         </p>
       </div>
 
