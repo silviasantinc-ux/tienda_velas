@@ -44,14 +44,14 @@ export default function FooterClient() {
         </div>
 
         {/* Aviso producción artesanal */}
-        <p className="text-[11px] text-[#888] text-center leading-relaxed mb-6 max-w-2xl mx-auto">
+        <p className="text-sm text-[#888] text-center leading-relaxed mb-6 max-w-2xl mx-auto">
           {tf.produccionArtesanal}
         </p>
 
         {/* Bottom bar */}
         <div className="border-t border-[#2e2e2e] pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-[11px] text-[#888]">{tf.derechos}</p>
-          <div className="flex gap-6 text-[11px] text-[#888]">
+          <p className="text-xs text-[#888]">{tf.derechos}</p>
+          <div className="flex gap-6 text-xs text-[#888]">
             <Link href="/privacidad" className="hover:text-[#a0a0a0] transition-colors">{tf.privacidad}</Link>
             <Link href="/terminos" className="hover:text-[#a0a0a0] transition-colors">{tf.terminos}</Link>
             <Link href="/cookies" className="hover:text-[#a0a0a0] transition-colors">{tf.cookies}</Link>
