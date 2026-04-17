@@ -17,10 +17,16 @@ export default function Home() {
   const [nuevos, setNuevos] = useState<Producto[]>([])
 
   useEffect(() => {
-    supabase.from('productos').select('*').then(({ data }) => {
-      const todos = (data as Producto[]) ?? []
-      setDestacados(todos.filter((p) => p.badge === 'mas-vendido').slice(0, 2))
-      setNuevos(todos.filter((p) => p.badge === 'nuevo').slice(0, 2))
+    Promise.all([
+      supabase.from('productos').select('*'),
+      supabase.from('badges').select('id, nombre'),
+    ]).then(([{ data: prods }, { data: bdgs }]) => {
+      const todos = (prods as Producto[]) ?? []
+      const badges = (bdgs ?? []) as { id: string; nombre: string }[]
+      const idMasVendido = badges.find((b) => b.nombre.toLowerCase().includes('vendido'))?.id
+      const idNuevo = badges.find((b) => b.nombre.toLowerCase().includes('nuevo') || b.nombre.toLowerCase().includes('nou'))?.id
+      setDestacados(todos.filter((p) => p.badge === idMasVendido).slice(0, 2))
+      setNuevos(todos.filter((p) => p.badge === idNuevo).slice(0, 2))
     })
   }, [])
 
