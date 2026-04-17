@@ -310,19 +310,8 @@ export default function PaginaProducto() {
         </div>
       </div>
 
-      {relacionados.length > 0 && (
-        <section className="max-w-7xl mx-auto px-6 py-16 border-t border-[#e0ddd8]">
-          <div className="mb-10">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">{tp.mismaColecion}</p>
-            <h2 className="font-['EB_Garamond'] text-3xl italic text-[#1b1b1b]">{tp.teGustar}</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
-            {relacionados.map((p) => <TarjetaProducto key={p.id} producto={p} />)}
-          </div>
-        </section>
-      )}
 
-      <Toast visible={visible} mensaje={mensaje} />
+<Toast visible={visible} mensaje={mensaje} />
     </div>
   )
 }
