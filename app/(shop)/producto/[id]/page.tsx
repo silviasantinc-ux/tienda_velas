@@ -14,6 +14,8 @@ import TarjetaProducto from '@/components/TarjetaProducto'
 
 export default function PaginaProducto() {
   const { id } = useParams()
+
+  useEffect(() => { window.scrollTo(0, 0) }, [])
   const [producto, setProducto] = useState<Producto | null>(null)
   const [galeria, setGaleria] = useState<ProductoImagen[]>([])
   const [seleccionado, setSeleccionado] = useState(0)
