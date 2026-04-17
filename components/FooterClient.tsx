@@ -20,9 +20,9 @@ export default function FooterClient() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14">
           {/* Marca */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-2 flex flex-col items-center text-center">
             <div className="mb-4"><LogoLlumGlow height={56} variant="light" /></div>
-            <p className="text-sm text-[#a0a0a0] leading-relaxed max-w-xs">
+            <p className="text-sm text-[#a0a0a0] leading-relaxed max-w-sm">
               {tf.descripcion}
             </p>
           </div>
