@@ -259,7 +259,7 @@ const traducciones = {
     contador: {
       ofertasEspeciales: 'Ofertas especiales',
       evento: 'día de la madre · 3 de mayo',
-      eventoSantJordi: 'sant jordi · 23 de abril',
+      eventoSantJordi: 'Sant Jordi · 23 de abril',
       dias: 'días',
       horas: 'horas',
       minutos: 'minutos',
@@ -550,7 +550,7 @@ const traducciones = {
     contador: {
       ofertasEspeciales: 'Ofertes especials',
       evento: 'dia de la mare · 3 de maig',
-      eventoSantJordi: 'sant jordi · 23 d\'abril',
+      eventoSantJordi: 'Diada de Sant Jordi · 23 d\'abril',
       dias: 'dies',
       horas: 'hores',
       minutos: 'minuts',
