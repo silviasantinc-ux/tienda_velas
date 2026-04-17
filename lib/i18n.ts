@@ -51,7 +51,7 @@ const traducciones = {
       masVendidos: 'Más vendidos',
       verTodos: 'Ver todos',
       nuestraPromesa: 'Nuestra promesa',
-      ingredientesPuros: 'Ingredientes puros, aromas que perduran',
+      ingredientesPuros: 'ingredientes puros, aromas que perduran',
       stats: [
         { valor: '100%', etiqueta: 'Cera de soja natural' },
         { valor: '+40h', etiqueta: 'Duración garantizada' },
@@ -348,7 +348,7 @@ const traducciones = {
       masVendidos: 'Més venuts',
       verTodos: 'Veure tots',
       nuestraPromesa: 'La nostra promesa',
-      ingredientesPuros: 'Ingredients purs, aromes que perduren',
+      ingredientesPuros: 'ingredients purs, aromes que perduren',
       stats: [
         { valor: '100%', etiqueta: 'Cera de soia natural' },
         { valor: '+40h', etiqueta: 'Durada garantida' },
