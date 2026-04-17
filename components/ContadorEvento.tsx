@@ -30,10 +30,7 @@ export default function ContadorEvento() {
 
   return (
     <div className="py-2 text-center text-[#f6f4f1]">
-      <p className="font-['EB_Garamond'] text-base italic mb-0.5">
-        {tc.ofertasEspeciales}
-      </p>
-      <p className="text-[9px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-1.5">
+      <p className="font-['EB_Garamond'] text-2xl md:text-3xl italic mb-1.5">
         {tc.evento}
       </p>
       <div className="flex items-center justify-center gap-5 md:gap-14">
