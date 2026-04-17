@@ -448,10 +448,6 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
 
           {/* Medidas y peso */}
           <div className="grid grid-cols-4 gap-4">
-            <Field label="Duración (horas)">
-              <input type="number" min="0" value={form.duracion_horas}
-                onChange={(e) => set('duracion_horas', e.target.value)} className={inputCls} />
-            </Field>
             <Field label="Peso (gr)">
               <input type="number" min="0" value={form.peso_gr}
                 onChange={(e) => set('peso_gr', e.target.value)} className={inputCls} />

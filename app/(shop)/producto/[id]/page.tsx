@@ -212,12 +212,6 @@ export default function PaginaProducto() {
             )}
 
             <div className="border-t border-[#e0ddd8] pt-6 mb-8 grid grid-cols-2 gap-4">
-              {producto.duracion_horas && (
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.duracion}</p>
-                  <p className="text-sm text-[#1b1b1b]">{producto.duracion_horas} {tp.horas}</p>
-                </div>
-              )}
               {producto.peso_gr && (
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.peso}</p>

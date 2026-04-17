@@ -54,7 +54,6 @@ const traducciones = {
       ingredientesPuros: 'ingredientes puros, aromas que perduran',
       stats: [
         { valor: '100%', etiqueta: 'Cera de soja natural' },
-        { valor: '+40h', etiqueta: 'Duración garantizada' },
         { valor: '0%',   etiqueta: 'Parafina y tóxicos' },
         { valor: '✦',   etiqueta: 'Elaboradas artesanalmente' },
       ],
@@ -352,7 +351,6 @@ const traducciones = {
       ingredientesPuros: 'ingredients purs, aromes que perduren',
       stats: [
         { valor: '100%', etiqueta: 'Cera de soia natural' },
-        { valor: '+40h', etiqueta: 'Durada garantida' },
         { valor: '0%',   etiqueta: 'Parafina i tòxics' },
         { valor: '✦',   etiqueta: 'Elaborades artesanalment' },
       ],
