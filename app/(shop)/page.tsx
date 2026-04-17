@@ -134,7 +134,7 @@ export default function Home() {
       </section>
 
       {/* ── HISTORIA DE MARCA ────────────────────────────── */}
-      <section className="my-16 grid grid-cols-1 md:grid-cols-2">
+      <section className="mt-16 grid grid-cols-1 md:grid-cols-2">
         <div className="relative h-80 md:h-auto min-h-[400px] bg-[#ece9e4]">
           <Image
             src="https://upload.wikimedia.org/wikipedia/commons/0/01/Scented_candle_candlelight.jpg"
@@ -167,7 +167,7 @@ export default function Home() {
       </section>
 
       {/* ── TESTIMONIOS ──────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      <section className="max-w-7xl mx-auto px-6 pt-10 pb-20">
         <div className="flex items-end justify-between mb-14">
           <div>
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{th.opinionesVerificadas}</p>
