@@ -42,7 +42,7 @@ export default function Home() {
         {new Date() < new Date('2026-05-04T00:00:00') ? (
           <>
             <video
-              src="/dia_de_la_madre.mp4"
+              src="https://sesuurpjtjcegcqupetq.supabase.co/storage/v1/object/public/productos/dia_de_la_madre.mp4"
               autoPlay loop muted playsInline
               className="absolute inset-0 w-full h-full object-cover opacity-90"
             />
