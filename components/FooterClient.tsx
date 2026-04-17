@@ -22,7 +22,7 @@ export default function FooterClient() {
   }, [])
 
   return (
-    <footer className="bg-[#1b1b1b] text-[#f6f4f1] pt-16 pb-8 mt-24">
+    <footer className="bg-[#1b1b1b] text-[#f6f4f1] pt-16 pb-8 mt-10">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14">
           {/* Marca */}

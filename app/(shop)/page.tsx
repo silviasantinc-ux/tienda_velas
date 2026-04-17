@@ -115,7 +115,7 @@ export default function Home() {
       </section>
 
       {/* ── BANNER CENTRAL ───────────────────────────────── */}
-      <section className="mt-8 mb-16 bg-[#ece9e4] py-14 px-6 text-center">
+      <section className="mt-2 mb-16 bg-[#ece9e4] py-14 px-6 text-center">
         <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-4">{th.nuestraPromesa}</p>
         <h2 className="font-['EB_Garamond'] text-4xl md:text-5xl italic text-[#1b1b1b] max-w-2xl mx-auto leading-tight mb-12">
           {th.ingredientesPuros}
