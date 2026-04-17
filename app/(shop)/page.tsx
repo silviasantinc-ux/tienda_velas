@@ -66,7 +66,7 @@ export default function Home() {
             </p>
             <Link
               href="/colecciones"
-              className="inline-block border border-[#f6f4f1] hover:bg-[#f6f4f1] hover:text-[#1b1b1b] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium px-10 py-4 transition-all duration-300"
+              className="inline-block bg-[#f6f4f1] text-[#1b1b1b] hover:bg-[#dcbcbc] text-[11px] uppercase tracking-widest font-medium px-12 py-4 transition-all duration-300"
             >
               {th.descubrir}
             </Link>
@@ -74,21 +74,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── MÁS VENDIDOS ─────────────────────────────────── */}
+      {/* ── MÁS VENDIDOS + NUEVAS ────────────────────────── */}
       <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="flex items-end justify-between mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+          {/* Más vendidos */}
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">{th.losFavoritos}</p>
-            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.masVendidos}</h2>
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">{th.losFavoritos}</p>
+                <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.masVendidos}</h2>
+              </div>
+              <Link href="/tienda" className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors hidden md:block">
+                {th.verTodos}
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-10">
+              {destacados.slice(0, 2).map((p) => (
+                <TarjetaProducto key={p.id} producto={p} />
+              ))}
+            </div>
           </div>
-          <Link href="/tienda" className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors hidden md:block">
-            {th.verTodos}
+
+          {/* Nuevas incorporaciones */}
+          <div>
+            <div className="flex items-end justify-between mb-10">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">{th.recienLlegadas}</p>
+                <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.nuevasIncorporaciones}</h2>
+              </div>
+              <Link href="/tienda" className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors hidden md:block">
+                {th.verTodas}
           </Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
-          {destacados.map((p) => (
-            <TarjetaProducto key={p.id} producto={p} />
-          ))}
+            <div className="grid grid-cols-2 gap-x-6 gap-y-10">
+              {nuevos.slice(0, 2).map((p) => (
+                <TarjetaProducto key={p.id} producto={p} />
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -104,24 +129,6 @@ export default function Home() {
               <p className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b] mb-1">{valor}</p>
               <p className="text-[10px] uppercase tracking-widest text-[#7d5d24]">{etiqueta}</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── NUEVAS INCORPORACIONES ───────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="flex items-end justify-between mb-10">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-2">{th.recienLlegadas}</p>
-            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.nuevasIncorporaciones}</h2>
-          </div>
-          <Link href="/tienda" className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors hidden md:block">
-            {th.verTodas}
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
-          {nuevos.map((p) => (
-            <TarjetaProducto key={p.id} producto={p} />
           ))}
         </div>
       </section>
