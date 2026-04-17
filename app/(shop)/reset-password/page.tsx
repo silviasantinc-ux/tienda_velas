@@ -37,7 +37,7 @@ export default function ResetPasswordShop() {
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">
+            <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
               {ca ? 'Nova contrasenya' : 'Nueva contraseña'}
             </label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
@@ -45,7 +45,7 @@ export default function ResetPasswordShop() {
               className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] focus:outline-none focus:border-[#1b1b1b] transition-colors" />
           </div>
           <div>
-            <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">
+            <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
               {ca ? 'Confirmar contrasenya' : 'Confirmar contraseña'}
             </label>
             <input type="password" value={confirmar} onChange={(e) => setConfirmar(e.target.value)}

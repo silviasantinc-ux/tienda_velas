@@ -80,7 +80,7 @@ export default function PaginaProducto() {
 
   if (cargando) return (
     <div className="max-w-7xl mx-auto px-6 py-24 text-center">
-      <p className="text-sm text-[#999]">Cargando...</p>
+      <p className="text-sm text-[#767676]">Cargando...</p>
     </div>
   )
 
@@ -119,7 +119,7 @@ export default function PaginaProducto() {
   return (
     <div>
       <div className="max-w-7xl mx-auto px-6 pt-2 pb-4">
-        <Link href="/tienda" className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] mb-4 transition-colors w-fit">
+        <Link href="/tienda" className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] mb-4 transition-colors w-fit">
           <ArrowLeft className="w-3 h-3" />
           {tp.volver}
         </Link>
@@ -208,7 +208,7 @@ export default function PaginaProducto() {
 
             {notas && (
               <div className="mb-8">
-                <p className="text-[10px] uppercase tracking-widest text-[#999] mb-3">{tp.notasAromaticas}</p>
+                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">{tp.notasAromaticas}</p>
                 <div className="flex flex-wrap gap-2">
                   {notas.map((nota) => (
                     <span key={nota} className="border border-[#e0ddd8] text-[11px] text-[#666] px-3 py-1.5 uppercase tracking-widest">{nota}</span>
@@ -220,28 +220,28 @@ export default function PaginaProducto() {
             <div className="border-t border-[#e0ddd8] pt-6 mb-8 grid grid-cols-2 gap-4">
               {producto.duracion_horas && (
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-[#999] mb-1">{tp.duracion}</p>
+                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.duracion}</p>
                   <p className="text-sm text-[#1b1b1b]">{producto.duracion_horas} {tp.horas}</p>
                 </div>
               )}
               {producto.peso_gr && (
                 <div>
-                  <p className="text-[10px] uppercase tracking-widest text-[#999] mb-1">{tp.peso}</p>
+                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.peso}</p>
                   <p className="text-sm text-[#1b1b1b]">{producto.peso_gr}g</p>
                 </div>
               )}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-[#999] mb-1">{tp.material}</p>
+                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.material}</p>
                 <p className="text-sm text-[#1b1b1b]">{tp.ceraSoja}</p>
               </div>
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-[#999] mb-1">{tp.mecha}</p>
+                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.mecha}</p>
                 <p className="text-sm text-[#1b1b1b]">{tp.algodon}</p>
               </div>
             </div>
 
             <div className="relative group mb-6 w-fit">
-              <p className="text-[11px] text-[#999] leading-relaxed cursor-default border-b border-dotted border-[#ccc]">
+              <p className="text-[11px] text-[#767676] leading-relaxed cursor-default border-b border-dotted border-[#ccc]">
                 {tp.normativaUE}
               </p>
               <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
@@ -252,7 +252,7 @@ export default function PaginaProducto() {
 
             {variantes.length > 0 && (
               <div className="mb-6">
-                <p className="text-[10px] uppercase tracking-widest text-[#999] mb-3">
+                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">
                   {tp.varianteModelo}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -304,14 +304,14 @@ export default function PaginaProducto() {
               <button
                 onClick={handleAgregar}
                 disabled={stockActual === 0 || (variantes.length > 0 && !varianteSeleccionada)}
-                className="flex-1 bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#e0ddd8] disabled:text-[#999] disabled:cursor-not-allowed text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
+                className="flex-1 bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#e0ddd8] disabled:text-[#767676] disabled:cursor-not-allowed text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
               >
                 {stockActual === 0 ? tp.agotado : tp.añadir}
               </button>
             </div>
 
             <div className="mt-8 pt-6 border-t border-[#e0ddd8]">
-              <p className="text-[11px] text-[#999] uppercase tracking-widest flex items-center gap-2">
+              <p className="text-[11px] text-[#767676] uppercase tracking-widest flex items-center gap-2">
                 <span className="w-1 h-1 rounded-full bg-[#dcbcbc] flex-shrink-0" />
                 {tp.envioGratis}
               </p>

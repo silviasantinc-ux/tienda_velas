@@ -16,7 +16,7 @@ export default function PaginaCarrito() {
     return (
       <div className="max-w-2xl mx-auto px-6 py-28 text-center">
         <p className="font-['EB_Garamond'] text-5xl italic text-[#1b1b1b] mb-4">{tc.vacio}</p>
-        <p className="text-sm text-[#999] mb-10">{tc.vacioSub}</p>
+        <p className="text-sm text-[#767676] mb-10">{tc.vacioSub}</p>
         <Link
           href="/tienda"
           className="inline-block bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium px-10 py-4 transition-colors"
@@ -30,17 +30,17 @@ export default function PaginaCarrito() {
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
       {/* Cabecera */}
-      <Link href="/tienda" className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] mb-10 transition-colors w-fit">
+      <Link href="/tienda" className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] mb-10 transition-colors w-fit">
         <ArrowLeft className="w-3 h-3" />
         {tc.seguirComprando}
       </Link>
       <div className="flex items-end justify-between mb-10">
         <h1 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">
-          {tc.titulo} <span className="text-[#999] text-2xl">({items.length})</span>
+          {tc.titulo} <span className="text-[#767676] text-2xl">({items.length})</span>
         </h1>
         <button
           onClick={vaciar}
-          className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors"
+          className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors"
         >
           {tc.vaciar}
         </button>
@@ -102,7 +102,7 @@ export default function PaginaCarrito() {
                     </p>
                   )}
                   {notas && (
-                    <p className="text-[10px] text-[#999] mb-3">
+                    <p className="text-[10px] text-[#767676] mb-3">
                       {notas.join(' · ')}
                     </p>
                   )}
@@ -135,7 +135,7 @@ export default function PaginaCarrito() {
                       {(precioUd * cantidad).toFixed(2)} €
                     </p>
                     {cantidad > 1 && (
-                      <p className="text-[10px] text-[#999]">{precioUd.toFixed(2)} € {tc.udAbrev}</p>
+                      <p className="text-[10px] text-[#767676]">{precioUd.toFixed(2)} € {tc.udAbrev}</p>
                     )}
                   </div>
                 </div>
@@ -199,7 +199,7 @@ export default function PaginaCarrito() {
 
             <div className="mt-6 space-y-2">
               {tc.garantias.map((g) => (
-                <p key={g} className="text-[10px] text-[#999] uppercase tracking-widest flex items-center gap-2">
+                <p key={g} className="text-[10px] text-[#767676] uppercase tracking-widest flex items-center gap-2">
                   <span className="w-1 h-1 rounded-full bg-[#dcbcbc] flex-shrink-0" />
                   {g}
                 </p>
@@ -209,7 +209,7 @@ export default function PaginaCarrito() {
 
           {/* Campo código descuento */}
           <div className="mt-4 border border-[#e0ddd8] p-5">
-            <p className="text-[10px] uppercase tracking-widest text-[#999] mb-3">{tc.codigoDescuento}</p>
+            <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">{tc.codigoDescuento}</p>
             <div className="flex gap-2">
               <input
                 type="text"

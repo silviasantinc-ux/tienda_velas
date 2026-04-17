@@ -15,7 +15,7 @@ export default function PaginaPrivacidad() {
         <h1 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">
           {ca ? 'Política de privacitat' : 'Política de privacidad'}
         </h1>
-        <p className="text-sm text-[#999] mt-3">
+        <p className="text-sm text-[#767676] mt-3">
           {ca ? 'Última actualització: abril 2026 · Pendent de revisió legal' : 'Última actualización: abril 2026 · Pendiente de revisión legal'}
         </p>
       </div>

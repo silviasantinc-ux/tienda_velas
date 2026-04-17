@@ -23,7 +23,7 @@ export default function CarritoDropdown() {
       <div className="px-5 py-4 border-b border-[#e0ddd8] flex items-center justify-between">
         <p className="font-['EB_Garamond'] text-lg italic text-[#1b1b1b]">{cd.titulo}</p>
         {items.length > 0 && (
-          <p className="text-[10px] uppercase tracking-widest text-[#999]">
+          <p className="text-[10px] uppercase tracking-widest text-[#767676]">
             {totalArticulos} {totalArticulos !== 1 ? cd.articulos : cd.articulo}
           </p>
         )}
@@ -32,7 +32,7 @@ export default function CarritoDropdown() {
       {items.length === 0 ? (
         <div className="px-5 py-10 text-center">
           <ShoppingBag className="w-8 h-8 text-[#d0cdc8] mx-auto mb-3" />
-          <p className="text-sm text-[#999] mb-5">{cd.vacio}</p>
+          <p className="text-sm text-[#767676] mb-5">{cd.vacio}</p>
           <Link
             href="/tienda"
             className="inline-block border border-[#1b1b1b] text-[#1b1b1b] hover:bg-[#1b1b1b] hover:text-[#f6f4f1] text-[10px] uppercase tracking-widest px-6 py-3 transition-colors"
@@ -84,7 +84,7 @@ export default function CarritoDropdown() {
                         {idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}
                       </p>
                     )}
-                    <p className="text-[10px] text-[#999] mt-0.5">{cantidad} × {precioUd.toFixed(2)} €</p>
+                    <p className="text-[10px] text-[#767676] mt-0.5">{cantidad} × {precioUd.toFixed(2)} €</p>
                   </div>
                   <div className="flex flex-col items-end justify-between flex-shrink-0 gap-2">
                     <button onClick={() => quitar(key)} className="text-[#ccc] hover:text-[#b97979] transition-colors">
@@ -117,7 +117,7 @@ export default function CarritoDropdown() {
               onMouseEnter={() => setHover('ver')}
               onMouseLeave={() => setHover(null)}
               className={`block w-full text-center text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors mb-2 ${
-                hover === 'pago' ? 'bg-[#f6f4f1] text-[#999] border border-[#e0ddd8]' : 'bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1]'
+                hover === 'pago' ? 'bg-[#f6f4f1] text-[#767676] border border-[#e0ddd8]' : 'bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1]'
               }`}
             >
               {cd.verCarrito}

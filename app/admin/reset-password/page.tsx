@@ -32,13 +32,13 @@ export default function ResetPassword() {
         </div>
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Nueva contraseña</label>
+            <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Nueva contraseña</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
               required autoFocus
               className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] focus:outline-none focus:border-[#1b1b1b] transition-colors" />
           </div>
           <div>
-            <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Confirmar contraseña</label>
+            <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Confirmar contraseña</label>
             <input type="password" value={confirmar} onChange={(e) => setConfirmar(e.target.value)}
               required
               className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] focus:outline-none focus:border-[#1b1b1b] transition-colors" />

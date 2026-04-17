@@ -72,7 +72,7 @@ export default function AdminUsuarios() {
     <div className="min-h-screen bg-[#f6f4f1]">
       <header className="bg-white border-b border-[#e0ddd8] px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/admin" className="text-[#999] hover:text-[#1b1b1b] transition-colors">
+          <Link href="/admin" className="text-[#767676] hover:text-[#1b1b1b] transition-colors">
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <span className="text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b]">
@@ -96,22 +96,22 @@ export default function AdminUsuarios() {
             <h2 className="font-['EB_Garamond'] text-2xl italic text-[#1b1b1b] mb-6">Dar de alta usuario</h2>
             <form onSubmit={handleAltaUsuario} className="grid grid-cols-4 gap-4">
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Nombre</label>
+                <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Nombre</label>
                 <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)}
                   className={inputCls} placeholder="Nombre completo" />
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Email <span className="text-[#7d5d24]">*</span></label>
+                <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Email <span className="text-[#7d5d24]">*</span></label>
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
                   required className={inputCls} />
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Contraseña <span className="text-[#7d5d24]">*</span></label>
+                <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Contraseña <span className="text-[#7d5d24]">*</span></label>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
                   required minLength={6} className={inputCls} placeholder="Mínimo 6 caracteres" />
               </div>
               <div>
-                <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Rol <span className="text-[#7d5d24]">*</span></label>
+                <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Rol <span className="text-[#7d5d24]">*</span></label>
                 <select value={rol} onChange={(e) => setRol(e.target.value)} className={inputCls}>
                   <option value="cliente">Cliente</option>
                   <option value="admin">Admin</option>
@@ -123,7 +123,7 @@ export default function AdminUsuarios() {
                   {guardando ? 'Creando...' : 'Crear usuario'}
                 </button>
                 <button type="button" onClick={() => setMostrarForm(false)}
-                  className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+                  className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
                   Cancelar
                 </button>
               </div>
@@ -142,17 +142,17 @@ export default function AdminUsuarios() {
           <table className="w-full">
             <thead>
               <tr className="border-b border-[#e0ddd8]">
-                <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-6 py-4 font-medium">Nombre</th>
-                <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Email</th>
-                <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Rol</th>
-                <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Registro</th>
+                <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-6 py-4 font-medium">Nombre</th>
+                <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Email</th>
+                <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Rol</th>
+                <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Registro</th>
               </tr>
             </thead>
             <tbody>
               {cargando ? (
-                <tr><td colSpan={3} className="text-center py-12 text-sm text-[#999]">Cargando...</td></tr>
+                <tr><td colSpan={3} className="text-center py-12 text-sm text-[#767676]">Cargando...</td></tr>
               ) : usuarios.length === 0 ? (
-                <tr><td colSpan={3} className="text-center py-12 text-sm text-[#999]">No hay usuarios aún.</td></tr>
+                <tr><td colSpan={3} className="text-center py-12 text-sm text-[#767676]">No hay usuarios aún.</td></tr>
               ) : usuarios.map((u) => (
                 <tr key={u.id} className="border-b border-[#f0ede8] hover:bg-[#faf9f7] transition-colors">
                   <td className="px-6 py-4 text-sm text-[#1b1b1b]">{u.user_metadata?.nombre ?? '—'}</td>
@@ -166,7 +166,7 @@ export default function AdminUsuarios() {
                       {u.user_metadata?.role === 'admin' ? 'Admin' : 'Cliente'}
                     </span>
                   </td>
-                  <td className="px-4 py-4 text-sm text-[#999]">
+                  <td className="px-4 py-4 text-sm text-[#767676]">
                     {new Date(u.created_at).toLocaleDateString('es-ES')}
                   </td>
                 </tr>

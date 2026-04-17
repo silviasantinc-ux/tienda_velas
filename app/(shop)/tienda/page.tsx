@@ -172,13 +172,13 @@ function TiendaContenido() {
       </div>
 
       {/* Conteo */}
-      <p className="text-[11px] uppercase tracking-widest text-[#999] mb-8">
+      <p className="text-[11px] uppercase tracking-widest text-[#767676] mb-8">
         {productos.length} {productos.length === 1 ? tt.producto : tt.productos}
       </p>
 
       {/* Grid */}
       {cargando ? (
-        <p className="text-sm text-[#999] text-center py-20">Cargando...</p>
+        <p className="text-sm text-[#767676] text-center py-20">Cargando...</p>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
           {productos.map((p) => (

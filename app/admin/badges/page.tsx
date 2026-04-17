@@ -58,7 +58,7 @@ export default function AdminEtiquetas() {
     <div className="min-h-screen bg-[#f6f4f1]">
       <header className="bg-white border-b border-[#e0ddd8] px-8 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/admin" className="text-[#999] hover:text-[#1b1b1b] transition-colors"><ArrowLeft className="w-4 h-4" /></Link>
+          <Link href="/admin" className="text-[#767676] hover:text-[#1b1b1b] transition-colors"><ArrowLeft className="w-4 h-4" /></Link>
           <span className="text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b]">Etiquetas</span>
         </div>
         <button onClick={iniciarNuevo}
@@ -97,7 +97,7 @@ export default function AdminEtiquetas() {
               <button onClick={guardar} className="flex items-center gap-1.5 bg-[#1b1b1b] text-[#f6f4f1] text-[10px] uppercase tracking-widest px-4 py-2.5 hover:bg-[#333] transition-colors">
                 <Check className="w-3.5 h-3.5" /> Guardar
               </button>
-              <button onClick={cancelar} className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+              <button onClick={cancelar} className="flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
                 <X className="w-3.5 h-3.5" /> Cancelar
               </button>
             </div>
@@ -116,16 +116,16 @@ export default function AdminEtiquetas() {
             </thead>
             <tbody>
               {cargando ? (
-                <tr><td colSpan={4} className="text-center py-10 text-sm text-[#999]">Cargando...</td></tr>
+                <tr><td colSpan={4} className="text-center py-10 text-sm text-[#767676]">Cargando...</td></tr>
               ) : items.map((b) => (
                 <tr key={b.id} className="border-b border-[#f0ede8] hover:bg-[#faf9f7] transition-colors">
-                  <td className="px-6 py-4 text-[11px] text-[#999] font-mono">{b.id}</td>
+                  <td className="px-6 py-4 text-[11px] text-[#767676] font-mono">{b.id}</td>
                   <td className="px-4 py-4 text-sm text-[#1b1b1b]">{b.nombre}</td>
                   <td className="px-4 py-4 text-sm text-[#666]">{b.nombre_ca ?? '—'}</td>
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3 justify-end">
-                      <button onClick={() => iniciarEdicion(b)} className="text-[#999] hover:text-[#1b1b1b] transition-colors"><Pencil className="w-4 h-4" /></button>
-                      <button onClick={() => eliminar(b.id)} className="text-[#999] hover:text-red-600 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                      <button onClick={() => iniciarEdicion(b)} className="text-[#767676] hover:text-[#1b1b1b] transition-colors"><Pencil className="w-4 h-4" /></button>
+                      <button onClick={() => eliminar(b.id)} className="text-[#767676] hover:text-red-600 transition-colors"><Trash2 className="w-4 h-4" /></button>
                     </div>
                   </td>
                 </tr>
@@ -138,6 +138,6 @@ export default function AdminEtiquetas() {
   )
 }
 
-const labelCls = 'block text-[10px] uppercase tracking-widest text-[#999] mb-2'
+const labelCls = 'block text-[10px] uppercase tracking-widest text-[#767676] mb-2'
 const inputCls = 'w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] focus:outline-none focus:border-[#1b1b1b] transition-colors'
-const thCls = 'text-left text-[10px] uppercase tracking-widest text-[#999] px-6 py-4 font-medium first:px-6'
+const thCls = 'text-left text-[10px] uppercase tracking-widest text-[#767676] px-6 py-4 font-medium first:px-6'

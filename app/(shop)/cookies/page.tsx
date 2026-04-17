@@ -16,7 +16,7 @@ export default function PaginaCookies() {
         <h1 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">
           {ca ? 'Política de cookies' : 'Política de cookies'}
         </h1>
-        <p className="text-sm text-[#999] mt-3">
+        <p className="text-sm text-[#767676] mt-3">
           {ca ? 'Última actualització: abril 2026' : 'Última actualización: abril 2026'}
         </p>
       </div>

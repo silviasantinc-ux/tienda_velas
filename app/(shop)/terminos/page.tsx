@@ -15,7 +15,7 @@ export default function PaginaTerminos() {
         <h1 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">
           {ca ? 'Termes i condicions' : 'Términos y condiciones'}
         </h1>
-        <p className="text-sm text-[#999] mt-3">
+        <p className="text-sm text-[#767676] mt-3">
           {ca ? 'Última actualització: abril 2026 · Pendent de revisió legal' : 'Última actualización: abril 2026 · Pendiente de revisión legal'}
         </p>
       </div>
@@ -83,7 +83,7 @@ export default function PaginaTerminos() {
         </div>
 
         <div className="border-t border-[#e0ddd8] pt-8">
-          <p className="text-[#999]">{ca
+          <p className="text-[#767676]">{ca
             ? 'Per a qualsevol consulta:'
             : 'Para cualquier consulta:'}{' '}
             <a href="mailto:info@llumandglow.com" className="text-[#1b1b1b] underline hover:text-[#7d5d24] transition-colors">info@llumandglow.com</a>

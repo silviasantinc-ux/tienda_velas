@@ -8,7 +8,11 @@
       "mcp__claude_ai_Supabase__list_projects",
       "mcp__claude_ai_Supabase__list_organizations",
       "mcp__claude_ai_Supabase__apply_migration",
-      "mcp__claude_ai_Supabase__execute_sql"
+      "mcp__claude_ai_Supabase__execute_sql",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)",
+      "Bash(ls c:/poyectos/tienda_velas/public/*.svg)",
+      "Bash(xargs sed *)"
     ]
   }
 }

@@ -137,7 +137,7 @@ export default function PaginaResenas() {
         <h1 className="font-serif text-5xl md:text-6xl italic leading-tight mb-4">
           {tr.loQueDicen}
         </h1>
-        <p className="text-[#a0a0a0] text-sm max-w-md mx-auto">
+        <p className="text-[#767676] text-sm max-w-md mx-auto">
           {tr.subtitulo}
         </p>
       </section>
@@ -149,7 +149,7 @@ export default function PaginaResenas() {
           <div className="text-center flex-shrink-0">
             <p className="font-serif text-7xl italic text-[#1b1b1b] leading-none">{media}</p>
             <Estrellas n={5} />
-            <p className="text-[10px] uppercase tracking-widest text-[#999] mt-2">
+            <p className="text-[10px] uppercase tracking-widest text-[#767676] mt-2">
               {tr.sobre} {totalResenas} {tr.resenas}
             </p>
           </div>
@@ -171,7 +171,7 @@ export default function PaginaResenas() {
                     style={{ width: `${total > 0 ? (count / total) * 100 : 0}%` }}
                   />
                 </div>
-                <p className="text-[10px] text-[#999] w-4 text-right flex-shrink-0">{count}</p>
+                <p className="text-[10px] text-[#767676] w-4 text-right flex-shrink-0">{count}</p>
               </div>
             ))}
           </div>
@@ -185,7 +185,7 @@ export default function PaginaResenas() {
             ].map(({ valor, texto }) => (
               <div key={texto}>
                 <p className="font-serif text-3xl italic text-[#1b1b1b]">{valor}</p>
-                <p className="text-[10px] uppercase tracking-widest text-[#999]">{texto}</p>
+                <p className="text-[10px] uppercase tracking-widest text-[#767676]">{texto}</p>
               </div>
             ))}
           </div>
@@ -211,7 +211,7 @@ export default function PaginaResenas() {
                 </div>
                 <div className="text-right flex-shrink-0">
                   <p className="text-[11px] font-medium text-[#1b1b1b] uppercase tracking-widest">{r.nombre}</p>
-                  <p className="text-[10px] text-[#999] uppercase tracking-widest">{r.ciudad} · {r.fecha}</p>
+                  <p className="text-[10px] text-[#767676] uppercase tracking-widest">{r.ciudad} · {r.fecha}</p>
                 </div>
               </div>
 

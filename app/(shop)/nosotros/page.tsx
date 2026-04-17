@@ -86,7 +86,7 @@ export default function PaginaNosotros() {
                 <div className="pb-2">
                   <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc] mb-1">{año}</p>
                   <p className="font-serif text-xl italic text-[#f6f4f1] mb-2">{titulo}</p>
-                  <p className="text-sm text-[#a0a0a0] leading-relaxed">{texto}</p>
+                  <p className="text-sm text-[#767676] leading-relaxed">{texto}</p>
                 </div>
               </div>
             ))}
@@ -134,7 +134,7 @@ export default function PaginaNosotros() {
         <h2 className="font-serif text-4xl md:text-5xl italic mb-4 max-w-xl mx-auto leading-tight">
           {tn.ctaTitulo}
         </h2>
-        <p className="text-[#a0a0a0] text-sm mb-10 max-w-sm mx-auto">
+        <p className="text-[#767676] text-sm mb-10 max-w-sm mx-auto">
           {tn.ctaTexto}
         </p>
         <Link

@@ -229,7 +229,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
   return (
     <div className="min-h-screen bg-[#f6f4f1]">
       <header className="bg-white border-b border-[#e0ddd8] px-8 py-4 flex items-center gap-4">
-        <Link href="/admin" className="text-[#999] hover:text-[#1b1b1b] transition-colors">
+        <Link href="/admin" className="text-[#767676] hover:text-[#1b1b1b] transition-colors">
           <ArrowLeft className="w-4 h-4" />
         </Link>
         <span className="text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b]">
@@ -297,7 +297,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                     required={!conVariantes}
                     readOnly={conVariantes}
                     title={conVariantes ? 'Se calcula automáticamente sumando el stock de cada variante' : undefined}
-                    className={inputCls + (conVariantes ? ' bg-[#f6f4f1] text-[#999] cursor-not-allowed' : '')}
+                    className={inputCls + (conVariantes ? ' bg-[#f6f4f1] text-[#767676] cursor-not-allowed' : '')}
                   />
                 </Field>
               )
@@ -321,7 +321,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
           {/* Galería */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="block text-[10px] uppercase tracking-widest text-[#999]">
+              <label className="block text-[10px] uppercase tracking-widest text-[#767676]">
                 Galería — fotos ({imagenes.length}/{MAX_IMAGENES}) · vídeo ({tieneVideo ? '1/1' : '0/1'})
               </label>
               <div className="flex gap-2">
@@ -386,7 +386,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
           {/* Variantes */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="block text-[10px] uppercase tracking-widest text-[#999]">
+              <label className="block text-[10px] uppercase tracking-widest text-[#767676]">
                 Variantes — modelos, colores, aromas… ({variantes.length})
               </label>
               <button
@@ -487,7 +487,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
               {guardando ? 'Guardando...' : (modo === 'nuevo' ? 'Crear producto' : 'Guardar cambios')}
             </button>
             <Link href="/admin"
-              className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+              className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
               Cancelar
             </Link>
           </div>
@@ -501,7 +501,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
 function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">
+      <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
         {label}{required && <span className="text-[#7d5d24] ml-1">*</span>}
       </label>
       {children}

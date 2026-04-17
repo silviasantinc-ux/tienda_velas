@@ -203,10 +203,10 @@ export default function Home() {
             <h2 className="font-serif text-4xl italic leading-tight mb-6">
               {th.historiaSubtitulo}
             </h2>
-            <p className="text-[#a0a0a0] text-sm leading-relaxed mb-5">
+            <p className="text-[#767676] text-sm leading-relaxed mb-5">
               {th.historiaPar1}
             </p>
-            <p className="text-[#a0a0a0] text-sm leading-relaxed mb-8">
+            <p className="text-[#767676] text-sm leading-relaxed mb-8">
               {th.historiaPar2}
             </p>
             <Link
@@ -232,7 +232,7 @@ export default function Home() {
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
             ))}
-            <span className="text-[11px] text-[#999] uppercase tracking-widest ml-2">4.9 · 9 {t.resenas.resenas}</span>
+            <span className="text-[11px] text-[#767676] uppercase tracking-widest ml-2">4.9 · 9 {t.resenas.resenas}</span>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -255,7 +255,7 @@ export default function Home() {
                   <div className="w-8 h-px bg-[#dcbcbc]" />
                   <div>
                     <p className="text-[11px] font-medium text-[#1b1b1b] uppercase tracking-widest">{nombre}</p>
-                    <p className="text-[10px] text-[#999] uppercase tracking-widest">{ciudad} · {th.compraVerificada}</p>
+                    <p className="text-[10px] text-[#767676] uppercase tracking-widest">{ciudad} · {th.compraVerificada}</p>
                   </div>
                 </div>
               </div>

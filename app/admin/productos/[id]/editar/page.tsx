@@ -25,13 +25,13 @@ export default function EditarProducto() {
 
   if (cargando) return (
     <div className="min-h-screen bg-[#f6f4f1] flex items-center justify-center">
-      <p className="text-sm text-[#999]">Cargando...</p>
+      <p className="text-sm text-[#767676]">Cargando...</p>
     </div>
   )
 
   if (!producto) return (
     <div className="min-h-screen bg-[#f6f4f1] flex items-center justify-center">
-      <p className="text-sm text-[#999]">Producto no encontrado.</p>
+      <p className="text-sm text-[#767676]">Producto no encontrado.</p>
     </div>
   )
 

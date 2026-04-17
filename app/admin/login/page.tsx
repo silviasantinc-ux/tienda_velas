@@ -58,7 +58,7 @@ export default function AdminLogin() {
         {!modoReset ? (
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Email</label>
+              <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Email</label>
               <input
                 type="email"
                 value={email}
@@ -69,7 +69,7 @@ export default function AdminLogin() {
               />
             </div>
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Contraseña</label>
+              <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Contraseña</label>
               <input
                 type="password"
                 value={password}
@@ -90,7 +90,7 @@ export default function AdminLogin() {
               <button
                 type="button"
                 onClick={() => setModoReset(true)}
-                className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors underline underline-offset-4"
+                className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors underline underline-offset-4"
               >
                 ¿Has olvidado tu contraseña?
               </button>
@@ -104,7 +104,7 @@ export default function AdminLogin() {
                   Introduce tu email y te enviaremos un enlace para restablecer tu contraseña.
                 </p>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">Email</label>
+                  <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">Email</label>
                   <input
                     type="email"
                     value={resetEmail}
@@ -123,7 +123,7 @@ export default function AdminLogin() {
                 </button>
                 <p className="text-center">
                   <button type="button" onClick={() => setModoReset(false)}
-                    className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+                    className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
                     Volver al login
                   </button>
                 </p>
@@ -134,7 +134,7 @@ export default function AdminLogin() {
                   Revisa tu bandeja de entrada (y la carpeta de spam). Te hemos enviado un enlace para restablecer tu contraseña.
                 </p>
                 <button type="button" onClick={() => { setModoReset(false); setResetEnviado(false) }}
-                  className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors underline underline-offset-4">
+                  className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors underline underline-offset-4">
                   Volver al login
                 </button>
               </div>

@@ -101,7 +101,7 @@ export default function PaginaRegistro() {
                     : 'Introduce tu email y te enviaremos un enlace para restablecer la contraseña.'}
                 </p>
                 <div>
-                  <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">{tr.correo}</label>
+                  <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">{tr.correo}</label>
                   <input type="email" value={resetEmail} onChange={(e) => setResetEmail(e.target.value)}
                     placeholder={tr.placeholderCorreo} autoFocus
                     className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors" />
@@ -112,7 +112,7 @@ export default function PaginaRegistro() {
                 </button>
                 <p className="text-center">
                   <button type="button" onClick={() => setModoReset(false)}
-                    className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+                    className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
                     {idioma === 'ca' ? 'Tornar' : 'Volver'}
                   </button>
                 </p>
@@ -125,7 +125,7 @@ export default function PaginaRegistro() {
                     : 'Revisa tu bandeja de entrada (y la carpeta de spam). Te hemos enviado un enlace para restablecer la contraseña.'}
                 </p>
                 <button type="button" onClick={() => { setModoReset(false); setResetEnviado(false) }}
-                  className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors underline underline-offset-4">
+                  className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors underline underline-offset-4">
                   {idioma === 'ca' ? 'Tornar al login' : 'Volver al login'}
                 </button>
               </div>
@@ -140,7 +140,7 @@ export default function PaginaRegistro() {
             className={`flex-1 pb-3 text-[11px] uppercase tracking-widest font-medium transition-colors ${
               modo === 'login'
                 ? 'text-[#1b1b1b] border-b-2 border-[#1b1b1b] -mb-px'
-                : 'text-[#999] hover:text-[#1b1b1b]'
+                : 'text-[#767676] hover:text-[#1b1b1b]'
             }`}
           >
             {tr.tabEntrar}
@@ -150,7 +150,7 @@ export default function PaginaRegistro() {
             className={`flex-1 pb-3 text-[11px] uppercase tracking-widest font-medium transition-colors ${
               modo === 'registro'
                 ? 'text-[#1b1b1b] border-b-2 border-[#1b1b1b] -mb-px'
-                : 'text-[#999] hover:text-[#1b1b1b]'
+                : 'text-[#767676] hover:text-[#1b1b1b]'
             }`}
           >
             {tr.tabRegistro}
@@ -162,7 +162,7 @@ export default function PaginaRegistro() {
 
           {modo === 'registro' && (
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">
+              <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
                 {tr.nombre}
               </label>
               <input
@@ -177,7 +177,7 @@ export default function PaginaRegistro() {
           )}
 
           <div>
-            <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">
+            <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
               {tr.correo}
             </label>
             <input
@@ -191,7 +191,7 @@ export default function PaginaRegistro() {
           </div>
 
           <div>
-            <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">
+            <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
               {tr.contrasena}
             </label>
             <input
@@ -207,7 +207,7 @@ export default function PaginaRegistro() {
 
           {modo === 'registro' && (
             <div>
-              <label className="block text-[10px] uppercase tracking-widest text-[#999] mb-2">
+              <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
                 {tr.repetirContrasena}
               </label>
               <input
@@ -224,7 +224,7 @@ export default function PaginaRegistro() {
           {modo === 'login' && (
             <div className="text-right">
               <button type="button" onClick={() => setModoReset(true)}
-                className="text-[11px] text-[#999] hover:text-[#1b1b1b] transition-colors uppercase tracking-widest underline underline-offset-4">
+                className="text-[11px] text-[#767676] hover:text-[#1b1b1b] transition-colors uppercase tracking-widest underline underline-offset-4">
                 {tr.olvidaste}
               </button>
             </div>
@@ -261,7 +261,7 @@ export default function PaginaRegistro() {
         </div>
 
         {/* Cambio de modo */}
-        <p className="text-center text-sm text-[#999]">
+        <p className="text-center text-sm text-[#767676]">
           {modo === 'login' ? tr.noTienesCuenta : tr.yaTienesCuenta}{' '}
           <button
             onClick={() => cambiarModo(modo === 'login' ? 'registro' : 'login')}
@@ -275,7 +275,7 @@ export default function PaginaRegistro() {
         <div className="text-center mt-8">
           <Link
             href="/tienda"
-            className="text-[10px] uppercase tracking-widest text-[#ccc] hover:text-[#999] transition-colors"
+            className="text-[10px] uppercase tracking-widest text-[#ccc] hover:text-[#767676] transition-colors"
           >
             {tr.volverTienda}
           </Link>

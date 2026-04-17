@@ -22,7 +22,7 @@ export default function CookieBanner() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#1b1b1b] text-[#f6f4f1] px-6 py-5 flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
-      <p className="text-[11px] text-[#a0a0a0] leading-relaxed flex-1">
+      <p className="text-[11px] text-[#767676] leading-relaxed flex-1">
         {ca
           ? 'Utilitzem cookies pròpies per recordar el teu idioma i el contingut del carret. No utilitzem cookies de tercers ni de seguiment.'
           : 'Utilizamos cookies propias para recordar tu idioma y el contenido del carrito. No utilizamos cookies de terceros ni de seguimiento.'}

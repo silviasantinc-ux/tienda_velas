@@ -62,27 +62,27 @@ export default function AdminPanel() {
           </span>
         </div>
         <div className="flex items-center gap-6">
-          <Link href="/admin/categorias" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+          <Link href="/admin/categorias" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
             <FolderOpen className="w-3.5 h-3.5" />
             Categorías
           </Link>
-          <Link href="/admin/badges" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+          <Link href="/admin/badges" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
             <Tag className="w-3.5 h-3.5" />
             Etiquetas
           </Link>
-          <Link href="/admin/usuarios" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors">
+          <Link href="/admin/usuarios" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
             <Users className="w-3.5 h-3.5" />
             Usuarios
           </Link>
           <Link
             href="/"
-            className="text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors"
+            className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors"
           >
             Ver tienda
           </Link>
           <button
             onClick={cerrarSesion}
-            className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#999] hover:text-[#1b1b1b] transition-colors"
+            className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors"
           >
             <LogOut className="w-3.5 h-3.5" />
             Salir
@@ -104,17 +104,17 @@ export default function AdminPanel() {
         </div>
 
         {cargando ? (
-          <p className="text-sm text-[#999] text-center py-20">Cargando...</p>
+          <p className="text-sm text-[#767676] text-center py-20">Cargando...</p>
         ) : (
           <div className="bg-white border border-[#e0ddd8]">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[#e0ddd8]">
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-6 py-4 font-medium">Producto</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Categoría</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Precio</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Stock</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#999] px-4 py-4 font-medium">Etiqueta</th>
+                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-6 py-4 font-medium">Producto</th>
+                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Categoría</th>
+                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Precio</th>
+                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Stock</th>
+                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Etiqueta</th>
                   <th className="px-4 py-4" />
                 </tr>
               </thead>
@@ -131,7 +131,7 @@ export default function AdminPanel() {
                         />
                         <div>
                           <p className="text-sm font-medium text-[#1b1b1b]">{p.nombre}</p>
-                          {p.nombre_ca && <p className="text-[11px] text-[#999]">{p.nombre_ca}</p>}
+                          {p.nombre_ca && <p className="text-[11px] text-[#767676]">{p.nombre_ca}</p>}
                         </div>
                       </div>
                     </td>
@@ -153,14 +153,14 @@ export default function AdminPanel() {
                       <div className="flex items-center gap-3 justify-end">
                         <Link
                           href={`/admin/productos/${p.id}/editar`}
-                          className="text-[#999] hover:text-[#1b1b1b] transition-colors"
+                          className="text-[#767676] hover:text-[#1b1b1b] transition-colors"
                         >
                           <Pencil className="w-4 h-4" />
                         </Link>
                         <button
                           onClick={() => eliminar(p.id)}
                           disabled={eliminando === p.id}
-                          className="text-[#999] hover:text-red-600 transition-colors disabled:opacity-40"
+                          className="text-[#767676] hover:text-red-600 transition-colors disabled:opacity-40"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -171,7 +171,7 @@ export default function AdminPanel() {
               </tbody>
             </table>
             {productos.length === 0 && (
-              <p className="text-sm text-[#999] text-center py-16">No hay productos aún.</p>
+              <p className="text-sm text-[#767676] text-center py-16">No hay productos aún.</p>
             )}
           </div>
         )}

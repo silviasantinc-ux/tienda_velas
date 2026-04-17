@@ -42,12 +42,12 @@ export default function Navbar() {
     <div className="flex items-center gap-1 text-[10px] uppercase tracking-widest font-medium">
       <button
         onClick={() => setIdioma('es')}
-        className={idioma === 'es' ? 'text-[#1b1b1b]' : 'text-[#bbb] hover:text-[#999] transition-colors'}
+        className={idioma === 'es' ? 'text-[#1b1b1b]' : 'text-[#bbb] hover:text-[#767676] transition-colors'}
       >ES</button>
       <span className="text-[#e0ddd8]">|</span>
       <button
         onClick={() => setIdioma('ca')}
-        className={idioma === 'ca' ? 'text-[#1b1b1b]' : 'text-[#bbb] hover:text-[#999] transition-colors'}
+        className={idioma === 'ca' ? 'text-[#1b1b1b]' : 'text-[#bbb] hover:text-[#767676] transition-colors'}
       >CA</button>
     </div>
   )
@@ -131,7 +131,7 @@ export default function Navbar() {
       {busquedaAbierta && (
         <div className="border-t border-[#e0ddd8] bg-[#f6f4f1] px-6 py-3">
           <div className="max-w-7xl mx-auto flex items-center gap-3">
-            <Search className="w-4 h-4 text-[#999] flex-shrink-0" />
+            <Search className="w-4 h-4 text-[#767676] flex-shrink-0" />
             <input
               autoFocus
               type="text"
@@ -152,7 +152,7 @@ export default function Navbar() {
             <button
               onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
               onClick={cerrarBusqueda}
-              className="text-[#999] hover:text-[#1b1b1b] transition-colors flex-shrink-0"
+              className="text-[#767676] hover:text-[#1b1b1b] transition-colors flex-shrink-0"
             >
               <X className="w-4 h-4" />
             </button>
