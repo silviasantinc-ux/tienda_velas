@@ -19,6 +19,7 @@ export default function Navbar() {
   const [termino, setTermino] = useState('')
   const [usuario, setUsuario] = useState<string | null>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const userTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const router = useRouter()
 
@@ -117,22 +118,22 @@ export default function Navbar() {
           {selectorIdioma}
           <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
           {usuario ? (
-            <div className="relative">
-              <button onClick={() => setUsuarioMenuAbierto(!usuarioMenuAbierto)} className="relative hover:text-[#7d5d24] transition-colors flex items-center gap-1.5">
+            <div className="relative"
+              onMouseEnter={() => { if (userTimer.current) clearTimeout(userTimer.current); setUsuarioMenuAbierto(true) }}
+              onMouseLeave={() => { userTimer.current = setTimeout(() => setUsuarioMenuAbierto(false), 180) }}
+            >
+              <button className="relative hover:text-[#7d5d24] transition-colors">
                 <User className="w-5 h-5" />
                 <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#7d5d24]" />
               </button>
               {usuarioMenuAbierto && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setUsuarioMenuAbierto(false)} />
-                  <div className="absolute right-0 top-full mt-2 w-48 bg-[#f6f4f1] border border-[#e0ddd8] shadow-xl z-50 py-3">
-                    <p className="px-4 pb-2 text-[10px] uppercase tracking-widest text-[#7d5d24] border-b border-[#e0ddd8] mb-2 truncate">{usuario}</p>
-                    <button onClick={() => { supabase.auth.signOut(); setUsuarioMenuAbierto(false) }}
-                      className="w-full text-left px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] hover:text-[#b97979] transition-colors">
-                      {idioma === 'ca' ? 'Tancar sessió' : 'Cerrar sesión'}
-                    </button>
-                  </div>
-                </>
+                <div className="absolute right-0 top-full w-48 bg-[#f6f4f1] border border-[#e0ddd8] shadow-xl z-50 py-3">
+                  <p className="px-4 pb-2 text-[10px] uppercase tracking-widest text-[#7d5d24] border-b border-[#e0ddd8] mb-2 truncate">{usuario}</p>
+                  <button onClick={() => { supabase.auth.signOut(); setUsuarioMenuAbierto(false) }}
+                    className="w-full text-left px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] hover:text-[#b97979] transition-colors">
+                    {idioma === 'ca' ? 'Tancar sessió' : 'Cerrar sesión'}
+                  </button>
+                </div>
               )}
             </div>
           ) : (
