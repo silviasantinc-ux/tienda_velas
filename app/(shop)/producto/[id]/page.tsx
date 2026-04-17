@@ -239,9 +239,9 @@ export default function PaginaProducto() {
             </div>
 
             <div className="relative group mb-6 w-fit">
-              <p className="text-[11px] text-[#767676] leading-relaxed cursor-default border-b border-dotted border-[#ccc]">
+              <Link href="/seguridad" className="text-[11px] text-[#767676] leading-relaxed border-b border-dotted border-[#ccc] hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors">
                 {tp.normativaUE}
-              </p>
+              </Link>
               <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
                 <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-1.5">{tp.normativaUETooltipTitulo}</p>
                 <p className="text-[11px] text-[#666] leading-relaxed">{tp.normativaUETooltipTexto}</p>
