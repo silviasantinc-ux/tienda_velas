@@ -26,6 +26,7 @@ const traducciones = {
       total: 'Total',
       verCarrito: 'Ver carrito',
       procederPago: 'Proceder al pago',
+      vaciarCarrito: 'Vaciar carrito',
     },
 
     // Tarjeta producto
@@ -325,6 +326,7 @@ const traducciones = {
       total: 'Total',
       verCarrito: 'Veure cistella',
       procederPago: 'Procedir al pagament',
+      vaciarCarrito: 'Buidar cistella',
     },
 
     tarjeta: {
