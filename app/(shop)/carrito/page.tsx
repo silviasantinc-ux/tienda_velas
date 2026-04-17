@@ -173,7 +173,7 @@ export default function PaginaCarrito() {
               <div className="flex justify-between text-sm text-[#666]">
                 <span className="text-[11px] uppercase tracking-widest">{tc.envio}</span>
                 <span className={envioGratis ? 'text-[#7d5d24]' : ''}>
-                  {envioGratis ? tc.gratuito : '4.95 €'}
+                  {envioGratis ? tc.gratuito : '4,90 €'}
                 </span>
               </div>
             </div>
@@ -182,7 +182,7 @@ export default function PaginaCarrito() {
               <div className="flex justify-between text-[#1b1b1b]">
                 <span className="text-[11px] uppercase tracking-widest font-medium">{tc.total}</span>
                 <span className="font-medium text-lg">
-                  {(total() + (envioGratis ? 0 : 4.95)).toFixed(2)} €
+                  {(total() + (envioGratis ? 0 : 4.90)).toFixed(2)} €
                 </span>
               </div>
             </div>

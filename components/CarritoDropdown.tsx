@@ -110,7 +110,7 @@ export default function CarritoDropdown() {
           <div className="px-5 py-4 border-t border-[#e0ddd8]">
             <div className="flex justify-between items-center mb-4">
               <span className="text-[11px] uppercase tracking-widest text-[#666]">{cd.total}</span>
-              <span className="font-medium text-[#1b1b1b]">{(total() + (envioGratis ? 0 : 4.95)).toFixed(2)} €</span>
+              <span className="font-medium text-[#1b1b1b]">{(total() + (envioGratis ? 0 : 4.90)).toFixed(2)} €</span>
             </div>
             <Link
               href="/carrito"
