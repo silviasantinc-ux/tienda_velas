@@ -26,7 +26,7 @@ export default function Home() {
               src="/sant_jordi.jpg"
               alt="Sant Jordi"
               fill
-              className="object-cover object-bottom opacity-85"
+              className="object-cover opacity-85"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#3d0a0a]/60 via-[#7d1a2a]/20 to-transparent" />
