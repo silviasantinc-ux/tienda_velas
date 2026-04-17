@@ -20,7 +20,18 @@ export default function Home() {
     <div>
       {/* ── HERO ─────────────────────────────────────────── */}
       <section className="relative min-h-[80vh] mt-6 flex flex-col bg-[#1b1b1b]">
-        {new Date() < new Date('2026-05-04T00:00:00') ? (
+        {new Date() < new Date('2026-04-24T00:00:00') ? (
+          <>
+            <Image
+              src="/sant_jordi.jpg"
+              alt="Sant Jordi"
+              fill
+              className="object-cover opacity-85"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#3d0a0a]/60 via-[#7d1a2a]/20 to-transparent" />
+          </>
+        ) : new Date() < new Date('2026-05-04T00:00:00') ? (
           <>
             <video
               ref={videoRef}
