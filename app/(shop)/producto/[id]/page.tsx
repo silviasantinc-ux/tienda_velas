@@ -153,9 +153,8 @@ export default function PaginaProducto() {
                 </span>
               )}
               {mediaActual?.tipo === 'video' && (
-                <div className="absolute top-4 right-4 bg-black/50 text-white px-2.5 py-1.5 flex items-center gap-1.5">
+                <div className="absolute top-4 right-4 bg-black/50 text-white p-1.5">
                   <Play className="w-3 h-3 fill-white" />
-                  <span className="text-[9px] uppercase tracking-widest">Vídeo</span>
                 </div>
               )}
               {galeria.length > 1 && (
