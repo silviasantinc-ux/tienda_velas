@@ -55,7 +55,7 @@ const traducciones = {
       stats: [
         { valor: '100%', etiqueta: 'Cera de soja natural' },
         { valor: '0%',   etiqueta: 'Parafina y tóxicos' },
-        { valor: '✦',   etiqueta: 'Elaboradas artesanalmente' },
+        { valor: '✿',   etiqueta: 'Elaboradas artesanalmente' },
       ],
       recienLlegadas: 'Recién llegadas',
       nuevasIncorporaciones: 'Nuevas incorporaciones',
@@ -352,7 +352,7 @@ const traducciones = {
       stats: [
         { valor: '100%', etiqueta: 'Cera de soia natural' },
         { valor: '0%',   etiqueta: 'Parafina i tòxics' },
-        { valor: '✦',   etiqueta: 'Elaborades artesanalment' },
+        { valor: '✿',   etiqueta: 'Elaborades artesanalment' },
       ],
       recienLlegadas: 'Acabades d\'arribar',
       nuevasIncorporaciones: 'Noves incorporacions',
