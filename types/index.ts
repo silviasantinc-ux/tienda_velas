@@ -14,7 +14,6 @@ export type Producto = {
   badge?: string
   detalle?: string
   detalle_ca?: string
-  duracion_horas?: number
   peso_gr?: number
   alto_cm?: number
   ancho_cm?: number
