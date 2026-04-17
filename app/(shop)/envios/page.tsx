@@ -7,62 +7,6 @@ export default function PaginaEnvios() {
   const { idioma } = useIdioma()
   const ca = idioma === 'ca'
 
-  const secciones = ca ? [
-    {
-      titulo: 'Terminis d\'enviament',
-      contenido: [
-        'Les comandes es preparen i s\'envien en un termini de 2 a 4 dies hàbils des de la confirmació del pagament.',
-        'Un cop enviada la comanda, el temps de lliurament estimat és de 2 a 5 dies hàbils per a la Península Ibèrica.',
-        'Per a les Illes Balears i Canàries, el termini és de 4 a 7 dies hàbils.',
-        'T\'enviarem un correu electrònic amb el número de seguiment quan la teva comanda surti del nostre taller.',
-      ],
-    },
-    {
-      titulo: 'Tarifes d\'enviament',
-      contenido: [
-        'Enviament estàndard: 4,90 €',
-        'Enviament gratuït en comandes iguals o superiors a 50 €.',
-        'Illes Balears i Canàries: 7,90 €',
-        'Portugal: 6,90 €',
-        'Resta d\'Europa: 12,00 €',
-      ],
-    },
-    {
-      titulo: 'Productes defectuosos o incorrectes',
-      contenido: [
-        'Si has rebut un producte defectuós o diferent al que vas demanar, posa\'t en contacte amb nosaltres en un termini de 48 hores des de la recepció.',
-        'T\'enviarem un producte de substitució sense cost addicional o et realitzarem el reemborsament complet, segons la teva preferència.',
-      ],
-    },
-  ] : [
-    {
-      titulo: 'Plazos de envío',
-      contenido: [
-        'Los pedidos se preparan y envían en un plazo de 2 a 4 días hábiles desde la confirmación del pago.',
-        'Una vez enviado el pedido, el tiempo de entrega estimado es de 2 a 5 días hábiles para la Península Ibérica.',
-        'Para las Islas Baleares y Canarias, el plazo es de 4 a 7 días hábiles.',
-        'Te enviaremos un correo electrónico con el número de seguimiento cuando tu pedido salga de nuestro taller.',
-      ],
-    },
-    {
-      titulo: 'Tarifas de envío',
-      contenido: [
-        'Envío estándar: 4,90 €',
-        'Envío gratuito en pedidos iguales o superiores a 50 €.',
-        'Islas Baleares y Canarias: 7,90 €',
-        'Portugal: 6,90 €',
-        'Resto de Europa: 12,00 €',
-      ],
-    },
-    {
-      titulo: 'Productos defectuosos o incorrectos',
-      contenido: [
-        'Si has recibido un producto defectuoso o diferente al que pediste, contáctanos en un plazo de 48 horas desde la recepción.',
-        'Te enviaremos un producto de sustitución sin coste adicional o realizaremos el reembolso completo, según tu preferencia.',
-      ],
-    },
-  ]
-
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
       <div className="mb-12">
@@ -74,27 +18,16 @@ export default function PaginaEnvios() {
         </h1>
       </div>
 
-      <div className="space-y-10">
-        {secciones.map((s) => (
-          <div key={s.titulo} className="border-t border-[#e0ddd8] pt-8">
-            <h2 className="text-[11px] uppercase tracking-widest text-[#1b1b1b] font-medium mb-5">{s.titulo}</h2>
-            <ul className="space-y-3">
-              {s.contenido.map((linea, i) => (
-                <li key={i} className="flex gap-3 text-sm text-[#666] leading-relaxed">
-                  <span className="w-1 h-1 rounded-full bg-[#dcbcbc] flex-shrink-0 mt-2" />
-                  {linea}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-14 pt-8 border-t border-[#e0ddd8]">
+      <div className="border-t border-[#e0ddd8] pt-10">
+        <p className="text-sm text-[#666] leading-relaxed mb-8">
+          {ca
+            ? 'Estem treballant per oferir-te la millor experiència d\'enviament. Pròximament trobaràs aquí tota la informació sobre terminis, tarifes i seguiment de comandes.'
+            : 'Estamos trabajando para ofrecerte la mejor experiencia de envío. Próximamente encontrarás aquí toda la información sobre plazos, tarifas y seguimiento de pedidos.'}
+        </p>
         <p className="text-sm text-[#666] mb-4">
           {ca
-            ? 'Tens alguna pregunta sobre la teva comanda?'
-            : '¿Tienes alguna pregunta sobre tu pedido?'}
+            ? 'Per a qualsevol consulta sobre la teva comanda, contacta\'ns a:'
+            : 'Para cualquier consulta sobre tu pedido, contáctanos en:'}
         </p>
         <a
           href="mailto:info@llumandglow.com"
