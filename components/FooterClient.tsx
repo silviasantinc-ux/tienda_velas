@@ -54,6 +54,11 @@ export default function FooterClient() {
           </div>
         </div>
 
+        {/* Aviso producción artesanal */}
+        <p className="text-[11px] text-[#555] text-center leading-relaxed mb-6 max-w-2xl mx-auto">
+          {tf.produccionArtesanal}
+        </p>
+
         {/* Bottom bar */}
         <div className="border-t border-[#2e2e2e] pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
           <p className="text-[11px] text-[#555]">{tf.derechos}</p>
