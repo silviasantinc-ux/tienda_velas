@@ -29,11 +29,11 @@ export default function ContadorEvento() {
   if (!tiempo) return null
 
   return (
-    <div className="py-8 text-center text-[#f6f4f1]">
-      <p className="font-['EB_Garamond'] text-2xl md:text-4xl italic mb-1">
+    <div className="py-2 text-center text-[#f6f4f1]">
+      <p className="font-['EB_Garamond'] text-base italic mb-0.5">
         {tc.ofertasEspeciales}
       </p>
-      <p className="text-[10px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-5">
+      <p className="text-[9px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-1.5">
         {tc.evento}
       </p>
       <div className="flex items-center justify-center gap-5 md:gap-14">
@@ -43,12 +43,12 @@ export default function ContadorEvento() {
           { valor: tiempo.minutos, label: tc.minutos },
         ].map(({ valor, label }, i) => (
           <div key={label} className="flex items-center gap-8 md:gap-14">
-            {i > 0 && <span className="text-[#7d5d24] text-xl">·</span>}
+            {i > 0 && <span className="text-[#7d5d24] text-lg">·</span>}
             <div className="text-center">
-              <p className="font-['EB_Garamond'] text-4xl md:text-6xl italic leading-none">
+              <p className="font-['EB_Garamond'] text-3xl md:text-4xl italic leading-none">
                 {String(valor).padStart(2, '0')}
               </p>
-              <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc] mt-1">{label}</p>
+              <p className="text-[9px] uppercase tracking-widest text-[#dcbcbc] mt-0.5">{label}</p>
             </div>
           </div>
         ))}
