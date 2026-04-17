@@ -28,16 +28,6 @@ export default function PaginaEnvios() {
       ],
     },
     {
-      titulo: 'Política de devolucions',
-      contenido: [
-        'Acceptem devolucions dins dels 14 dies naturals posteriors a la recepció de la comanda.',
-        'El producte ha d\'estar en perfecte estat, sense usar i amb el seu embalatge original.',
-        'Per iniciar una devolució, posa\'t en contacte amb nosaltres a info@llumandglow.com indicant el número de comanda i el motiu.',
-        'Un cop rebem i verifiquem el producte, et realitzarem el reemborsament en un termini de 5 a 10 dies hàbils al mètode de pagament original.',
-        'Les despeses d\'enviament de tornada corren a càrrec del client, excepte en cas de producte defectuós o error en la comanda.',
-      ],
-    },
-    {
       titulo: 'Productes defectuosos o incorrectes',
       contenido: [
         'Si has rebut un producte defectuós o diferent al que vas demanar, posa\'t en contacte amb nosaltres en un termini de 48 hores des de la recepció.',
@@ -65,16 +55,6 @@ export default function PaginaEnvios() {
       ],
     },
     {
-      titulo: 'Política de devoluciones',
-      contenido: [
-        'Aceptamos devoluciones dentro de los 14 días naturales posteriores a la recepción del pedido.',
-        'El producto debe estar en perfecto estado, sin usar y con su embalaje original.',
-        'Para iniciar una devolución, contáctanos en info@llumandglow.com indicando el número de pedido y el motivo.',
-        'Una vez recibido y verificado el producto, realizaremos el reembolso en un plazo de 5 a 10 días hábiles al método de pago original.',
-        'Los gastos de envío de vuelta corren a cargo del cliente, excepto en caso de producto defectuoso o error en el pedido.',
-      ],
-    },
-    {
       titulo: 'Productos defectuosos o incorrectos',
       contenido: [
         'Si has recibido un producto defectuoso o diferente al que pediste, contáctanos en un plazo de 48 horas desde la recepción.',
@@ -90,7 +70,7 @@ export default function PaginaEnvios() {
           {ca ? 'Informació' : 'Información'}
         </p>
         <h1 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">
-          {ca ? 'Enviaments i devolucions' : 'Envíos y devoluciones'}
+          {ca ? 'Enviaments' : 'Envíos'}
         </h1>
       </div>
 
