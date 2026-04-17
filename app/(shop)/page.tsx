@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRef } from 'react'
 import { productosMock } from '@/lib/productos-mock'
 import TarjetaProducto from '@/components/TarjetaProducto'
 import { useIdioma } from '@/lib/idioma-store'
@@ -13,6 +14,7 @@ const nuevos = productosMock.filter((p) => p.badge === 'nuevo').slice(0, 4)
 export default function Home() {
   const { t } = useIdioma()
   const th = t.home
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   return (
     <div>
@@ -21,8 +23,10 @@ export default function Home() {
         {new Date() < new Date('2026-05-04T00:00:00') ? (
           <>
             <video
+              ref={videoRef}
               src="https://sesuurpjtjcegcqupetq.supabase.co/storage/v1/object/public/productos/dia_de_la_madre.mp4"
               autoPlay loop muted playsInline
+              onCanPlay={() => { if (videoRef.current) videoRef.current.playbackRate = 0.5 }}
               className="absolute inset-0 w-full h-full object-cover opacity-90"
             />
             <div className="absolute inset-0 bg-[#1b1b1b]/10" />
