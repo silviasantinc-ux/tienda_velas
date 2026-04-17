@@ -38,6 +38,7 @@ export default function FooterClient() {
             <p className="text-[10px] uppercase tracking-widest text-[#666] mb-5">{tf.seccionAyuda}</p>
             <ul className="space-y-3 text-sm text-[#a0a0a0]">
               <li><Link href="/envios" className="hover:text-[#dcbcbc] transition-colors">{tf.envios}</Link></li>
+              <li><Link href="/seguridad" className="hover:text-[#dcbcbc] transition-colors">{idioma === 'ca' ? 'Seguretat del producte' : 'Seguridad del producto'}</Link></li>
               <li><a href="mailto:info@llumandglow.com" className="hover:text-[#dcbcbc] transition-colors">info@llumandglow.com</a></li>
             </ul>
           </div>
