@@ -199,8 +199,16 @@ export default function PaginaProducto() {
             <p className="text-2xl text-[#1b1b1b] font-medium mb-6">{producto.precio.toFixed(2)} €</p>
             <p className="text-sm text-[#666] leading-relaxed mb-4">{descripcion}</p>
             {detalle && (
-              <p className="text-sm text-[#666] leading-relaxed mb-8 whitespace-pre-line">{detalle}</p>
+              <p className="text-sm text-[#666] leading-relaxed whitespace-pre-line">{detalle}</p>
             )}
+            <div className="relative group mb-8 w-fit mt-1">
+              <p className="text-[11px] text-[#767676] leading-relaxed cursor-default border-b border-dotted border-[#ccc]">
+                {tp.verMas}
+              </p>
+              <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
+                <p className="text-[11px] text-[#666] leading-relaxed">{tp.artesanalTooltip}</p>
+              </div>
+            </div>
 
             {notas && (
               <div className="mb-8">
