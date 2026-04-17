@@ -66,8 +66,7 @@ export default function ColeccionesPage() {
           </svg>
           <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b]/75 to-transparent group-hover:from-[#1b1b1b]/85 transition-all duration-500" />
           <div className="absolute bottom-6 left-6 text-[#f6f4f1]">
-            <p className="font-['EB_Garamond'] text-2xl italic mb-1">{th.todosLosProductos}</p>
-            <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc]">{th.todosLosProductosDesc}</p>
+            <p className="font-['EB_Garamond'] text-2xl italic">{th.todosLosProductos}</p>
           </div>
         </Link>
 
