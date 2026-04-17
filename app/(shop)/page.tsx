@@ -75,12 +75,10 @@ export default function Home() {
         </div>
 
         {/* Chevron scroll */}
-        <div className="relative z-10 flex justify-center pb-6">
-          <div className="animate-bounce text-[#f6f4f1]/60">
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </div>
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 animate-bounce text-[#f6f4f1]/70">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </section>
 
