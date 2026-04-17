@@ -30,8 +30,8 @@ export default function ColeccionesPage() {
   }, [])
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-20">
-      <div className="text-center mb-12">
+    <div className="max-w-7xl mx-auto px-6 pt-8 pb-16">
+      <div className="text-center mb-10">
         <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{th.explorar}</p>
         <h1 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.nuestrasColecciones}</h1>
       </div>
