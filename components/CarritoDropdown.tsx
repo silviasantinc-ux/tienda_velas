@@ -18,7 +18,7 @@ export default function CarritoDropdown() {
   const totalArticulos = items.reduce((a, i) => a + i.cantidad, 0)
 
   return (
-    <div className="absolute right-0 top-full w-80 bg-[#f6f4f1] border border-[#e0ddd8] shadow-xl z-50">
+    <div className="absolute right-0 top-full w-screen max-w-[320px] bg-[#f6f4f1] border border-[#e0ddd8] shadow-xl z-50">
       {/* Cabecera */}
       <div className="px-5 py-4 border-b border-[#e0ddd8] flex items-center justify-between">
         <p className="font-['EB_Garamond'] text-lg italic text-[#1b1b1b]">{cd.titulo}</p>
