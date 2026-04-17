@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div>
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex flex-col overflow-hidden bg-[#1b1b1b]">
+      <section className="relative min-h-[80vh] mt-6 flex flex-col overflow-hidden bg-[#1b1b1b]">
         {new Date() < new Date('2026-05-04T00:00:00') ? (
           <>
             <video
