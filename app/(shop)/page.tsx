@@ -15,18 +15,21 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [destacados, setDestacados] = useState<Producto[]>([])
   const [nuevos, setNuevos] = useState<Producto[]>([])
+  const [productosConVariantes, setProductosConVariantes] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     Promise.all([
       supabase.from('productos').select('*'),
       supabase.from('badges').select('id, nombre'),
-    ]).then(([{ data: prods }, { data: bdgs }]) => {
+      supabase.from('producto_variantes').select('producto_id'),
+    ]).then(([{ data: prods }, { data: bdgs }, { data: vars }]) => {
       const todos = (prods as Producto[]) ?? []
       const badges = (bdgs ?? []) as { id: string; nombre: string }[]
       const idMasVendido = badges.find((b) => b.nombre.toLowerCase().includes('vendido'))?.id
       const idNuevo = badges.find((b) => b.nombre.toLowerCase().includes('nuevo') || b.nombre.toLowerCase().includes('nou'))?.id
       setDestacados(todos.filter((p) => p.badge === idMasVendido).slice(0, 2))
       setNuevos(todos.filter((p) => p.badge === idNuevo).slice(0, 2))
+      setProductosConVariantes(new Set((vars ?? []).map((v: { producto_id: string }) => v.producto_id)))
     })
   }, [])
 
@@ -128,7 +131,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-2 gap-x-6 gap-y-10">
               {destacados.slice(0, 2).map((p) => (
-                <TarjetaProducto key={p.id} producto={p} />
+                <TarjetaProducto key={p.id} producto={p} tieneVariantes={productosConVariantes.has(p.id)} />
               ))}
             </div>
           </div>
@@ -146,7 +149,7 @@ export default function Home() {
         </div>
             <div className="grid grid-cols-2 gap-x-6 gap-y-10">
               {nuevos.slice(0, 2).map((p) => (
-                <TarjetaProducto key={p.id} producto={p} />
+                <TarjetaProducto key={p.id} producto={p} tieneVariantes={productosConVariantes.has(p.id)} />
               ))}
             </div>
           </div>
