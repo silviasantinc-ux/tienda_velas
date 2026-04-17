@@ -160,17 +160,6 @@ function TiendaContenido() {
         </div>
       </div>
 
-      {/* Buscador */}
-      <div className="mb-6 -mt-4">
-        <input
-          type="text"
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-          placeholder={tt.buscarPlaceholder}
-          className="w-full md:w-72 border border-[#e0ddd8] bg-white px-4 py-2.5 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
-        />
-      </div>
-
       {/* Conteo */}
       <p className="text-[11px] uppercase tracking-widest text-[#767676] mb-8">
         {productos.length} {productos.length === 1 ? tt.producto : tt.productos}
