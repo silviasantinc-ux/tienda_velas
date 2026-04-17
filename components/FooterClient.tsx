@@ -44,7 +44,7 @@ export default function FooterClient() {
         </div>
 
         {/* Aviso producción artesanal */}
-        <p className="text-base text-[#888] text-center leading-relaxed mb-6 max-w-2xl mx-auto">
+        <p className="text-sm text-[#888] text-center leading-relaxed mb-6 max-w-2xl mx-auto">
           {tf.produccionArtesanal}
         </p>
 
