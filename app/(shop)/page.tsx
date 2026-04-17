@@ -2,19 +2,27 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRef } from 'react'
-import { productosMock } from '@/lib/productos-mock'
+import { useRef, useState, useEffect } from 'react'
 import TarjetaProducto from '@/components/TarjetaProducto'
 import { useIdioma } from '@/lib/idioma-store'
 import ContadorEvento from '@/components/ContadorEvento'
-
-const destacados = productosMock.filter((p) => p.badge === 'mas-vendido').slice(0, 4)
-const nuevos = productosMock.filter((p) => p.badge === 'nuevo').slice(0, 4)
+import { supabase } from '@/lib/supabase'
+import { Producto } from '@/types'
 
 export default function Home() {
   const { t } = useIdioma()
   const th = t.home
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [destacados, setDestacados] = useState<Producto[]>([])
+  const [nuevos, setNuevos] = useState<Producto[]>([])
+
+  useEffect(() => {
+    supabase.from('productos').select('*').then(({ data }) => {
+      const todos = (data as Producto[]) ?? []
+      setDestacados(todos.filter((p) => p.badge === 'mas-vendido').slice(0, 2))
+      setNuevos(todos.filter((p) => p.badge === 'nuevo').slice(0, 2))
+    })
+  }, [])
 
   return (
     <div>
