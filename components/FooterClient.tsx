@@ -1,19 +1,25 @@
 'use client'
 
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
 import LogoLlumGlow from './LogoLlumGlow'
 import { useIdioma } from '@/lib/idioma-store'
+import { supabase } from '@/lib/supabase'
+
+type Categoria = { id: string; nombre: string; nombre_ca: string | null }
 
 export default function FooterClient() {
-  const tf = useIdioma((s) => s.t.footer)
+  const { idioma, t } = useIdioma()
+  const tf = t.footer
+  const [categorias, setCategorias] = useState<Categoria[]>([])
 
-  const categoriaLinks = [
-    { key: 'Otoño' as const, label: tf.categorias.Otoño },
-    { key: 'Postre' as const, label: tf.categorias.Postre },
-    { key: 'Bebidas' as const, label: tf.categorias.Bebidas },
-    { key: 'Hogar' as const, label: tf.categorias.Hogar },
-    { key: 'Eventos' as const, label: tf.categorias.Eventos },
-  ]
+  useEffect(() => {
+    supabase
+      .from('categorias')
+      .select('id, nombre, nombre_ca')
+      .order('nombre')
+      .then(({ data }) => setCategorias((data as Categoria[]) ?? []))
+  }, [])
 
   return (
     <footer className="bg-[#1b1b1b] text-[#f6f4f1] pt-16 pb-8 mt-24">
@@ -32,11 +38,14 @@ export default function FooterClient() {
             <p className="text-[10px] uppercase tracking-widest text-[#666] mb-5">{tf.seccionTienda}</p>
             <ul className="space-y-3 text-sm text-[#a0a0a0]">
               <li><Link href="/tienda" className="hover:text-[#dcbcbc] transition-colors">{tf.todasLasVelas}</Link></li>
-              {categoriaLinks.map(({ key, label }) => (
-                <li key={key}>
-                  <Link href={`/tienda?cat=${label}`} className="hover:text-[#dcbcbc] transition-colors">{label}</Link>
-                </li>
-              ))}
+              {categorias.map((cat) => {
+                const label = idioma === 'ca' ? (cat.nombre_ca ?? cat.nombre) : cat.nombre
+                return (
+                  <li key={cat.id}>
+                    <Link href={`/tienda?cat=${cat.nombre}`} className="hover:text-[#dcbcbc] transition-colors">{label}</Link>
+                  </li>
+                )
+              })}
               <li><Link href="/nosotros" className="hover:text-[#dcbcbc] transition-colors">{tf.elOrigen}</Link></li>
               <li><Link href="/resenas" className="hover:text-[#dcbcbc] transition-colors">{tf.resenas}</Link></li>
             </ul>
