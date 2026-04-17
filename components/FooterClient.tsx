@@ -24,31 +24,13 @@ export default function FooterClient() {
   return (
     <footer className="bg-[#1b1b1b] text-[#f6f4f1] pt-16 pb-8 mt-4">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-14">
           {/* Marca */}
           <div className="md:col-span-2 flex flex-col items-center text-center">
             <div className="mb-4"><LogoLlumGlow height={56} variant="light" /></div>
             <p className="text-sm text-[#a0a0a0] leading-relaxed max-w-sm">
               {tf.descripcion}
             </p>
-          </div>
-
-          {/* Navegación */}
-          <div>
-            <p className="text-[10px] uppercase tracking-widest text-[#666] mb-5">{tf.seccionTienda}</p>
-            <ul className="space-y-3 text-sm text-[#a0a0a0]">
-              <li><Link href="/tienda" className="hover:text-[#dcbcbc] transition-colors">{tf.todasLasVelas}</Link></li>
-              {categorias.map((cat) => {
-                const label = idioma === 'ca' ? (cat.nombre_ca ?? cat.nombre) : cat.nombre
-                return (
-                  <li key={cat.id}>
-                    <Link href={`/tienda?cat=${cat.nombre}`} className="hover:text-[#dcbcbc] transition-colors">{label}</Link>
-                  </li>
-                )
-              })}
-              <li><Link href="/nosotros" className="hover:text-[#dcbcbc] transition-colors">{tf.elOrigen}</Link></li>
-              <li><Link href="/resenas" className="hover:text-[#dcbcbc] transition-colors">{tf.resenas}</Link></li>
-            </ul>
           </div>
 
           {/* Ayuda */}
