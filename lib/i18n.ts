@@ -259,7 +259,7 @@ const traducciones = {
     // Contador evento
     contador: {
       ofertasEspeciales: 'Ofertas especiales',
-      evento: 'Día de la madre · 3 de mayo',
+      evento: 'día de la madre · 3 de mayo',
       dias: 'días',
       horas: 'horas',
       minutos: 'minutos',
@@ -550,7 +550,7 @@ const traducciones = {
     // Contador evento
     contador: {
       ofertasEspeciales: 'Ofertes especials',
-      evento: 'Dia de la mare · 3 de maig',
+      evento: 'dia de la mare · 3 de maig',
       dias: 'dies',
       horas: 'hores',
       minutos: 'minuts',
