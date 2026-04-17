@@ -213,7 +213,7 @@ export default function PaginaCarrito() {
             <div className="flex gap-2">
               <input
                 type="text"
-                placeholder="LLAMA10"
+                placeholder=""
                 className="flex-1 bg-white border border-[#e0ddd8] px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#ccc] outline-none focus:border-[#1b1b1b] transition-colors"
               />
               <button className="border border-[#1b1b1b] text-[#1b1b1b] hover:bg-[#1b1b1b] hover:text-[#f6f4f1] text-[10px] uppercase tracking-widest px-4 py-2.5 transition-colors">

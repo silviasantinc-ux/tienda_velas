@@ -52,7 +52,7 @@ export default function PaginaNosotros() {
         </div>
         <div className="bg-[#ece9e4] flex items-center px-10 md:px-16 py-14">
           <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-5">2025</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-5">2026</p>
             <p className="font-serif text-3xl italic text-[#1b1b1b] leading-snug mb-6">
               {tn.cita2}
             </p>
