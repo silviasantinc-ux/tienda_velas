@@ -40,7 +40,7 @@ const traducciones = {
     // Página home
     home: {
       coleccion: 'Colección 2026',
-      heroTitulo: 'El arte de la luz artesanal',
+      heroTitulo: 'el arte de la luz artesanal',
       heroTexto: 'Velas elaboradas a mano con cera de soja natural y fragancias únicas. Diseñadas para transformar cada instante en una experiencia sensorial.',
       descubrir: 'Nuestras colecciones',
       explorar: 'Explorar',
@@ -337,7 +337,7 @@ const traducciones = {
 
     home: {
       coleccion: "Col·lecció 2026",
-      heroTitulo: "L'art de la llum artesanal",
+      heroTitulo: "l'art de la llum artesanal",
       heroTexto: "Espelmes elaborades a mà amb cera de soia natural i fragàncies úniques. Dissenyades per transformar cada instant en una experiència sensorial.",
       descubrir: 'Les nostres col·leccions',
       explorar: 'Explorar',

@@ -61,7 +61,7 @@ export default function Home() {
             <h1 className="font-['EB_Garamond'] text-4xl md:text-6xl italic leading-tight mb-4 md:whitespace-nowrap">
               {th.heroTitulo}
             </h1>
-            <p className="text-[#ccc] text-sm leading-relaxed mb-6 max-w-md mx-auto">
+            <p className="text-[#f6f4f1] text-sm leading-relaxed mb-6 max-w-md mx-auto">
               {th.heroTexto}
             </p>
             <Link
