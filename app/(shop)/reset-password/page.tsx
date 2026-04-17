@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { Eye, EyeOff } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useIdioma } from '@/lib/idioma-store'
 
@@ -10,6 +11,8 @@ export default function ResetPasswordShop() {
   const [confirmar, setConfirmar] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [guardando, setGuardando] = useState(false)
+  const [verPassword, setVerPassword] = useState(false)
+  const [verConfirmar, setVerConfirmar] = useState(false)
   const { idioma } = useIdioma()
   const ca = idioma === 'ca'
   const router = useRouter()
@@ -40,17 +43,29 @@ export default function ResetPasswordShop() {
             <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
               {ca ? 'Nova contrasenya' : 'Nueva contraseña'}
             </label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-              required autoFocus minLength={6}
-              className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] focus:outline-none focus:border-[#1b1b1b] transition-colors" />
+            <div className="relative">
+              <input type={verPassword ? 'text' : 'password'} value={password} onChange={(e) => setPassword(e.target.value)}
+                required autoFocus minLength={6}
+                className="w-full border border-[#e0ddd8] bg-white px-4 py-3 pr-11 text-sm text-[#1b1b1b] focus:outline-none focus:border-[#1b1b1b] transition-colors" />
+              <button type="button" onClick={() => setVerPassword(v => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ccc] hover:text-[#767676] transition-colors">
+                {verPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
           <div>
             <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
               {ca ? 'Confirmar contrasenya' : 'Confirmar contraseña'}
             </label>
-            <input type="password" value={confirmar} onChange={(e) => setConfirmar(e.target.value)}
-              required
-              className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] focus:outline-none focus:border-[#1b1b1b] transition-colors" />
+            <div className="relative">
+              <input type={verConfirmar ? 'text' : 'password'} value={confirmar} onChange={(e) => setConfirmar(e.target.value)}
+                required
+                className="w-full border border-[#e0ddd8] bg-white px-4 py-3 pr-11 text-sm text-[#1b1b1b] focus:outline-none focus:border-[#1b1b1b] transition-colors" />
+              <button type="button" onClick={() => setVerConfirmar(v => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ccc] hover:text-[#767676] transition-colors">
+                {verConfirmar ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
           {error && <p className="text-xs text-red-600 text-center">{error}</p>}
           <button type="submit" disabled={guardando}

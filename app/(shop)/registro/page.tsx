@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { Eye, EyeOff } from 'lucide-react'
 import { useIdioma } from '@/lib/idioma-store'
 import { supabase } from '@/lib/supabase'
 
@@ -19,6 +20,8 @@ export default function PaginaRegistro() {
   const [resetEmail, setResetEmail] = useState('')
   const [resetEnviado, setResetEnviado] = useState(false)
   const [enviando, setEnviando] = useState(false)
+  const [verPassword, setVerPassword] = useState(false)
+  const [verRepetir, setVerRepetir] = useState(false)
 
   const { t, idioma } = useIdioma()
   const tr = t.registro
@@ -194,15 +197,21 @@ export default function PaginaRegistro() {
             <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
               {tr.contrasena}
             </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-              minLength={6}
-              className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
-            />
+            <div className="relative">
+              <input
+                type={verPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+                minLength={6}
+                className="w-full border border-[#e0ddd8] bg-white px-4 py-3 pr-11 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
+              />
+              <button type="button" onClick={() => setVerPassword(v => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ccc] hover:text-[#767676] transition-colors">
+                {verPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
 
           {modo === 'registro' && (
@@ -210,14 +219,20 @@ export default function PaginaRegistro() {
               <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-2">
                 {tr.repetirContrasena}
               </label>
-              <input
-                type="password"
-                value={repetir}
-                onChange={(e) => setRepetir(e.target.value)}
-                placeholder="••••••••"
-                required
-                className="w-full border border-[#e0ddd8] bg-white px-4 py-3 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
-              />
+              <div className="relative">
+                <input
+                  type={verRepetir ? 'text' : 'password'}
+                  value={repetir}
+                  onChange={(e) => setRepetir(e.target.value)}
+                  placeholder="••••••••"
+                  required
+                  className="w-full border border-[#e0ddd8] bg-white px-4 py-3 pr-11 text-sm text-[#1b1b1b] placeholder-[#ccc] focus:outline-none focus:border-[#1b1b1b] transition-colors"
+                />
+                <button type="button" onClick={() => setVerRepetir(v => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#ccc] hover:text-[#767676] transition-colors">
+                  {verRepetir ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
             </div>
           )}
 
