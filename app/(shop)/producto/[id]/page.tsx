@@ -206,7 +206,7 @@ export default function PaginaProducto() {
                 {tp.verMas}
               </p>
               <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
-                <p className="text-[11px] text-[#666] leading-relaxed">{tp.artesanalTooltip}</p>
+                <p className="text-[11px] text-[#666] leading-relaxed italic">{tp.artesanalTooltip}</p>
               </div>
             </div>
 
