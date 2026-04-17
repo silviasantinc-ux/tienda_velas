@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <div>
       {/* ── HERO ─────────────────────────────────────────── */}
-      <section className="relative min-h-[80vh] mt-6 flex flex-col overflow-hidden bg-[#1b1b1b]">
+      <section className="relative min-h-[80vh] mt-6 flex flex-col bg-[#1b1b1b]">
         {new Date() < new Date('2026-05-04T00:00:00') ? (
           <>
             <video
@@ -75,11 +75,15 @@ export default function Home() {
         </div>
 
         {/* Chevron scroll */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 animate-bounce text-[#f6f4f1]/70">
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <button
+          onClick={() => window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 animate-bounce text-[#f6f4f1] drop-shadow-lg cursor-pointer"
+          aria-label="Scroll down"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
           </svg>
-        </div>
+        </button>
       </section>
 
       {/* ── MÁS VENDIDOS + NUEVAS ────────────────────────── */}
