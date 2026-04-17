@@ -4,8 +4,9 @@ import Link from 'next/link'
 import { ShoppingBag, Search, X, User } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { supabase } from '@/lib/supabase'
 import CarritoDropdown from './CarritoDropdown'
 import LogoLlumGlow from './LogoLlumGlow'
 
@@ -15,9 +16,22 @@ export default function Navbar() {
   const [carritoAbierto, setCarritoAbierto] = useState(false)
   const [busquedaAbierta, setBusquedaAbierta] = useState(false)
   const [termino, setTermino] = useState('')
+  const [usuario, setUsuario] = useState<string | null>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const router = useRouter()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      const nombre = data.user?.user_metadata?.nombre as string | undefined
+      setUsuario(data.user ? (nombre ?? data.user.email ?? '') : null)
+    })
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      const nombre = session?.user?.user_metadata?.nombre as string | undefined
+      setUsuario(session?.user ? (nombre ?? session.user.email ?? '') : null)
+    })
+    return () => subscription.unsubscribe()
+  }, [])
 
   const abrirCarrito = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
@@ -101,7 +115,15 @@ export default function Navbar() {
         <div className="flex items-center gap-5 text-[#1b1b1b]">
           {selectorIdioma}
           <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
-          <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
+          <Link href="/registro" className="relative hover:text-[#7d5d24] transition-colors flex items-center gap-1.5">
+            <User className="w-5 h-5" />
+            {usuario && (
+              <span className="text-[10px] uppercase tracking-widest text-[#7d5d24] max-w-[80px] truncate hidden lg:inline">
+                {usuario.split(' ')[0]}
+              </span>
+            )}
+            {usuario && <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#7d5d24] lg:hidden" />}
+          </Link>
           {carritoIcono}
         </div>
       </div>
@@ -116,7 +138,10 @@ export default function Navbar() {
           <div className="flex items-center gap-4 text-[#1b1b1b]">
             {selectorIdioma}
             <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
-            <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
+            <Link href="/registro" className="relative hover:text-[#7d5d24] transition-colors">
+              <User className="w-5 h-5" />
+              {usuario && <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#7d5d24]" />}
+            </Link>
             {carritoIcono}
           </div>
         </div>
