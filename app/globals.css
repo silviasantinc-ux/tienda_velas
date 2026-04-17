@@ -18,3 +18,14 @@ body {
 .font-serif {
   font-family: 'EB Garamond', Georgia, serif;
 }
+
+button:not(:disabled),
+a[role="button"] {
+  transition: transform 0.08s ease, opacity 0.08s ease;
+}
+
+button:not(:disabled):active,
+a[role="button"]:active {
+  transform: scale(0.96);
+  opacity: 0.85;
+}

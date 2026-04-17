@@ -8,7 +8,7 @@ import { useIdioma } from '@/lib/idioma-store'
 import { useState } from 'react'
 
 export default function CarritoDropdown() {
-  const { items, quitar, actualizarCantidad, total } = useCarrito()
+  const { items, quitar, actualizarCantidad, total, vaciar } = useCarrito()
   const t = useIdioma((s) => s.t)
   const { idioma } = useIdioma()
   const envioGratis = total() >= 50
@@ -130,6 +130,12 @@ export default function CarritoDropdown() {
               }`}
             >
               {cd.procederPago}
+            </button>
+            <button
+              onClick={vaciar}
+              className="w-full text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#b97979] transition-colors pt-3"
+            >
+              {cd.vaciarCarrito}
             </button>
           </div>
         </>
