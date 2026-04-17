@@ -55,9 +55,6 @@ export default function Home() {
         {/* Texto hero — ocupa el espacio restante, centrado */}
         <div className="relative z-10 flex-1 flex items-center justify-center text-center text-[#f6f4f1] px-6">
           <div className="max-w-2xl mx-auto">
-            <p className="text-[11px] uppercase tracking-[0.4em] text-[#dcbcbc] mb-4">
-              {th.coleccion}
-            </p>
             <h1 className="font-['EB_Garamond'] text-4xl md:text-6xl italic leading-tight mb-4 md:whitespace-nowrap">
               {th.heroTitulo}
             </h1>
