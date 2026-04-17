@@ -115,15 +115,19 @@ export default function Navbar() {
         <div className="flex items-center gap-5 text-[#1b1b1b]">
           {selectorIdioma}
           <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
-          <Link href="/registro" className="relative hover:text-[#7d5d24] transition-colors flex items-center gap-1.5">
-            <User className="w-5 h-5" />
-            {usuario && (
+          {usuario ? (
+            <div className="flex items-center gap-2">
               <span className="text-[10px] uppercase tracking-widest text-[#7d5d24] max-w-[140px] truncate hidden md:inline">
                 {usuario.split(' ')[0]}
               </span>
-            )}
-            {usuario && <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#7d5d24] lg:hidden" />}
-          </Link>
+              <button onClick={() => supabase.auth.signOut()} className="relative hover:text-[#7d5d24] transition-colors">
+                <User className="w-5 h-5" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#7d5d24]" />
+              </button>
+            </div>
+          ) : (
+            <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
+          )}
           {carritoIcono}
         </div>
       </div>
@@ -138,10 +142,14 @@ export default function Navbar() {
           <div className="flex items-center gap-4 text-[#1b1b1b]">
             {selectorIdioma}
             <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
-            <Link href="/registro" className="relative hover:text-[#7d5d24] transition-colors">
-              <User className="w-5 h-5" />
-              {usuario && <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#7d5d24]" />}
-            </Link>
+            {usuario ? (
+              <button onClick={() => supabase.auth.signOut()} className="relative hover:text-[#7d5d24] transition-colors">
+                <User className="w-5 h-5" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#7d5d24]" />
+              </button>
+            ) : (
+              <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
+            )}
             {carritoIcono}
           </div>
         </div>

@@ -173,7 +173,12 @@ function TiendaContenido() {
 
       {/* Grid */}
       {cargando ? (
-        <p className="text-sm text-[#767676] text-center py-20">Cargando...</p>
+        <p className="text-sm text-[#767676] text-center py-20">{idioma === 'ca' ? 'Carregant...' : 'Cargando...'}</p>
+      ) : productos.length === 0 ? (
+        <div className="text-center py-20">
+          <p className="font-['EB_Garamond'] text-2xl italic text-[#1b1b1b] mb-3">{idioma === 'ca' ? 'Sense resultats' : 'Sin resultados'}</p>
+          <p className="text-sm text-[#767676]">{idioma === 'ca' ? 'Prova amb altres paraules o explora tota la col·lecció.' : 'Prueba con otras palabras o explora toda la colección.'}</p>
+        </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
           {productos.map((p) => (
