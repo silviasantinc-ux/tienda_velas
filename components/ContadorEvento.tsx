@@ -30,11 +30,13 @@ export default function ContadorEvento() {
   const [tiempo, setTiempo] = useState(() => evento ? calcularTiempo(evento.target) : null)
 
   useEffect(() => {
-    const id = setInterval(() => {
+    const tick = () => {
       const ev = getEvento()
       setEvento(ev)
       setTiempo(ev ? calcularTiempo(ev.target) : null)
-    }, 60000)
+    }
+    tick()
+    const id = setInterval(tick, 60000)
     return () => clearInterval(id)
   }, [])
 
