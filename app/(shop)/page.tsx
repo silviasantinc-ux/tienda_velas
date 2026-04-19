@@ -40,7 +40,7 @@ export default function Home() {
         {new Date() < new Date('2026-04-24T00:00:00') ? (
           <>
             <Image
-              src="/sant_jordi.jpg"
+              src="/sant_jordi_02.jpg"
               alt="Sant Jordi"
               fill
               className="object-cover opacity-85"
