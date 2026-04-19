@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "img": "git add public/ && git commit -m \"Public: actualizar imágenes\" && git push"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",
