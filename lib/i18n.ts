@@ -266,6 +266,7 @@ const traducciones = {
       dias: 'días',
       horas: 'horas',
       minutos: 'minutos',
+      segundos: 'segundos',
     },
 
     // Newsletter
@@ -560,6 +561,7 @@ const traducciones = {
       dias: 'dies',
       horas: 'hores',
       minutos: 'minuts',
+      segundos: 'segons',
     },
 
     newsletter: {

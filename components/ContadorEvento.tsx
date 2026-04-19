@@ -17,10 +17,11 @@ function getEvento() {
 function calcularTiempo(target: Date) {
   const diff = target.getTime() - new Date().getTime()
   if (diff <= 0) return null
-  const dias    = Math.floor(diff / (1000 * 60 * 60 * 24))
-  const horas   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-  const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-  return { dias, horas, minutos }
+  const dias     = Math.floor(diff / (1000 * 60 * 60 * 24))
+  const horas    = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const minutos  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+  const segundos = Math.floor((diff % (1000 * 60)) / 1000)
+  return { dias, horas, minutos, segundos }
 }
 
 export default function ContadorEvento() {
@@ -36,7 +37,7 @@ export default function ContadorEvento() {
       setTiempo(ev ? calcularTiempo(ev.target) : null)
     }
     tick()
-    const id = setInterval(tick, 60000)
+    const id = setInterval(tick, 1000)
     return () => clearInterval(id)
   }, [])
 
@@ -54,6 +55,7 @@ export default function ContadorEvento() {
           { valor: tiempo.dias, label: tc.dias },
           { valor: tiempo.horas, label: tc.horas },
           { valor: tiempo.minutos, label: tc.minutos },
+          { valor: tiempo.segundos, label: tc.segundos },
         ].map(({ valor, label }, i) => (
           <div key={label} className="flex items-center gap-8 md:gap-14">
             {i > 0 && <span className="text-[#7d5d24] text-lg">·</span>}
