@@ -1,9 +1,14 @@
+'use client'
+
+import { useIdioma } from '@/lib/idioma-store'
+
 interface Props {
   height?: number
   variant?: 'dark' | 'light'
 }
 
 export default function LogoLlumGlow({ height = 52, variant = 'dark' }: Props) {
+  const idioma = useIdioma((s) => s.idioma)
   const coral = '#e07040'
   const sub = variant === 'light' ? '#f0c8a8' : '#c07040'
 
@@ -71,7 +76,7 @@ export default function LogoLlumGlow({ height = 52, variant = 'dark' }: Props) {
         }}
       >
         <span style={{ display: 'inline-block', width: 20, height: 1, background: sub, opacity: 0.7 }} />
-        handcrafted candles
+        {idioma === 'ca' ? 'espelmes artesanals' : 'velas artesanales'}
         <span style={{ display: 'inline-block', width: 20, height: 1, background: sub, opacity: 0.7 }} />
       </p>
     </div>
