@@ -305,7 +305,8 @@ const traducciones = {
       cookies: 'Cookies',
     },
     cookieBanner: {
-      texto: 'Usamos cookies propias para el funcionamiento de la sesión. No usamos cookies de terceros ni de seguimiento.',
+      texto1: 'Usamos cookies propias para el funcionamiento de la sesión.',
+      texto2: 'No usamos cookies de terceros ni de seguimiento.',
       aceptar: 'Entendido',
       verPolitica: 'Política de cookies',
     },
@@ -603,7 +604,8 @@ const traducciones = {
       cookies: 'Cookies',
     },
     cookieBanner: {
-      texto: 'Utilitzem cookies pròpies per al funcionament de la sessió. No utilitzem cookies de tercers ni de seguiment.',
+      texto1: 'Utilitzem cookies pròpies per al funcionament de la sessió.',
+      texto2: 'No utilitzem cookies de tercers ni de seguiment.',
       aceptar: 'Entesos',
       verPolitica: 'Política de cookies',
     },
