@@ -27,8 +27,8 @@ function TiendaContenido() {
 
   useEffect(() => {
     Promise.all([
-      supabase.from('productos').select('*'),
-      supabase.from('categorias').select('*').order('nombre'),
+      supabase.from('productos').select('*').eq('activo', true),
+      supabase.from('categorias').select('*').eq('activo', true).order('nombre'),
       supabase.from('producto_variantes').select('producto_id'),
     ]).then(([{ data: prods }, { data: cats }, { data: vars }]) => {
       setTodosProductos((prods as Producto[]) ?? [])

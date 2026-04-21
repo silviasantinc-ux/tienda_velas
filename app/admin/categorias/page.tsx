@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { verificarAdmin } from '@/lib/admin-auth'
-import { ArrowLeft, Plus, Pencil, Trash2, Check, X, Upload } from 'lucide-react'
+import { ArrowLeft, Plus, Pencil, Trash2, Check, X, Upload, Eye, EyeOff } from 'lucide-react'
 
 type Categoria = {
   id: string
@@ -14,6 +14,7 @@ type Categoria = {
   descripcion: string
   descripcion_ca: string
   imagen_url: string
+  activo?: boolean
 }
 
 type FormState = {
@@ -91,6 +92,12 @@ export default function AdminCategorias() {
     if (!confirm('¿Eliminar esta categoría?')) return
     await supabase.from('categorias').delete().eq('id', id)
     cargar()
+  }
+
+  const toggleActivo = async (c: Categoria) => {
+    const nuevoValor = c.activo === false ? true : false
+    await supabase.from('categorias').update({ activo: nuevoValor }).eq('id', c.id)
+    setItems((prev) => prev.map((x) => x.id === c.id ? { ...x, activo: nuevoValor } : x))
   }
 
   const iniciarEdicion = (c: Categoria) => {
@@ -192,6 +199,7 @@ export default function AdminCategorias() {
                 <th className={thCls}>Imagen</th>
                 <th className={thCls}>Nombre ES</th>
                 <th className={thCls}>Nombre CA</th>
+                <th className={thCls}>Estado</th>
                 <th className="px-4 py-4" />
               </tr>
             </thead>
@@ -211,6 +219,15 @@ export default function AdminCategorias() {
                   </td>
                   <td className="px-4 py-3 text-sm text-[#1b1b1b]">{c.nombre}</td>
                   <td className="px-4 py-3 text-sm text-[#666]">{c.nombre_ca ?? '—'}</td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => toggleActivo(c)}
+                      title={c.activo === false ? 'Activar' : 'Desactivar'}
+                      className={c.activo === false ? 'text-[#ccc] hover:text-[#7d5d24] transition-colors' : 'text-[#7d5d24] hover:text-[#ccc] transition-colors'}
+                    >
+                      {c.activo === false ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-3 justify-end">
                       <button onClick={() => iniciarEdicion(c)} className="text-[#767676] hover:text-[#1b1b1b] transition-colors"><Pencil className="w-4 h-4" /></button>

@@ -19,7 +19,7 @@ export default function Home() {
 
   useEffect(() => {
     Promise.all([
-      supabase.from('productos').select('*'),
+      supabase.from('productos').select('*').eq('activo', true),
       supabase.from('badges').select('id, nombre'),
       supabase.from('producto_variantes').select('producto_id'),
     ]).then(([{ data: prods }, { data: bdgs }, { data: vars }]) => {

@@ -17,6 +17,7 @@ export default function FooterClient() {
     supabase
       .from('categorias')
       .select('id, nombre, nombre_ca')
+      .eq('activo', true)
       .order('nombre')
       .then(({ data }) => setCategorias((data as Categoria[]) ?? []))
   }, [])

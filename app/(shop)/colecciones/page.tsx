@@ -24,6 +24,7 @@ export default function ColeccionesPage() {
     supabase
       .from('categorias')
       .select('id, nombre, nombre_ca, descripcion, descripcion_ca, imagen_url')
+      .eq('activo', true)
       .not('imagen_url', 'is', null)
       .order('nombre')
       .then(({ data }) => setColecciones((data as CategoriaColeccion[]) ?? []))

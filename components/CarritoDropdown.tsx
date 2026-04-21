@@ -5,7 +5,8 @@ import Link from 'next/link'
 import { Trash2, ShoppingBag, Plus, Minus } from 'lucide-react'
 import { useCarrito, carritoKey } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { supabase } from '@/lib/supabase'
 
 export default function CarritoDropdown() {
   const { items, quitar, actualizarCantidad, total, vaciar } = useCarrito()
@@ -13,7 +14,21 @@ export default function CarritoDropdown() {
   const { idioma } = useIdioma()
   const envioGratis = total() >= 50
   const [hover, setHover] = useState<'ver' | 'pago' | null>(null)
+  const [eliminados, setEliminados] = useState(0)
   const cd = t.carritoDropdown
+
+  useEffect(() => {
+    if (items.length === 0) return
+    const ids = [...new Set(items.map((i) => i.producto.id))]
+    supabase.from('productos').select('id, activo').in('id', ids).then(({ data }) => {
+      const inactivos = new Set((data ?? []).filter((p) => p.activo === false).map((p) => p.id))
+      if (inactivos.size === 0) return
+      items.forEach((i) => {
+        if (inactivos.has(i.producto.id)) quitar(carritoKey(i.producto.id, i.variante?.id))
+      })
+      setEliminados(inactivos.size)
+    })
+  }, [])
 
   const totalArticulos = items.reduce((a, i) => a + i.cantidad, 0)
 
@@ -28,6 +43,14 @@ export default function CarritoDropdown() {
           </p>
         )}
       </div>
+
+      {eliminados > 0 && (
+        <div className="px-5 py-2.5 bg-[#fdf3f3] border-b border-[#e8d0d0]">
+          <p className="text-[10px] text-[#b97979] leading-relaxed">
+            {eliminados === 1 ? 'Un producto ya no está disponible y ha sido eliminado del carrito.' : `${eliminados} productos ya no están disponibles y han sido eliminados del carrito.`}
+          </p>
+        </div>
+      )}
 
       {items.length === 0 ? (
         <div className="px-5 py-10 text-center">

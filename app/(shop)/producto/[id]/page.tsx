@@ -59,7 +59,7 @@ export default function PaginaProducto() {
           })
 
         supabase.from('productos').select('*')
-          .eq('categoria', data.categoria).neq('id', id).limit(4)
+          .eq('categoria', data.categoria).eq('activo', true).neq('id', id).limit(4)
           .then(({ data: rel }) => setRelacionados((rel as Producto[]) ?? []))
 
         supabase

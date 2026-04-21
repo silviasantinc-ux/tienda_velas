@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { verificarAdmin } from '@/lib/admin-auth'
 import { Producto } from '@/types'
-import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen } from 'lucide-react'
+import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen, Eye, EyeOff } from 'lucide-react'
 
 export default function AdminPanel() {
   const [productos, setProductos] = useState<Producto[]>([])
@@ -37,6 +37,12 @@ export default function AdminPanel() {
     await supabase.from('productos').delete().eq('id', id)
     setProductos((prev) => prev.filter((p) => p.id !== id))
     setEliminando(null)
+  }
+
+  const toggleActivo = async (p: Producto) => {
+    const nuevoValor = !(p as Producto & { activo?: boolean }).activo
+    await supabase.from('productos').update({ activo: nuevoValor }).eq('id', p.id)
+    setProductos((prev) => prev.map((x) => x.id === p.id ? { ...x, activo: nuevoValor } as Producto : x))
   }
 
   const cerrarSesion = async () => {
@@ -115,6 +121,7 @@ export default function AdminPanel() {
                   <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Precio</th>
                   <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Stock</th>
                   <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Etiqueta</th>
+                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Estado</th>
                   <th className="px-4 py-4" />
                 </tr>
               </thead>
@@ -148,6 +155,15 @@ export default function AdminPanel() {
                           {badgeLabel[p.badge] ?? p.badge}
                         </span>
                       )}
+                    </td>
+                    <td className="px-4 py-4">
+                      <button
+                        onClick={() => toggleActivo(p)}
+                        title={(p as Producto & { activo?: boolean }).activo === false ? 'Activar' : 'Desactivar'}
+                        className={(p as Producto & { activo?: boolean }).activo === false ? 'text-[#ccc] hover:text-[#7d5d24] transition-colors' : 'text-[#7d5d24] hover:text-[#ccc] transition-colors'}
+                      >
+                        {(p as Producto & { activo?: boolean }).activo === false ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex items-center gap-3 justify-end">
