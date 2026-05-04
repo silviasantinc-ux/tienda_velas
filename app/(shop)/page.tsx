@@ -60,23 +60,16 @@ export default function Home() {
             <div className="absolute inset-0 bg-[#1b1b1b]/10" />
           </>
         ) : (
-          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <radialGradient id="glow1" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#c8903a" stopOpacity="0.5" /><stop offset="100%" stopColor="#c8903a" stopOpacity="0" /></radialGradient>
-              <radialGradient id="glow2" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="#dcbcbc" stopOpacity="0.35" /><stop offset="100%" stopColor="#dcbcbc" stopOpacity="0" /></radialGradient>
-              <radialGradient id="flameGrad" cx="50%" cy="80%" r="60%"><stop offset="0%" stopColor="#fff8e1" /><stop offset="40%" stopColor="#ffb74d" /><stop offset="100%" stopColor="#e65100" stopOpacity="0" /></radialGradient>
-              <radialGradient id="flameGrad2" cx="50%" cy="80%" r="60%"><stop offset="0%" stopColor="#fff8e1" /><stop offset="40%" stopColor="#ffcc80" /><stop offset="100%" stopColor="#e65100" stopOpacity="0" /></radialGradient>
-              <filter id="blur1"><feGaussianBlur stdDeviation="18" /></filter>
-              <filter id="blur2"><feGaussianBlur stdDeviation="8" /></filter>
-            </defs>
-            <ellipse cx="580" cy="420" rx="180" ry="160" fill="url(#glow1)" filter="url(#blur1)" />
-            <ellipse cx="860" cy="380" rx="140" ry="130" fill="url(#glow1)" filter="url(#blur1)" />
-            <ellipse cx="1050" cy="470" rx="110" ry="100" fill="url(#glow2)" filter="url(#blur1)" />
-            <rect x="540" y="320" width="80" height="240" rx="4" fill="#2e2a24" /><rect x="540" y="320" width="80" height="240" rx="4" fill="none" stroke="#7d5d24" strokeWidth="1" strokeOpacity="0.4" /><line x1="580" y1="320" x2="578" y2="300" stroke="#555" strokeWidth="2" strokeLinecap="round" /><ellipse cx="578" cy="288" rx="14" ry="22" fill="url(#flameGrad)" filter="url(#blur2)" opacity="0.9" /><path d="M578,302 C572,292 570,280 578,268 C586,280 586,292 578,302Z" fill="#fff8e1" opacity="0.95" /><ellipse cx="580" cy="558" rx="55" ry="10" fill="#2a2520" stroke="#7d5d24" strokeWidth="0.8" strokeOpacity="0.4" />
-            <rect x="820" y="280" width="70" height="200" rx="4" fill="#2e2a24" /><rect x="820" y="280" width="70" height="200" rx="4" fill="none" stroke="#dcbcbc" strokeWidth="1" strokeOpacity="0.35" /><line x1="855" y1="280" x2="853" y2="263" stroke="#555" strokeWidth="2" strokeLinecap="round" /><ellipse cx="853" cy="252" rx="12" ry="19" fill="url(#flameGrad2)" filter="url(#blur2)" opacity="0.85" /><path d="M853,264 C848,255 846,244 853,234 C860,244 860,255 853,264Z" fill="#fff8e1" opacity="0.95" /><ellipse cx="855" cy="479" rx="48" ry="9" fill="#2a2520" stroke="#dcbcbc" strokeWidth="0.8" strokeOpacity="0.35" />
-            <rect x="1010" y="360" width="56" height="160" rx="4" fill="#2e2a24" /><rect x="1010" y="360" width="56" height="160" rx="4" fill="none" stroke="#7d5d24" strokeWidth="1" strokeOpacity="0.3" /><line x1="1038" y1="360" x2="1036" y2="346" stroke="#555" strokeWidth="1.5" strokeLinecap="round" /><ellipse cx="1036" cy="337" rx="10" ry="16" fill="url(#flameGrad)" filter="url(#blur2)" opacity="0.8" /><path d="M1036,348 C1032,341 1030,332 1036,323 C1042,332 1042,341 1036,348Z" fill="#fff8e1" opacity="0.9" /><ellipse cx="1038" cy="519" rx="38" ry="7" fill="#2a2520" stroke="#7d5d24" strokeWidth="0.8" strokeOpacity="0.3" />
-            <circle cx="450" cy="250" r="1.5" fill="#dcbcbc" opacity="0.6" /><circle cx="700" cy="180" r="1" fill="#7d5d24" opacity="0.5" /><circle cx="1100" cy="220" r="1.5" fill="#dcbcbc" opacity="0.55" /><circle cx="920" cy="160" r="1.5" fill="#dcbcbc" opacity="0.5" />
-          </svg>
+          <>
+            <Image
+              src="/todas_las_velas.jpg"
+              alt="Llum & Glow"
+              fill
+              className="object-cover opacity-85"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1b1b1b]/60 via-transparent to-transparent" />
+          </>
         )}
 
         {/* Contador — arriba del hero */}
