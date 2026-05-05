@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Suspense } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useIdioma } from '@/lib/idioma-store'
@@ -12,6 +12,7 @@ type Categoria = { id: string; nombre: string; nombre_ca: string }
 
 function TiendaContenido() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const catParam = searchParams.get('cat')
   const qParam = searchParams.get('q')
   const { idioma, t } = useIdioma()
@@ -108,7 +109,7 @@ function TiendaContenido() {
         <div className="hidden md:flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 flex-wrap">
             <button
-              onClick={() => setCategoriaES('')}
+              onClick={() => router.replace('/tienda')}
               className={`px-4 py-1.5 text-[11px] uppercase tracking-widest border transition-colors ${
                 categoriaES === ''
                   ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
@@ -120,7 +121,8 @@ function TiendaContenido() {
             {categorias.map((c) => (
               <button
                 key={c.id}
-                onClick={() => setCategoriaES(c.nombre)}
+                onClick={() => router.replace(`/tienda?cat=${encodeURIComponent(catLabel(c))}`)}
+
                 className={`px-4 py-1.5 text-[11px] uppercase tracking-widest border transition-colors ${
                   categoriaES === c.nombre
                     ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
@@ -146,7 +148,11 @@ function TiendaContenido() {
         <div className="flex md:hidden flex-row items-center gap-3">
           <select
             value={categoriaES}
-            onChange={(e) => setCategoriaES(e.target.value)}
+            onChange={(e) => {
+              const val = e.target.value
+              if (!val) router.replace('/tienda')
+              else router.replace(`/tienda?cat=${encodeURIComponent(val)}`)
+            }}
             className="flex-1 bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer"
           >
             <option value="">{todoLabel}</option>
