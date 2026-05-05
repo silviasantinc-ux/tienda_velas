@@ -67,7 +67,7 @@ const traducciones = {
       historiaPar2: 'AsÃ­ naciÃ³ llum & glow. Con una olla vieja, cera de soja y mÃ¡s fracasos que Ã©xitos al principio. Hoy cada vela sigue siendo un trozo de esa historia.',
       leerHistoria: 'Leer la historia completa',
       opinionesVerificadas: 'Opiniones verificadas',
-      loQueDicen: 'Lo que dicen nuestras clientas',
+      loQueDicen: 'Lo que opinan de nosotros',
       verResenas: 'Ver las 9 reseÃ±as',
       sobre: 'Sobre',
       compraVerificada: 'Compra verificada',
@@ -243,7 +243,7 @@ const traducciones = {
     // PÃ¡gina reseÃ±as
     resenas: {
       opinionesVerificadas: 'Opiniones verificadas',
-      loQueDicen: 'Lo que dicen nuestras clientas',
+      loQueDicen: 'Lo que opinan de nosotros',
       subtitulo: 'Opiniones reales de personas que han comprado y encendido nuestras velas en sus hogares.',
       sobre: 'Sobre',
       resenas: 'reseÃ±as',
@@ -375,7 +375,7 @@ const traducciones = {
       historiaPar2: "AixÃ­ va nÃ©ixer llum & glow. Amb una olla vella, cera de soia i mÃ©s fracassos que Ã¨xits al principi. Avui cada espelma continua sent un tros d'aquella histÃ²ria.",
       leerHistoria: 'Llegir la histÃ²ria completa',
       opinionesVerificadas: 'Opinions verificades',
-      loQueDicen: 'El que diuen les nostres clientes',
+      loQueDicen: 'El que opinen de nosaltres',
       verResenas: 'Veure les 9 ressenyes',
       sobre: 'Sobre',
       compraVerificada: 'Compra verificada',
@@ -545,7 +545,7 @@ const traducciones = {
 
     resenas: {
       opinionesVerificadas: 'Opinions verificades',
-      loQueDicen: 'El que diuen les nostres clientes',
+      loQueDicen: 'El que opinen de nosaltres',
       subtitulo: 'Opinions reals de persones que han comprat i encÃ¨s les nostres espelmes a casa seva.',
       sobre: 'Sobre',
       resenas: 'ressenyes',
