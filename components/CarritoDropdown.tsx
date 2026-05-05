@@ -12,7 +12,6 @@ export default function CarritoDropdown() {
   const { items, quitar, actualizarCantidad, total, vaciar } = useCarrito()
   const t = useIdioma((s) => s.t)
   const { idioma } = useIdioma()
-  const envioGratis = total() >= 50
   const [hover, setHover] = useState<'ver' | 'pago' | null>(null)
   const [eliminados, setEliminados] = useState(0)
   const cd = t.carritoDropdown
@@ -65,26 +64,6 @@ export default function CarritoDropdown() {
         </div>
       ) : (
         <>
-          {/* Barra envío gratis */}
-          {!envioGratis && (
-            <div className="px-5 py-2.5 bg-[#ece9e4] flex items-center gap-3">
-              <div className="flex-1 h-0.5 bg-[#d0cdc8] rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#dcbcbc] transition-all duration-500"
-                  style={{ width: `${Math.min(100, (total() / 50) * 100)}%` }}
-                />
-              </div>
-              <p className="text-[10px] text-[#666] whitespace-nowrap flex-shrink-0">
-                {cd.faltan} <strong className="text-[#1b1b1b]">{(50 - total()).toFixed(2)} €</strong> {cd.paraEnvio}
-              </p>
-            </div>
-          )}
-          {envioGratis && (
-            <div className="px-5 py-2.5 bg-[#ece9e4]">
-              <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] text-center">{cd.envioIncluido}</p>
-            </div>
-          )}
-
           {/* Lista de items */}
           <div className="divide-y divide-[#e0ddd8] max-h-64 overflow-y-auto">
             {items.map(({ producto, cantidad, variante }) => {
@@ -133,7 +112,7 @@ export default function CarritoDropdown() {
           <div className="px-5 py-4 border-t border-[#e0ddd8]">
             <div className="flex justify-between items-center mb-4">
               <span className="text-[11px] uppercase tracking-widest text-[#666]">{cd.total}</span>
-              <span className="font-medium text-[#1b1b1b]">{(total() + (envioGratis ? 0 : 4.90)).toFixed(2)} €</span>
+              <span className="font-medium text-[#1b1b1b]">{total().toFixed(2)} €</span>
             </div>
             <Link
               href="/carrito"

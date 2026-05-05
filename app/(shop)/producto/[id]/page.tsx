@@ -308,12 +308,7 @@ export default function PaginaProducto() {
               </button>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-[#e0ddd8]">
-              <p className="text-[11px] text-[#767676] uppercase tracking-widest flex items-center gap-2">
-                <span className="w-1 h-1 rounded-full bg-[#dcbcbc] flex-shrink-0" />
-                {tp.envioGratis}
-              </p>
-            </div>
+            <div className="mt-8 pt-6 border-t border-[#e0ddd8]" />
           </div>
         </div>
       </div>

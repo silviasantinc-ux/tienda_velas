@@ -10,7 +10,6 @@ export default function PaginaCarrito() {
   const { items, quitar, actualizarCantidad, total, vaciar } = useCarrito()
   const { idioma, t } = useIdioma()
   const tc = t.carrito
-  const envioGratis = total() >= 50
 
   if (items.length === 0) {
     return (
@@ -46,27 +45,6 @@ export default function PaginaCarrito() {
         </button>
       </div>
 
-      {/* Barra envío gratis */}
-      {!envioGratis && (
-        <div className="bg-[#ece9e4] px-5 py-4 mb-8 flex items-center justify-between">
-          <p className="text-[11px] uppercase tracking-widest text-[#666]">
-            {tc.añade} <strong className="text-[#1b1b1b]">{(50 - total()).toFixed(2)} €</strong> {tc.masParaEnvio}
-          </p>
-          <div className="w-32 h-1 bg-[#d0cdc8] rounded-full overflow-hidden">
-            <div
-              className="h-full bg-[#dcbcbc] transition-all duration-500"
-              style={{ width: `${Math.min(100, (total() / 50) * 100)}%` }}
-            />
-          </div>
-        </div>
-      )}
-      {envioGratis && (
-        <div className="bg-[#ece9e4] px-5 py-4 mb-8">
-          <p className="text-[11px] uppercase tracking-widest text-[#7d5d24]">
-            {tc.enhorabuena}
-          </p>
-        </div>
-      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Items */}
@@ -172,9 +150,7 @@ export default function PaginaCarrito() {
               </div>
               <div className="flex justify-between text-sm text-[#666]">
                 <span className="text-[11px] uppercase tracking-widest">{tc.envio}</span>
-                <span className={envioGratis ? 'text-[#7d5d24]' : ''}>
-                  {envioGratis ? tc.gratuito : '4,90 €'}
-                </span>
+                <span>{tc.aPendiente}</span>
               </div>
             </div>
 
@@ -182,7 +158,7 @@ export default function PaginaCarrito() {
               <div className="flex justify-between text-[#1b1b1b]">
                 <span className="text-[11px] uppercase tracking-widest font-medium">{tc.total}</span>
                 <span className="font-medium text-lg">
-                  {(total() + (envioGratis ? 0 : 4.90)).toFixed(2)} €
+                  {total().toFixed(2)} €
                 </span>
               </div>
             </div>
