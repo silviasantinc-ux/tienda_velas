@@ -104,7 +104,7 @@ export default function Navbar() {
     <nav className="bg-[#f6f4f1] border-b border-[#e0ddd8] sticky top-0 z-50">
 
       {/* ── Desktop ── */}
-      <div className="hidden md:flex max-w-7xl mx-auto px-6 py-2 items-center justify-between min-h-[88px]">
+      <div className="hidden md:flex max-w-7xl mx-auto px-6 py-2 items-center justify-between min-h-[104px]">
         <div className="flex items-center gap-8 text-[11px] uppercase tracking-widest font-medium">
           <Link href="/tienda" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">{t.nav.tienda}</Link>
           <Link href="/nosotros" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">{t.nav.elOrigen}</Link>
@@ -148,7 +148,7 @@ export default function Navbar() {
 
       {/* ── Mobile ── */}
       <div className="md:hidden max-w-7xl mx-auto px-6">
-        <div className="flex items-center justify-between py-3">
+        <div className="flex items-center justify-between py-4">
           <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b]">
             <Link href="/tienda" className="hover:text-[#7d5d24] transition-colors">{t.nav.tienda}</Link>
             <Link href="/nosotros" className="hover:text-[#7d5d24] transition-colors">{t.nav.elOrigen}</Link>
