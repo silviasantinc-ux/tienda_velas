@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ShoppingBag, Search, X, User } from 'lucide-react'
+import { ShoppingBag, Search, X, User, Home } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 import { useState, useRef, useEffect } from 'react'
@@ -106,6 +106,7 @@ export default function Navbar() {
       {/* ── Desktop ── */}
       <div className="hidden md:flex max-w-7xl mx-auto px-6 py-2 items-center justify-between min-h-[104px]">
         <div className="flex items-center gap-8 text-[11px] uppercase tracking-widest font-medium">
+          <Link href="/" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors" aria-label="Inicio"><Home className="w-4 h-4" /></Link>
           <Link href="/tienda" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">{t.nav.tienda}</Link>
           <Link href="/nosotros" className="text-[#1b1b1b] hover:text-[#7d5d24] transition-colors">{t.nav.elOrigen}</Link>
         </div>
@@ -150,6 +151,7 @@ export default function Navbar() {
       <div className="md:hidden max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center gap-4 text-[11px] uppercase tracking-widest font-medium text-[#1b1b1b]">
+            <Link href="/" className="hover:text-[#7d5d24] transition-colors" aria-label="Inicio"><Home className="w-4 h-4" /></Link>
             <Link href="/tienda" className="hover:text-[#7d5d24] transition-colors">{t.nav.tienda}</Link>
             <Link href="/nosotros" className="hover:text-[#7d5d24] transition-colors">{t.nav.elOrigen}</Link>
           </div>
