@@ -168,7 +168,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
       video_url: video?.url ?? null,
       categoria: form.categoria,
       categoria_ca: catObj?.nombre_ca ?? null,
-      stock: parseInt(form.stock),
+      stock: parseInt(form.stock) || 0,
       badge: form.badge || null,
       peso_gr: form.peso_gr ? parseInt(form.peso_gr) : null,
       alto_cm: form.alto_cm ? parseFloat(form.alto_cm) : null,
@@ -288,11 +288,10 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             {(() => {
               const conVariantes = variantesListas && variantes.length > 0
               return (
-                <Field label={conVariantes ? 'Stock (suma variantes)' : 'Stock'} required={!conVariantes}>
+                <Field label={conVariantes ? 'Stock (suma variantes)' : 'Stock'}>
                   <input
                     type="number" min="0" value={form.stock}
                     onChange={(e) => set('stock', e.target.value)}
-                    required={!conVariantes}
                     readOnly={conVariantes}
                     title={conVariantes ? 'Se calcula automáticamente sumando el stock de cada variante' : undefined}
                     className={inputCls + (conVariantes ? ' bg-[#f6f4f1] text-[#767676] cursor-not-allowed' : '')}
