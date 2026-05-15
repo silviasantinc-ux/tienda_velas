@@ -158,12 +158,12 @@ export default function AdminCategorias() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className={labelCls}>Descripción ES</label>
-                <input value={form.descripcion} onChange={(e) => setForm(f => ({ ...f, descripcion: e.target.value }))}
-                  placeholder="Fragancias cálidas inspiradas en…" className={inputCls} />
+                <input value={form.descripcion} onChange={(e) => setForm(f => ({ ...f, descripcion: e.target.value.toLowerCase() }))}
+                  placeholder="fragancias cálidas inspiradas en…" className={inputCls} />
               </div>
               <div>
                 <label className={labelCls}>Descripció CA</label>
-                <input value={form.descripcion_ca} onChange={(e) => setForm(f => ({ ...f, descripcion_ca: e.target.value }))} className={inputCls} />
+                <input value={form.descripcion_ca} onChange={(e) => setForm(f => ({ ...f, descripcion_ca: e.target.value.toLowerCase() }))} className={inputCls} />
               </div>
             </div>
 
