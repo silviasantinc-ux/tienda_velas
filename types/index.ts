@@ -17,8 +17,7 @@ export type Producto = {
   peso_gr?: number
   alto_cm?: number
   ancho_cm?: number
-  notas_aromaticas?: string[]
-  notas_aromaticas_ca?: string[]
+
 }
 
 export type ProductoVariante = {

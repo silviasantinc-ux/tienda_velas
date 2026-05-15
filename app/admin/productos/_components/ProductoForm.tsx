@@ -93,8 +93,6 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
     peso_gr: productoInicial?.peso_gr?.toString() ?? '',
     alto_cm: productoInicial?.alto_cm?.toString() ?? '',
     ancho_cm: productoInicial?.ancho_cm?.toString() ?? '',
-    notas_aromaticas: productoInicial?.notas_aromaticas?.join(', ') ?? '',
-    notas_aromaticas_ca: productoInicial?.notas_aromaticas_ca?.join(', ') ?? '',
   })
 
   const set = (campo: string, valor: string) => setForm((f) => ({ ...f, [campo]: valor }))
@@ -173,8 +171,6 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
       peso_gr: form.peso_gr ? parseInt(form.peso_gr) : null,
       alto_cm: form.alto_cm ? parseFloat(form.alto_cm) : null,
       ancho_cm: form.ancho_cm ? parseFloat(form.ancho_cm) : null,
-      notas_aromaticas: form.notas_aromaticas ? form.notas_aromaticas.split(',').map((s) => s.trim()).filter(Boolean) : null,
-      notas_aromaticas_ca: form.notas_aromaticas_ca ? form.notas_aromaticas_ca.split(',').map((s) => s.trim()).filter(Boolean) : null,
     }
 
     try {
@@ -459,18 +455,6 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             </Field>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Field label="Notas aromáticas ES (separadas por coma)">
-              <input type="text" value={form.notas_aromaticas}
-                onChange={(e) => set('notas_aromaticas', e.target.value)}
-                placeholder="Lavanda, Bergamota, Almizcle" className={inputCls} />
-            </Field>
-            <Field label="Notas aromáticas CA">
-              <input type="text" value={form.notas_aromaticas_ca}
-                onChange={(e) => set('notas_aromaticas_ca', e.target.value)}
-                placeholder="Lavanda, Bergamota, Almesc blanc" className={inputCls} />
-            </Field>
-          </div>
 
           {error && <p className="text-xs text-red-600">{error}</p>}
 

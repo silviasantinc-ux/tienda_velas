@@ -101,8 +101,6 @@ export default function PaginaProducto() {
   const descripcion = idioma === 'ca' ? (producto.descripcion_ca ?? producto.descripcion) : producto.descripcion
   const detalle = idioma === 'ca' ? (producto.detalle_ca ?? producto.detalle) : producto.detalle
   const categoria = idioma === 'ca' ? (producto.categoria_ca ?? producto.categoria) : producto.categoria
-  const notas = idioma === 'ca' ? (producto.notas_aromaticas_ca ?? producto.notas_aromaticas) : producto.notas_aromaticas
-
   const stockActual = varianteSeleccionada ? varianteSeleccionada.stock : (variantes.length === 0 ? producto.stock : 0)
 
   const handleAgregar = () => {
@@ -210,16 +208,6 @@ export default function PaginaProducto() {
               </div>
             </div>
 
-            {notas && (
-              <div className="mb-8">
-                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">{tp.notasAromaticas}</p>
-                <div className="flex flex-wrap gap-2">
-                  {notas.map((nota) => (
-                    <span key={nota} className="border border-[#e0ddd8] text-[11px] text-[#666] px-3 py-1.5 uppercase tracking-widest">{nota}</span>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <div className="border-t border-[#e0ddd8] pt-6 mb-8 grid grid-cols-2 gap-4">
               {producto.peso_gr && (

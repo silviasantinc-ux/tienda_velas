@@ -52,7 +52,6 @@ export default function PaginaCarrito() {
           {items.map(({ producto, cantidad, variante }) => {
             const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
             const categoria = idioma === 'ca' ? (producto.categoria_ca ?? producto.categoria) : producto.categoria
-            const notas = idioma === 'ca' ? (producto.notas_aromaticas_ca ?? producto.notas_aromaticas) : producto.notas_aromaticas
             const key = carritoKey(producto.id, variante?.id)
             const precioUd = producto.precio + (variante?.precio_extra ?? 0)
             return (
@@ -77,11 +76,6 @@ export default function PaginaCarrito() {
                   {variante && (
                     <p className="text-[10px] text-[#7d5d24] mb-1 uppercase tracking-widest">
                       {idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}
-                    </p>
-                  )}
-                  {notas && (
-                    <p className="text-[10px] text-[#767676] mb-3">
-                      {notas.join(' · ')}
                     </p>
                   )}
                   <div className="flex items-center gap-3">

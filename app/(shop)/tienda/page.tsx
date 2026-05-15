@@ -71,14 +71,12 @@ function TiendaContenido() {
       const q = busqueda.toLowerCase()
       lista = lista.filter((p) => {
         const nombre = idioma === 'ca' ? (p.nombre_ca ?? p.nombre) : p.nombre
-        const notas = idioma === 'ca' ? (p.notas_aromaticas_ca ?? p.notas_aromaticas) : p.notas_aromaticas
         const cat = idioma === 'ca' ? (p.categoria_ca ?? p.categoria) : p.categoria
         const desc = idioma === 'ca' ? (p.descripcion_ca ?? p.descripcion) : p.descripcion
         return (
           nombre.toLowerCase().includes(q) ||
           cat.toLowerCase().includes(q) ||
-          desc?.toLowerCase().includes(q) ||
-          notas?.some((n) => n.toLowerCase().includes(q))
+          desc?.toLowerCase().includes(q)
         )
       })
     }
