@@ -24,9 +24,13 @@ type FormState = {
   descripcion: string
   descripcion_ca: string
   imagen_url: string
+  activo: boolean
 }
 
-const formVacio: FormState = { id: '', nombre: '', nombre_ca: '', descripcion: '', descripcion_ca: '', imagen_url: '' }
+const slugify = (s: string) =>
+  s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+
+const formVacio: FormState = { id: '', nombre: '', nombre_ca: '', descripcion: '', descripcion_ca: '', imagen_url: '', activo: true }
 
 export default function AdminCategorias() {
   const [items, setItems] = useState<Categoria[]>([])
@@ -67,7 +71,6 @@ export default function AdminCategorias() {
   const guardar = async () => {
     setError(null)
     if (!form.nombre.trim()) { setError('El nombre es obligatorio'); return }
-    if (nuevo && !form.id.trim()) { setError('El ID es obligatorio'); return }
 
     const payload = {
       nombre: form.nombre.trim(),
@@ -75,10 +78,12 @@ export default function AdminCategorias() {
       descripcion: form.descripcion.trim() || null,
       descripcion_ca: form.descripcion_ca.trim() || null,
       imagen_url: form.imagen_url || null,
+      activo: form.activo,
     }
 
     if (nuevo) {
-      const { error: err } = await supabase.from('categorias').insert({ id: form.id.trim(), ...payload })
+      const id = slugify(form.nombre.trim())
+      const { error: err } = await supabase.from('categorias').insert({ id, ...payload })
       if (err) { setError(err.message); return }
     } else {
       const { error: err } = await supabase.from('categorias').update(payload).eq('id', form.id)
@@ -102,7 +107,7 @@ export default function AdminCategorias() {
 
   const iniciarEdicion = (c: Categoria) => {
     setEditando(c); setNuevo(false)
-    setForm({ id: c.id, nombre: c.nombre, nombre_ca: c.nombre_ca ?? '', descripcion: c.descripcion ?? '', descripcion_ca: c.descripcion_ca ?? '', imagen_url: c.imagen_url ?? '' })
+    setForm({ id: c.id, nombre: c.nombre, nombre_ca: c.nombre_ca ?? '', descripcion: c.descripcion ?? '', descripcion_ca: c.descripcion_ca ?? '', imagen_url: c.imagen_url ?? '', activo: c.activo !== false })
     setError(null)
   }
   const iniciarNuevo = () => { setNuevo(true); setEditando(null); setForm(formVacio); setError(null) }
@@ -128,14 +133,7 @@ export default function AdminCategorias() {
               {nuevo ? 'Nueva categoría' : 'Editar categoría'}
             </h2>
 
-            <div className="grid grid-cols-3 gap-4">
-              {nuevo && (
-                <div>
-                  <label className={labelCls}>ID <span className="text-[#7d5d24]">*</span></label>
-                  <input value={form.id} onChange={(e) => setForm(f => ({ ...f, id: e.target.value }))}
-                    placeholder="ej: flores" className={inputCls} />
-                </div>
-              )}
+            <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className={labelCls}>Nombre ES <span className="text-[#7d5d24]">*</span></label>
                 <input value={form.nombre} onChange={(e) => setForm(f => ({ ...f, nombre: e.target.value }))} className={inputCls} />
@@ -144,6 +142,17 @@ export default function AdminCategorias() {
                 <label className={labelCls}>Nombre CA</label>
                 <input value={form.nombre_ca} onChange={(e) => setForm(f => ({ ...f, nombre_ca: e.target.value }))} className={inputCls} />
               </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setForm(f => ({ ...f, activo: !f.activo }))}
+                className={`relative inline-flex h-5 w-9 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none ${form.activo ? 'bg-[#7d5d24]' : 'bg-[#d0cdc8]'}`}
+              >
+                <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ${form.activo ? 'translate-x-4' : 'translate-x-0'}`} />
+              </button>
+              <span className="text-[11px] uppercase tracking-widest text-[#666]">{form.activo ? 'Visible' : 'Oculta'}</span>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
