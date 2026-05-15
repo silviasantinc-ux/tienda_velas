@@ -79,7 +79,7 @@ export default function ColeccionesPage() {
               <div className="absolute bottom-6 left-6 text-[#f6f4f1]">
                 <p className="font-['EB_Garamond'] text-2xl italic mb-1">{nombre}</p>
                 {descripcion && (
-                  <p className="text-[10px] uppercase tracking-widest text-[#dcbcbc]">{descripcion}</p>
+                  <p className="text-[10px] tracking-widest text-[#dcbcbc]">{descripcion}</p>
                 )}
               </div>
             </Link>
