@@ -157,9 +157,15 @@ export default function PaginaCarrito() {
               </div>
             </div>
 
-            <button className="w-full bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors mb-3">
+            <button
+              disabled
+              className="w-full bg-[#e0ddd8] text-[#a0a0a0] cursor-not-allowed text-[11px] uppercase tracking-widest font-medium py-4 mb-1"
+            >
               {tc.procederPago}
             </button>
+            <p className="text-[10px] text-[#7d5d24] uppercase tracking-widest text-center mb-2">
+              {tc.pagoProximo}
+            </p>
             <Link
               href="/tienda"
               className="block w-full text-center border border-[#d0cdc8] hover:border-[#1b1b1b] text-[#666] hover:text-[#1b1b1b] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"

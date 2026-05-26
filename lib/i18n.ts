@@ -231,6 +231,7 @@ const traducciones = {
       gratuito: 'Gratuito',
       aPendiente: 'A calcular',
       procederPago: 'Proceder al pago',
+      pagoProximo: 'Pasarela de pago disponible próximamente',
       garantias: ['Pago 100% seguro con SSL', 'Devolución gratuita en 30 días'],
       codigoDescuento: 'Código de descuento',
       aplicar: 'Aplicar',
@@ -307,6 +308,10 @@ const traducciones = {
       texto2: 'No usamos cookies de terceros ni de seguimiento.',
       aceptar: 'Entendido',
       verPolitica: 'Política de cookies',
+    },
+    proximamente: {
+      banner: 'Estamos ultimando los últimos detalles — la tienda abrirá oficialmente muy pronto.',
+      pagoProximo: 'La pasarela de pago estará disponible próximamente.',
     },
   },
 
@@ -531,6 +536,7 @@ const traducciones = {
       gratuito: 'Gratuït',
       aPendiente: 'A calcular',
       procederPago: 'Procedir al pagament',
+      pagoProximo: 'Passarel·la de pagament disponible properament',
       garantias: ['Pagament 100% segur amb SSL', 'Devolució gratuïta en 30 dies'],
       codigoDescuento: 'Codi de descompte',
       aplicar: 'Aplicar',
@@ -604,6 +610,10 @@ const traducciones = {
       texto2: 'No utilitzem cookies de tercers ni de seguiment.',
       aceptar: 'Entesos',
       verPolitica: 'Política de cookies',
+    },
+    proximamente: {
+      banner: "Estem acabant els últims detalls — la botiga obrirà oficialment molt aviat.",
+      pagoProximo: 'La passarel·la de pagament estarà disponible properament.',
     },
   },
 }
