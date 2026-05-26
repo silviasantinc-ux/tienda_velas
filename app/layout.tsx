@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     siteName: 'llum & glow',
     title: 'llum & glow — velas artesanales',
     description: 'Velas elaboradas a mano con cera de soja natural y fragancias únicas para transformar tu hogar.',
+    images: [{ url: `${BASE}/todas_las_velas.jpg`, width: 1200, height: 630, alt: 'llum & glow velas artesanales' }],
   },
   twitter: {
     card: 'summary_large_image',

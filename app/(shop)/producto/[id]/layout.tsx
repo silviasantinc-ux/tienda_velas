@@ -1,31 +1,40 @@
-import type { Metadata } from 'next'
-import { productosMock } from '@/lib/productos-mock'
+﻿import type { Metadata } from 'next'
+import { createClient } from '@supabase/supabase-js'
+
+const BASE = 'https://www.llumandglow.com'
+
+function supabaseServer() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+}
 
 type Props = { params: Promise<{ id: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
-  const p = productosMock.find((x) => x.id === id)
+  const { data: p } = await supabaseServer()
+    .from('productos')
+    .select('nombre, descripcion, imagen_url')
+    .eq('id', id)
+    .single()
 
-  if (!p) {
-    return { title: 'Producto no encontrado — llum & glow' }
-  }
+  if (!p) return { title: 'Producto no encontrado — llum & glow' }
 
   const titulo = `${p.nombre} — vela artesanal | llum & glow`
-  const descripcion = p.descripcion
-
   return {
     title: titulo,
-    description: descripcion,
+    description: p.descripcion,
     openGraph: {
       title: titulo,
-      description: descripcion,
-      url: `https://www.llumandglow.com/producto/${p.id}`,
+      description: p.descripcion,
+      url: `${BASE}/producto/${id}`,
       images: [{ url: p.imagen_url, alt: p.nombre }],
       type: 'website',
     },
     alternates: {
-      canonical: `https://tiendavelas.vercel.app/producto/${p.id}`,
+      canonical: `${BASE}/producto/${id}`,
     },
   }
 }
@@ -38,7 +47,11 @@ export default async function Layout({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-  const p = productosMock.find((x) => x.id === id)
+  const { data: p } = await supabaseServer()
+    .from('productos')
+    .select('nombre, descripcion, imagen_url, precio, stock')
+    .eq('id', id)
+    .single()
 
   const jsonLd = p
     ? {
@@ -56,7 +69,7 @@ export default async function Layout({
             p.stock > 0
               ? 'https://schema.org/InStock'
               : 'https://schema.org/OutOfStock',
-          url: `https://www.llumandglow.com/producto/${p.id}`,
+          url: `${BASE}/producto/${id}`,
         },
       }
     : null

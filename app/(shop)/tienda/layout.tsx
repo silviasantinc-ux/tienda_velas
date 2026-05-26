@@ -1,4 +1,6 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
+
+const BASE = 'https://www.llumandglow.com'
 
 export const metadata: Metadata = {
   title: 'Tienda de velas artesanales — llum & glow',
@@ -6,10 +8,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Tienda de velas artesanales — llum & glow',
     description: 'Velas elaboradas a mano con cera de soja natural y fragancias únicas.',
-    url: 'https://tiendavelas.vercel.app/tienda',
+    url: `${BASE}/tienda`,
+    images: [{ url: `${BASE}/todas_las_velas.jpg`, alt: 'Colección de velas artesanales llum & glow' }],
   },
   alternates: {
-    canonical: 'https://tiendavelas.vercel.app/tienda',
+    canonical: `${BASE}/tienda`,
   },
 }
 
