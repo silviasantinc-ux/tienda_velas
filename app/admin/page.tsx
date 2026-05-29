@@ -6,12 +6,16 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { verificarAdmin } from '@/lib/admin-auth'
 import { Producto } from '@/types'
-import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen, Eye, EyeOff } from 'lucide-react'
+import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen, Eye, EyeOff, ChevronUp, ChevronDown } from 'lucide-react'
+
+type SortCol = 'nombre' | 'categoria' | 'precio' | 'stock' | 'badge' | 'activo'
 
 export default function AdminPanel() {
   const [productos, setProductos] = useState<Producto[]>([])
   const [cargando, setCargando] = useState(true)
   const [eliminando, setEliminando] = useState<string | null>(null)
+  const [sortCol, setSortCol] = useState<SortCol>('nombre')
+  const [sortAsc, setSortAsc] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
@@ -55,6 +59,40 @@ export default function AdminPanel() {
     'mas-vendido': 'Más vendido',
     'edicion-limitada': 'Ed. limitada',
   }
+
+  const ordenar = (col: SortCol) => {
+    if (sortCol === col) { setSortAsc((a) => !a); return }
+    setSortCol(col)
+    setSortAsc(true)
+  }
+
+  const productosSorted = [...productos].sort((a, b) => {
+    let va: string | number = ''
+    let vb: string | number = ''
+    if (sortCol === 'nombre')    { va = a.nombre;    vb = b.nombre }
+    if (sortCol === 'categoria') { va = a.categoria; vb = b.categoria }
+    if (sortCol === 'precio')    { va = a.precio;    vb = b.precio }
+    if (sortCol === 'stock')     { va = a.stock;     vb = b.stock }
+    if (sortCol === 'badge')     { va = a.badge ?? ''; vb = b.badge ?? '' }
+    if (sortCol === 'activo')    { va = (a as Producto & { activo?: boolean }).activo === false ? 0 : 1; vb = (b as Producto & { activo?: boolean }).activo === false ? 0 : 1 }
+    if (va < vb) return sortAsc ? -1 : 1
+    if (va > vb) return sortAsc ? 1 : -1
+    return 0
+  })
+
+  const Th = ({ col, label, px = 'px-4' }: { col: SortCol; label: string; px?: string }) => (
+    <th
+      onClick={() => ordenar(col)}
+      className={`text-left text-[10px] uppercase tracking-widest text-[#767676] ${px} py-4 font-medium cursor-pointer hover:text-[#1b1b1b] select-none transition-colors`}
+    >
+      <span className="flex items-center gap-1">
+        {label}
+        {sortCol === col
+          ? sortAsc ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />
+          : <ChevronUp className="w-3 h-3 opacity-20" />}
+      </span>
+    </th>
+  )
 
 
   return (
@@ -116,17 +154,17 @@ export default function AdminPanel() {
             <table className="w-full">
               <thead>
                 <tr className="border-b border-[#e0ddd8]">
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-6 py-4 font-medium">Producto</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Categoría</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Precio</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Stock</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Etiqueta</th>
-                  <th className="text-left text-[10px] uppercase tracking-widest text-[#767676] px-4 py-4 font-medium">Estado</th>
+                  <Th col="nombre"    label="Producto" px="px-6" />
+                  <Th col="categoria" label="Categoría" />
+                  <Th col="precio"    label="Precio" />
+                  <Th col="stock"     label="Stock" />
+                  <Th col="badge"     label="Etiqueta" />
+                  <Th col="activo"    label="Estado" />
                   <th className="px-4 py-4" />
                 </tr>
               </thead>
               <tbody>
-                {productos.map((p) => (
+                {productosSorted.map((p) => (
                   <tr key={p.id} className="border-b border-[#f0ede8] hover:bg-[#faf9f7] transition-colors">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
