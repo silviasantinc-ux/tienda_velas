@@ -75,7 +75,7 @@ export default function TarjetaProducto({ producto, tieneVariantes = false }: { 
 
       {/* Info */}
       <div>
-        <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-1">{categoria}</p>
+        <Link href={`/tienda?cat=${encodeURIComponent(categoria)}`} className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-1 hover:underline underline-offset-2 block">{categoria}</Link>
         <Link href={`/producto/${producto.id}`}>
           <h3 className="font-['EB_Garamond'] text-[15px] text-[#1b1b1b] hover:text-[#7d5d24] transition-colors leading-snug mb-1">
             {nombre}
