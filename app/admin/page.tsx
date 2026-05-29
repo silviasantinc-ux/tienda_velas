@@ -26,7 +26,7 @@ export default function AdminPanel() {
     const { data } = await supabase
       .from('productos')
       .select('*')
-      .order('creado_en', { ascending: false })
+      .order('nombre', { ascending: true })
     setProductos((data as Producto[]) ?? [])
     setCargando(false)
   }
