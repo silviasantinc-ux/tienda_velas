@@ -107,7 +107,7 @@ function TiendaContenido() {
         <div className="hidden md:flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 flex-wrap">
             <button
-              onClick={() => router.replace('/tienda')}
+              onClick={() => { router.replace('/tienda'); setOrden('precio-asc') }}
               className={`px-4 py-1.5 text-[11px] uppercase tracking-widest border transition-colors ${
                 categoriaES === ''
                   ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
@@ -119,8 +119,7 @@ function TiendaContenido() {
             {categorias.map((c) => (
               <button
                 key={c.id}
-                onClick={() => router.replace(`/tienda?cat=${encodeURIComponent(catLabel(c))}`)}
-
+                onClick={() => { router.replace(`/tienda?cat=${encodeURIComponent(catLabel(c))}`); setOrden('precio-asc') }}
                 className={`px-4 py-1.5 text-[11px] uppercase tracking-widest border transition-colors ${
                   categoriaES === c.nombre
                     ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
@@ -150,6 +149,7 @@ function TiendaContenido() {
               const val = e.target.value
               if (!val) router.replace('/tienda')
               else router.replace(`/tienda?cat=${encodeURIComponent(val)}`)
+              setOrden('precio-asc')
             }}
             className="flex-1 bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer"
           >
