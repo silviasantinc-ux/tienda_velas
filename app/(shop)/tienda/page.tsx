@@ -21,7 +21,7 @@ function TiendaContenido() {
   const [todosProductos, setTodosProductos] = useState<Producto[]>([])
   const [categorias, setCategorias] = useState<Categoria[]>([])
   const [categoriaES, setCategoriaES] = useState<string>('')
-  const [orden, setOrden] = useState('destacados')
+  const [orden, setOrden] = useState('alfabetico')
   const [busqueda, setBusqueda] = useState(qParam || '')
   const [productosConVariantes, setProductosConVariantes] = useState<Set<string>>(new Set())
   const [cargando, setCargando] = useState(true)
@@ -81,6 +81,11 @@ function TiendaContenido() {
       })
     }
 
+    if (orden === 'alfabetico') lista.sort((a, b) => {
+      const na = idioma === 'ca' ? (a.nombre_ca ?? a.nombre) : a.nombre
+      const nb = idioma === 'ca' ? (b.nombre_ca ?? b.nombre) : b.nombre
+      return na.localeCompare(nb, idioma)
+    })
     if (orden === 'precio-asc') lista.sort((a, b) => a.precio - b.precio)
     if (orden === 'precio-desc') lista.sort((a, b) => b.precio - a.precio)
     if (orden === 'nuevos') lista.sort((a) => (a.badge === 'nuevo' ? -1 : 1))
@@ -107,7 +112,7 @@ function TiendaContenido() {
         <div className="hidden md:flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 flex-wrap">
             <button
-              onClick={() => { router.replace('/tienda'); setOrden('precio-asc') }}
+              onClick={() => { router.replace('/tienda'); setOrden('alfabetico') }}
               className={`px-4 py-1.5 text-[11px] uppercase tracking-widest border transition-colors ${
                 categoriaES === ''
                   ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
@@ -119,7 +124,7 @@ function TiendaContenido() {
             {categorias.map((c) => (
               <button
                 key={c.id}
-                onClick={() => { router.replace(`/tienda?cat=${encodeURIComponent(catLabel(c))}`); setOrden('precio-asc') }}
+                onClick={() => { router.replace(`/tienda?cat=${encodeURIComponent(catLabel(c))}`); setOrden('alfabetico') }}
                 className={`px-4 py-1.5 text-[11px] uppercase tracking-widest border transition-colors ${
                   categoriaES === c.nombre
                     ? 'bg-[#1b1b1b] text-[#f6f4f1] border-[#1b1b1b]'
@@ -149,7 +154,7 @@ function TiendaContenido() {
               const val = e.target.value
               if (!val) router.replace('/tienda')
               else router.replace(`/tienda?cat=${encodeURIComponent(val)}`)
-              setOrden('precio-asc')
+              setOrden('alfabetico')
             }}
             className="flex-1 bg-white border border-[#e0ddd8] px-4 py-2 text-[11px] uppercase tracking-widest text-[#666] outline-none focus:border-[#1b1b1b] transition-colors cursor-pointer"
           >

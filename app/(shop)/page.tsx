@@ -27,8 +27,9 @@ export default function Home() {
       const badges = (bdgs ?? []) as { id: string; nombre: string }[]
       const idMasVendido = badges.find((b) => b.nombre.toLowerCase().includes('vendido'))?.id
       const idNuevo = badges.find((b) => b.nombre.toLowerCase().includes('nuevo') || b.nombre.toLowerCase().includes('nou'))?.id
-      setDestacados(todos.filter((p) => p.badge === idMasVendido).slice(0, 2))
-      setNuevos(todos.filter((p) => p.badge === idNuevo).slice(0, 2))
+      const alfa = (a: Producto, b: Producto) => a.nombre.localeCompare(b.nombre, 'es')
+      setDestacados(todos.filter((p) => p.badge === idMasVendido).sort(alfa).slice(0, 2))
+      setNuevos(todos.filter((p) => p.badge === idNuevo).sort(alfa).slice(0, 2))
       setProductosConVariantes(new Set((vars ?? []).map((v: { producto_id: string }) => v.producto_id)))
     })
   }, [])
