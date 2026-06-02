@@ -17,7 +17,7 @@ Revisar antes de quitar el banner "próximamente" y abrir la tienda al público.
 
 ## Contenido
 - [ ] Revisar todos los textos — eliminar placeholders, coherencia ES/CA
-- [ ] Revisar imágenes de productos — calidad, fondos consistentes
+- [ ] Revisar imágenes de productos — todas en formato cuadrado 1200×1200 px, JPG/WebP, máx. 300 KB, fondo neutro centrado
 - [ ] Crear imagen OG 1200×630 px para redes sociales (actualmente usa `todas_las_velas.jpg`)
 - [ ] Completar página `/envios` con política de devoluciones real
 - [ ] Completar página `/seguridad` con fichas MSDS reales
