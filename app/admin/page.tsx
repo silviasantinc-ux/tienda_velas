@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { verificarAdmin } from '@/lib/admin-auth'
 import { Producto } from '@/types'
-import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen, Eye, EyeOff, ChevronUp, ChevronDown } from 'lucide-react'
+import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen, Eye, EyeOff, ChevronUp, ChevronDown, Download } from 'lucide-react'
 
 type SortCol = 'nombre' | 'categoria' | 'precio' | 'stock' | 'badge' | 'activo'
 
@@ -80,6 +80,30 @@ export default function AdminPanel() {
     return 0
   })
 
+  const exportarCSV = () => {
+    const cabecera = ['Nombre', 'Nombre CA', 'Categoría', 'Categoría CA', 'Precio (€)', 'Stock', 'Etiqueta', 'Activo']
+    const filas = productosSorted.map((p) => [
+      p.nombre,
+      p.nombre_ca ?? '',
+      p.categoria,
+      p.categoria_ca ?? '',
+      p.precio.toFixed(2),
+      p.stock,
+      p.badge ?? '',
+      (p as Producto & { activo?: boolean }).activo === false ? 'No' : 'Sí',
+    ])
+    const csv = [cabecera, ...filas]
+      .map((fila) => fila.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(';'))
+      .join('\n')
+    const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `productos_${new Date().toISOString().slice(0, 10)}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
   const Th = ({ col, label, px = 'px-4' }: { col: SortCol; label: string; px?: string }) => (
     <th
       onClick={() => ordenar(col)}
@@ -138,13 +162,23 @@ export default function AdminPanel() {
       <main className="max-w-6xl mx-auto px-8 py-10">
         <div className="flex items-center justify-between mb-8">
           <h1 className="font-['EB_Garamond'] text-3xl italic text-[#1b1b1b]">Productos</h1>
-          <Link
-            href="/admin/productos/nuevo"
-            className="flex items-center gap-2 bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[10px] uppercase tracking-widest font-medium px-5 py-3 transition-colors"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            Nuevo producto
-          </Link>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={exportarCSV}
+              disabled={productos.length === 0}
+              className="flex items-center gap-2 border border-[#e0ddd8] hover:border-[#1b1b1b] text-[#666] hover:text-[#1b1b1b] text-[10px] uppercase tracking-widest font-medium px-5 py-3 transition-colors disabled:opacity-40"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Exportar CSV
+            </button>
+            <Link
+              href="/admin/productos/nuevo"
+              className="flex items-center gap-2 bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[10px] uppercase tracking-widest font-medium px-5 py-3 transition-colors"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              Nuevo producto
+            </Link>
+          </div>
         </div>
 
         {cargando ? (
