@@ -81,7 +81,7 @@ export default function AdminPanel() {
   })
 
   const exportarCSV = () => {
-    const cabecera = ['Nombre', 'Nombre CA', 'Categoría', 'Categoría CA', 'Precio (€)', 'Stock', 'Etiqueta', 'Activo']
+    const cabecera = ['Nombre', 'Nombre CA', 'Categoría', 'Categoría CA', 'Precio (€)', 'Stock', 'Etiqueta', 'Peso (g)', 'Alto (cm)', 'Diámetro (cm)', 'Activo']
     const filas = productosSorted.map((p) => [
       p.nombre,
       p.nombre_ca ?? '',
@@ -90,6 +90,9 @@ export default function AdminPanel() {
       p.precio.toFixed(2),
       p.stock,
       p.badge ?? '',
+      (p as Producto & { peso_gr?: number }).peso_gr ?? '',
+      (p as Producto & { alto_cm?: number }).alto_cm ?? '',
+      (p as Producto & { ancho_cm?: number }).ancho_cm ?? '',
       (p as Producto & { activo?: boolean }).activo === false ? 'No' : 'Sí',
     ])
     const csv = [cabecera, ...filas]
