@@ -69,10 +69,7 @@ export default function PaginaProducto() {
           .order('orden')
           .then(({ data: vars }) => {
             if (vars && vars.length > 0) {
-              const lista = vars as ProductoVariante[]
-              setVariantes(lista)
-              const primera = lista.find((v) => v.stock > 0) ?? lista[0]
-              setVarianteSeleccionada(primera)
+              setVariantes(vars as ProductoVariante[])
             }
           })
       }
@@ -248,7 +245,14 @@ export default function PaginaProducto() {
                       <button
                         key={v.id}
                         type="button"
-                        onClick={() => { setVarianteSeleccionada(v); setCantidad(1) }}
+                        onClick={() => {
+                        setVarianteSeleccionada(v)
+                        setCantidad(1)
+                        if (v.imagen_id) {
+                          const idx = galeria.findIndex((img) => img.id === v.imagen_id)
+                          if (idx !== -1) setSeleccionado(idx)
+                        }
+                      }}
                         disabled={v.stock === 0}
                         className={`px-4 py-2.5 text-[11px] uppercase tracking-widest transition-colors border ${
                           varianteSeleccionada?.id === v.id
@@ -292,7 +296,7 @@ export default function PaginaProducto() {
                 disabled={stockActual === 0 || (variantes.length > 0 && !varianteSeleccionada)}
                 className="flex-1 bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#e0ddd8] disabled:text-[#767676] disabled:cursor-not-allowed text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
               >
-                {stockActual === 0 ? tp.agotado : tp.añadir}
+                {(varianteSeleccionada || variantes.length === 0) && stockActual === 0 ? tp.agotado : tp.añadir}
               </button>
             </div>
 

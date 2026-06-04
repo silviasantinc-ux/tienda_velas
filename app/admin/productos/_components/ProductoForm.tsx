@@ -15,7 +15,7 @@ type Props = {
 type Categoria = { id: string; nombre: string; nombre_ca: string }
 type Badge = { id: string; nombre: string; nombre_ca: string }
 type MediaItem = { id?: string; url: string; tipo: 'imagen' | 'video'; orden: number }
-type VarianteForm = { id?: string; nombre: string; nombre_ca: string; stock: string }
+type VarianteForm = { id?: string; nombre: string; nombre_ca: string; stock: string; imagen_url: string }
 
 const MAX_IMAGENES = 6
 
@@ -39,42 +39,37 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
     if (modo === 'nuevo') setVariantesListas(true)
 
     if (modo === 'editar' && productoInicial) {
-      supabase
-        .from('producto_imagenes')
-        .select('*')
-        .eq('producto_id', productoInicial.id)
-        .order('orden')
-        .then(({ data }) => {
-          if (data && data.length > 0) {
-            setGaleria(data as MediaItem[])
-          } else {
-            // Producto existente sin galería: inicializar desde campos legacy
-            const items: MediaItem[] = []
-            if (productoInicial.imagen_url) items.push({ url: productoInicial.imagen_url, tipo: 'imagen', orden: 0 })
-            if (productoInicial.video_url) items.push({ url: productoInicial.video_url, tipo: 'video', orden: items.length })
-            setGaleria(items)
-          }
-        })
+      Promise.all([
+        supabase.from('producto_imagenes').select('*').eq('producto_id', productoInicial.id).order('orden'),
+        supabase.from('producto_variantes').select('*').eq('producto_id', productoInicial.id).order('orden'),
+      ]).then(([{ data: imgs }, { data: vars }]) => {
+        // Galería
+        const gal: MediaItem[] = imgs && imgs.length > 0
+          ? (imgs as MediaItem[])
+          : (() => {
+              const fallback: MediaItem[] = []
+              if (productoInicial.imagen_url) fallback.push({ url: productoInicial.imagen_url, tipo: 'imagen', orden: 0 })
+              if (productoInicial.video_url) fallback.push({ url: productoInicial.video_url, tipo: 'video', orden: fallback.length })
+              return fallback
+            })()
+        setGaleria(gal)
 
-      supabase
-        .from('producto_variantes')
-        .select('*')
-        .eq('producto_id', productoInicial.id)
-        .order('orden')
-        .then(({ data }) => {
-          if (data && data.length > 0) {
-            const lista = (data as ProductoVariante[]).map((v) => ({
-              id: v.id,
-              nombre: v.nombre,
-              nombre_ca: v.nombre_ca ?? '',
-              stock: v.stock.toString(),
-            }))
-            setVariantes(lista)
-            const suma = lista.reduce((acc, v) => acc + (parseInt(v.stock) || 0), 0)
-            setForm((f) => ({ ...f, stock: suma.toString() }))
-          }
-          setVariantesListas(true)
-        })
+        // Variantes — resuelve imagen_id → imagen_url
+        const idToUrl = new Map(gal.filter((g) => g.id).map((g) => [g.id!, g.url]))
+        if (vars && vars.length > 0) {
+          const lista = (vars as ProductoVariante[]).map((v) => ({
+            id: v.id,
+            nombre: v.nombre,
+            nombre_ca: v.nombre_ca ?? '',
+            stock: v.stock.toString(),
+            imagen_url: v.imagen_id ? (idToUrl.get(v.imagen_id) ?? '') : '',
+          }))
+          setVariantes(lista)
+          const suma = lista.reduce((acc, v) => acc + (parseInt(v.stock) || 0), 0)
+          setForm((f) => ({ ...f, stock: suma.toString() }))
+        }
+        setVariantesListas(true)
+      })
     }
   }, [])
 
@@ -184,12 +179,14 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
         if (err) throw err
       }
 
-      // Reemplazar galería
+      // Reemplazar galería — obtenemos IDs de vuelta para enlazar variantes
       await supabase.from('producto_imagenes').delete().eq('producto_id', productoId)
+      let urlToId = new Map<string, string>()
       if (galeria.length > 0) {
         const rows = galeria.map((m) => ({ producto_id: productoId, url: m.url, tipo: m.tipo, orden: m.orden }))
-        const { error: errGal } = await supabase.from('producto_imagenes').insert(rows)
+        const { data: galData, error: errGal } = await supabase.from('producto_imagenes').insert(rows).select('id, url')
         if (errGal) throw errGal
+        urlToId = new Map((galData ?? []).map((r: { id: string; url: string }) => [r.url, r.id]))
       }
 
       // Reemplazar variantes
@@ -203,6 +200,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
           stock: parseInt(v.stock) || 0,
           precio_extra: null,
           orden: i,
+          imagen_id: v.imagen_url ? (urlToId.get(v.imagen_url) ?? null) : null,
         }))
         const { error: errVar } = await supabase.from('producto_variantes').insert(rows)
         if (errVar) throw errVar
@@ -384,7 +382,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
               </label>
               <button
                 type="button"
-                onClick={() => setVariantes((prev) => [...prev, { nombre: '', nombre_ca: '', stock: '0' }])}
+                onClick={() => setVariantes((prev) => [...prev, { nombre: '', nombre_ca: '', stock: '0', imagen_url: '' }])}
                 className="flex items-center gap-1.5 border border-[#e0ddd8] bg-white px-3 py-2 text-[10px] uppercase tracking-widest text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b] transition-colors"
               >
                 <Plus className="w-3 h-3" />
@@ -413,7 +411,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                       placeholder="Nom CA (ex: Rosa pàl·lid)"
                       className={inputCls + ' flex-1'}
                     />
-                    <div className="w-28 flex-shrink-0">
+                    <div className="w-24 flex-shrink-0">
                       <input
                         type="number"
                         min="0"
@@ -423,6 +421,31 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                         className={inputCls}
                       />
                     </div>
+                    {/* Selector de foto (solo si hay imágenes en la galería) */}
+                    {imagenes.length > 0 && (
+                      <div className="flex items-center gap-1 flex-shrink-0">
+                        <button
+                          type="button"
+                          title="Sin foto"
+                          onClick={() => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, imagen_url: '' } : x))}
+                          className={`w-8 h-8 border flex items-center justify-center text-[10px] transition-colors ${v.imagen_url === '' ? 'border-[#1b1b1b] bg-[#1b1b1b] text-white' : 'border-[#e0ddd8] text-[#ccc] hover:border-[#999]'}`}
+                        >
+                          ∅
+                        </button>
+                        {imagenes.map((img, imgIdx) => (
+                          <button
+                            key={imgIdx}
+                            type="button"
+                            title={`Foto ${imgIdx + 1}`}
+                            onClick={() => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, imagen_url: img.url } : x))}
+                            className={`w-8 h-8 border overflow-hidden flex-shrink-0 transition-colors ${v.imagen_url === img.url ? 'border-[#1b1b1b]' : 'border-[#e0ddd8] hover:border-[#999]'}`}
+                          >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src={img.url} alt="" className="w-full h-full object-cover" />
+                          </button>
+                        ))}
+                      </div>
+                    )}
                     <button
                       type="button"
                       onClick={() => setVariantes((prev) => prev.filter((_, i) => i !== idx))}

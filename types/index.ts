@@ -28,6 +28,7 @@ export type ProductoVariante = {
   stock: number
   precio_extra: number | null
   orden: number
+  imagen_id?: string | null
 }
 
 export type ItemCarrito = {
