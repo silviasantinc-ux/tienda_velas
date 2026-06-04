@@ -210,7 +210,19 @@ export default function PaginaProducto() {
               {producto.peso_gr && (
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.peso}</p>
-                  <p className="text-sm text-[#1b1b1b]">{producto.peso_gr}g</p>
+                  <p className="text-sm text-[#1b1b1b]">{producto.peso_gr} g</p>
+                </div>
+              )}
+              {producto.alto_cm && (
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.alto}</p>
+                  <p className="text-sm text-[#1b1b1b]">{producto.alto_cm} cm</p>
+                </div>
+              )}
+              {producto.ancho_cm && (
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.ancho}</p>
+                  <p className="text-sm text-[#1b1b1b]">{producto.ancho_cm} cm</p>
                 </div>
               )}
               <div>
