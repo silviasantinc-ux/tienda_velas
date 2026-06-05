@@ -83,28 +83,20 @@ export default function AdminPanel() {
 
   const exportarCSV = async () => {
     setExportando(true)
-    const ids = productosSorted.map((p) => p.id)
-    const { data: varsData } = await supabase
-      .from('producto_variantes')
-      .select('*')
-      .in('producto_id', ids)
-      .order('orden')
 
-    const varsPorProducto = new Map<string, ProductoVariante[]>()
-    for (const v of (varsData ?? []) as ProductoVariante[]) {
-      const lista = varsPorProducto.get(v.producto_id) ?? []
-      lista.push(v)
-      varsPorProducto.set(v.producto_id, lista)
-    }
+    type P = Producto & { activo?: boolean; peso_gr?: number; alto_cm?: number; ancho_cm?: number; producto_variantes: ProductoVariante[] }
+    const { data } = await supabase
+      .from('productos')
+      .select('*, producto_variantes(*)')
+      .order('nombre')
 
-    type P = Producto & { activo?: boolean; peso_gr?: number; alto_cm?: number; ancho_cm?: number }
+    const prods = (data ?? []) as P[]
     const cabecera = ['ID Producto', 'ID Variante', 'Nombre', 'Nombre CA', 'Variante (ES)', 'Variante (CA)', 'Categoría', 'Categoría CA', 'Precio (€)', 'Stock', 'Etiqueta', 'Peso (g)', 'Alto (cm)', 'Diámetro (cm)', 'Activo']
-
     const filas: (string | number)[][] = []
-    for (const p of productosSorted as P[]) {
-      const vars = varsPorProducto.get(p.id) ?? []
+
+    for (const p of prods) {
+      const vars = (p.producto_variantes ?? []).sort((a, b) => a.orden - b.orden)
       const activo = p.activo === false ? 'No' : 'Sí'
-      const base = [p.nombre, p.nombre_ca ?? '', '', '', p.categoria, p.categoria_ca ?? '', '', p.stock, p.badge ?? '', p.peso_gr ?? '', p.alto_cm ?? '', p.ancho_cm ?? '', activo]
       if (vars.length === 0) {
         filas.push([p.id, '', p.nombre, p.nombre_ca ?? '', '', '', p.categoria, p.categoria_ca ?? '', p.precio.toFixed(2), p.stock, p.badge ?? '', p.peso_gr ?? '', p.alto_cm ?? '', p.ancho_cm ?? '', activo])
       } else {

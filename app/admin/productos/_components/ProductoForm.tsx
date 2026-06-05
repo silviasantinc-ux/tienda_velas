@@ -412,24 +412,13 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                       placeholder="Nom CA (ex: Rosa pàl·lid)"
                       className={inputCls + ' flex-1'}
                     />
-                    <div className="w-20 flex-shrink-0">
+                    <div className="w-24 flex-shrink-0">
                       <input
                         type="number"
                         min="0"
                         value={v.stock}
                         onChange={(e) => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, stock: e.target.value } : x))}
                         placeholder="Stock"
-                        className={inputCls}
-                      />
-                    </div>
-                    <div className="w-24 flex-shrink-0">
-                      <input
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        value={v.precio_extra}
-                        onChange={(e) => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, precio_extra: e.target.value } : x))}
-                        placeholder="+€ extra"
                         className={inputCls}
                       />
                     </div>
