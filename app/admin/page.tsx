@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { verificarAdmin } from '@/lib/admin-auth'
-import { Producto } from '@/types'
+import { Producto, ProductoVariante } from '@/types'
 import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen, Eye, EyeOff, ChevronUp, ChevronDown, Download } from 'lucide-react'
 
 type SortCol = 'nombre' | 'categoria' | 'precio' | 'stock' | 'badge' | 'activo'
@@ -16,6 +16,7 @@ export default function AdminPanel() {
   const [eliminando, setEliminando] = useState<string | null>(null)
   const [sortCol, setSortCol] = useState<SortCol>('nombre')
   const [sortAsc, setSortAsc] = useState(true)
+  const [exportando, setExportando] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -80,21 +81,40 @@ export default function AdminPanel() {
     return 0
   })
 
-  const exportarCSV = () => {
-    const cabecera = ['Nombre', 'Nombre CA', 'Categoría', 'Categoría CA', 'Precio (€)', 'Stock', 'Etiqueta', 'Peso (g)', 'Alto (cm)', 'Diámetro (cm)', 'Activo']
-    const filas = productosSorted.map((p) => [
-      p.nombre,
-      p.nombre_ca ?? '',
-      p.categoria,
-      p.categoria_ca ?? '',
-      p.precio.toFixed(2),
-      p.stock,
-      p.badge ?? '',
-      (p as Producto & { peso_gr?: number }).peso_gr ?? '',
-      (p as Producto & { alto_cm?: number }).alto_cm ?? '',
-      (p as Producto & { ancho_cm?: number }).ancho_cm ?? '',
-      (p as Producto & { activo?: boolean }).activo === false ? 'No' : 'Sí',
-    ])
+  const exportarCSV = async () => {
+    setExportando(true)
+    const ids = productosSorted.map((p) => p.id)
+    const { data: varsData } = await supabase
+      .from('producto_variantes')
+      .select('*')
+      .in('producto_id', ids)
+      .order('orden')
+
+    const varsPorProducto = new Map<string, ProductoVariante[]>()
+    for (const v of (varsData ?? []) as ProductoVariante[]) {
+      const lista = varsPorProducto.get(v.producto_id) ?? []
+      lista.push(v)
+      varsPorProducto.set(v.producto_id, lista)
+    }
+
+    type P = Producto & { activo?: boolean; peso_gr?: number; alto_cm?: number; ancho_cm?: number }
+    const cabecera = ['ID Producto', 'ID Variante', 'Nombre', 'Nombre CA', 'Variante (ES)', 'Variante (CA)', 'Categoría', 'Categoría CA', 'Precio (€)', 'Stock', 'Etiqueta', 'Peso (g)', 'Alto (cm)', 'Diámetro (cm)', 'Activo']
+
+    const filas: (string | number)[][] = []
+    for (const p of productosSorted as P[]) {
+      const vars = varsPorProducto.get(p.id) ?? []
+      const activo = p.activo === false ? 'No' : 'Sí'
+      const base = [p.nombre, p.nombre_ca ?? '', '', '', p.categoria, p.categoria_ca ?? '', '', p.stock, p.badge ?? '', p.peso_gr ?? '', p.alto_cm ?? '', p.ancho_cm ?? '', activo]
+      if (vars.length === 0) {
+        filas.push([p.id, '', p.nombre, p.nombre_ca ?? '', '', '', p.categoria, p.categoria_ca ?? '', p.precio.toFixed(2), p.stock, p.badge ?? '', p.peso_gr ?? '', p.alto_cm ?? '', p.ancho_cm ?? '', activo])
+      } else {
+        for (const v of vars) {
+          const precio = (p.precio + (v.precio_extra ?? 0)).toFixed(2)
+          filas.push([p.id, v.id, p.nombre, p.nombre_ca ?? '', v.nombre, v.nombre_ca ?? '', p.categoria, p.categoria_ca ?? '', precio, v.stock, p.badge ?? '', p.peso_gr ?? '', p.alto_cm ?? '', p.ancho_cm ?? '', activo])
+        }
+      }
+    }
+
     const csv = [cabecera, ...filas]
       .map((fila) => fila.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(';'))
       .join('\n')
@@ -105,6 +125,7 @@ export default function AdminPanel() {
     a.download = `productos_${new Date().toISOString().slice(0, 10)}.csv`
     a.click()
     URL.revokeObjectURL(url)
+    setExportando(false)
   }
 
   const Th = ({ col, label, px = 'px-4' }: { col: SortCol; label: string; px?: string }) => (
@@ -168,11 +189,11 @@ export default function AdminPanel() {
           <div className="flex items-center gap-3">
             <button
               onClick={exportarCSV}
-              disabled={productos.length === 0}
+              disabled={productos.length === 0 || exportando}
               className="flex items-center gap-2 border border-[#e0ddd8] hover:border-[#1b1b1b] text-[#666] hover:text-[#1b1b1b] text-[10px] uppercase tracking-widest font-medium px-5 py-3 transition-colors disabled:opacity-40"
             >
               <Download className="w-3.5 h-3.5" />
-              Exportar CSV
+              {exportando ? 'Exportando...' : 'Exportar CSV'}
             </button>
             <Link
               href="/admin/productos/nuevo"
