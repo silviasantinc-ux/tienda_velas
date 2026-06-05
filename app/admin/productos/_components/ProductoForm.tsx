@@ -15,7 +15,7 @@ type Props = {
 type Categoria = { id: string; nombre: string; nombre_ca: string }
 type Badge = { id: string; nombre: string; nombre_ca: string }
 type MediaItem = { id?: string; url: string; tipo: 'imagen' | 'video'; orden: number }
-type VarianteForm = { id?: string; nombre: string; nombre_ca: string; stock: string; imagen_url: string }
+type VarianteForm = { id?: string; nombre: string; nombre_ca: string; stock: string; precio_extra: string; imagen_url: string }
 
 const MAX_IMAGENES = 6
 
@@ -62,6 +62,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             nombre: v.nombre,
             nombre_ca: v.nombre_ca ?? '',
             stock: v.stock.toString(),
+            precio_extra: v.precio_extra != null ? v.precio_extra.toString() : '',
             imagen_url: v.imagen_id ? (idToUrl.get(v.imagen_id) ?? '') : '',
           }))
           setVariantes(lista)
@@ -198,7 +199,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
           nombre: v.nombre.trim(),
           nombre_ca: v.nombre_ca.trim() || null,
           stock: parseInt(v.stock) || 0,
-          precio_extra: null,
+          precio_extra: v.precio_extra !== '' ? parseFloat(v.precio_extra) : null,
           orden: i,
           imagen_id: v.imagen_url ? (urlToId.get(v.imagen_url) ?? null) : null,
         }))
@@ -382,7 +383,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
               </label>
               <button
                 type="button"
-                onClick={() => setVariantes((prev) => [...prev, { nombre: '', nombre_ca: '', stock: '0', imagen_url: '' }])}
+                onClick={() => setVariantes((prev) => [...prev, { nombre: '', nombre_ca: '', stock: '0', precio_extra: '', imagen_url: '' }])}
                 className="flex items-center gap-1.5 border border-[#e0ddd8] bg-white px-3 py-2 text-[10px] uppercase tracking-widest text-[#666] hover:border-[#1b1b1b] hover:text-[#1b1b1b] transition-colors"
               >
                 <Plus className="w-3 h-3" />
@@ -411,13 +412,24 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                       placeholder="Nom CA (ex: Rosa pàl·lid)"
                       className={inputCls + ' flex-1'}
                     />
-                    <div className="w-24 flex-shrink-0">
+                    <div className="w-20 flex-shrink-0">
                       <input
                         type="number"
                         min="0"
                         value={v.stock}
                         onChange={(e) => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, stock: e.target.value } : x))}
                         placeholder="Stock"
+                        className={inputCls}
+                      />
+                    </div>
+                    <div className="w-24 flex-shrink-0">
+                      <input
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        value={v.precio_extra}
+                        onChange={(e) => setVariantes((prev) => prev.map((x, i) => i === idx ? { ...x, precio_extra: e.target.value } : x))}
+                        placeholder="+€ extra"
                         className={inputCls}
                       />
                     </div>
