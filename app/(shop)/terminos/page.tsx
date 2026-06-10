@@ -37,12 +37,10 @@ export default function PaginaTerminos() {
           </h2>
           <ul className="space-y-2">
             {(ca ? [
-              'Tots els preus inclouen IVA i estan expressats en euros.',
               'Ens reservem el dret de modificar els preus en qualsevol moment sense previ avís.',
               'Les imatges dels productes són orientatives i poden variar lleugerament respecte al producte final.',
               'Tots els nostres productes estan elaborats artesanalment, per la qual cosa pot haver-hi petites variacions entre unitats.',
             ] : [
-              'Todos los precios incluyen IVA y están expresados en euros.',
               'Nos reservamos el derecho de modificar los precios en cualquier momento sin previo aviso.',
               'Las imágenes de los productos son orientativas y pueden variar ligeramente respecto al producto final.',
               'Todos nuestros productos están elaborados artesanalmente, por lo que puede haber pequeñas variaciones entre unidades.',
