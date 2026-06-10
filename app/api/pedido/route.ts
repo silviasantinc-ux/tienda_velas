@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
   `
 
   const { error } = await resend.emails.send({
-    from: 'llum & glow <pedidos@llumandglow.com>',
+    from: 'llum & glow <onboarding@resend.dev>',
     to: 'info@llumandglow.com',
     subject: asunto,
     html,
