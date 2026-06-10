@@ -3,13 +3,39 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Trash2, Plus, Minus, ArrowLeft } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { useCarrito, carritoKey } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
+import { supabase } from '@/lib/supabase'
 
 export default function PaginaCarrito() {
   const { items, quitar, actualizarCantidad, total, vaciar } = useCarrito()
   const { idioma, t } = useIdioma()
   const tc = t.carrito
+  const [telefono, setTelefono] = useState<string | null>(null)
+
+  useEffect(() => {
+    supabase.from('configuracion').select('valor').eq('clave', 'telefono').single()
+      .then(({ data }) => { if (data?.valor) setTelefono(data.valor) })
+  }, [])
+
+  const generarPedido = () => {
+    if (!telefono) return
+    const lineas = items.map(({ producto, cantidad, variante }) => {
+      const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
+      const nombreVar = variante ? ` · ${idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}` : ''
+      const precioUd = producto.precio + (variante?.precio_extra ?? 0)
+      const precioTotal = (precioUd * cantidad).toFixed(2).replace('.', ',')
+      return `• ${nombre}${nombreVar} × ${cantidad} — ${precioTotal} €`
+    })
+    const totalStr = total().toFixed(2).replace('.', ',')
+
+    const msg = idioma === 'ca'
+      ? `🕯️ *Nova comanda — llum & glow*\n\n📦 *Articles:*\n${lineas.join('\n')}\n\n💰 *Total estimat: ${totalStr} €*\n_(L'enviament es calcularà en confirmar)_\n\nHola! M'agradaria fer aquesta comanda 😊`
+      : `🕯️ *Nuevo pedido — llum & glow*\n\n📦 *Artículos:*\n${lineas.join('\n')}\n\n💰 *Total estimado: ${totalStr} €*\n_(El envío se calculará al confirmar)_\n\n¡Hola! Me gustaría hacer este pedido 😊`
+
+    window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer')
+  }
 
   if (items.length === 0) {
     return (
@@ -158,45 +184,20 @@ export default function PaginaCarrito() {
             </div>
 
             <button
-              disabled
-              className="w-full bg-[#e0ddd8] text-[#a0a0a0] cursor-not-allowed text-[11px] uppercase tracking-widest font-medium py-4 mb-1"
+              onClick={generarPedido}
+              disabled={!telefono}
+              className="w-full bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#e0ddd8] disabled:text-[#a0a0a0] disabled:cursor-not-allowed text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 mb-3 transition-colors"
             >
-              {tc.procederPago}
+              {tc.generarPedido}
             </button>
-            <p className="text-[10px] text-[#7d5d24] uppercase tracking-widest text-center mb-2">
-              {tc.pagoProximo}
-            </p>
             <Link
               href="/tienda"
               className="block w-full text-center border border-[#d0cdc8] hover:border-[#1b1b1b] text-[#666] hover:text-[#1b1b1b] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
             >
               {tc.seguirComprando}
             </Link>
-
-            <div className="mt-6 space-y-2">
-              {tc.garantias.map((g) => (
-                <p key={g} className="text-[10px] text-[#767676] uppercase tracking-widest flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#dcbcbc] flex-shrink-0" />
-                  {g}
-                </p>
-              ))}
-            </div>
           </div>
 
-          {/* Campo código descuento */}
-          <div className="mt-4 border border-[#e0ddd8] p-5">
-            <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">{tc.codigoDescuento}</p>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder=""
-                className="flex-1 bg-white border border-[#e0ddd8] px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#ccc] outline-none focus:border-[#1b1b1b] transition-colors"
-              />
-              <button className="border border-[#1b1b1b] text-[#1b1b1b] hover:bg-[#1b1b1b] hover:text-[#f6f4f1] text-[10px] uppercase tracking-widest px-4 py-2.5 transition-colors">
-                {tc.aplicar}
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
