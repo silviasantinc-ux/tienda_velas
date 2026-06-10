@@ -33,7 +33,7 @@ Banner "próximamente" eliminado. Tienda operativa con pedidos por email (sin pa
 
 ## SEO
 - [x] Registrar dominio en Google Search Console y verificar ownership ✓
-- [ ] Enviar sitemap.xml desde Search Console (ir a Sitemaps → escribir sitemap.xml → Enviar)
+- [x] Enviar sitemap.xml desde Search Console ✓
 - [ ] Verificar que og:image se ve bien al compartir en WhatsApp / Twitter / LinkedIn
   (usar https://developers.facebook.com/tools/debug/ y https://cards-dev.twitter.com/validator)
 - [ ] Revisar títulos y descripciones de todas las páginas (< 60 / < 160 caracteres)
