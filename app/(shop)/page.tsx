@@ -200,55 +200,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── TESTIMONIOS ──────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-6 pt-10 pb-20">
-        <div className="flex items-end justify-between mb-14">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{th.opinionesVerificadas}</p>
-            <h2 className="font-['EB_Garamond'] text-4xl italic text-[#1b1b1b]">{th.loQueDicen}</h2>
-          </div>
-          <div className="hidden md:flex items-center gap-2">
-            {[1,2,3,4,5].map((i) => (
-              <svg key={i} className="w-4 h-4 text-[#7d5d24]" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            ))}
-            <span className="text-[11px] text-[#767676] uppercase tracking-widest ml-2">4.9 · 9 {t.resenas.resenas}</span>
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {th.testimonios.map(({ titulo, texto, nombre, ciudad, producto }) => (
-            <div key={nombre} className="border border-[#e0ddd8] p-8 flex flex-col">
-              <div className="flex gap-0.5 mb-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} className="w-3.5 h-3.5 text-[#7d5d24]" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <p className="font-['EB_Garamond'] text-xl italic text-[#1b1b1b] mb-3">{titulo}</p>
-              <p className="text-sm text-[#666] leading-relaxed mb-6 flex-1">{texto}</p>
-              <div>
-                <p className="text-[9px] uppercase tracking-widest text-[#7d5d24] mb-3">
-                  {th.sobre}: {producto}
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-px bg-[#dcbcbc]" />
-                  <div>
-                    <p className="text-[11px] font-medium text-[#1b1b1b] uppercase tracking-widest">{nombre}</p>
-                    <p className="text-[10px] text-[#767676] uppercase tracking-widest">{ciudad} · {th.compraVerificada}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Link href="/resenas" className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors">
-            {th.verResenas}
-          </Link>
-        </div>
-      </section>
 
     </div>
   )

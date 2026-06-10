@@ -211,7 +211,9 @@ export default function PaginaCarrito() {
 
             {/* Datos de envío */}
             <div className="mb-6 space-y-3">
-              <p className="text-[10px] uppercase tracking-widest text-[#767676]">{tc.datosPedido}</p>
+              <p className="text-[10px] uppercase tracking-widest text-[#767676]">
+                {tc.datosPedido} <span className="text-[#b97979]">*</span>
+              </p>
               <input
                 type="text"
                 value={nombre}
