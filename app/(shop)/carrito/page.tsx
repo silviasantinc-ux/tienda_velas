@@ -13,6 +13,7 @@ export default function PaginaCarrito() {
   const { idioma, t } = useIdioma()
   const tc = t.carrito
   const [imagenesVariante, setImagenesVariante] = useState<Map<string, string>>(new Map())
+  const [confirmarVaciar, setConfirmarVaciar] = useState(false)
   const [nombre, setNombre] = useState('')
   const [email, setEmail] = useState('')
   const [direccion, setDireccion] = useState('')
@@ -98,6 +99,7 @@ export default function PaginaCarrito() {
   }
 
   return (
+    <>
     <div className="max-w-7xl mx-auto px-6 py-12">
       {/* Cabecera */}
       <Link href="/tienda" className="flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] mb-10 transition-colors w-fit">
@@ -109,7 +111,7 @@ export default function PaginaCarrito() {
           {tc.titulo} <span className="text-[#767676] text-2xl">({items.length})</span>
         </h1>
         <button
-          onClick={() => { if (confirm(idioma === 'ca' ? 'Buidar el carret?' : '¿Vaciar el carrito?')) vaciar() }}
+          onClick={() => setConfirmarVaciar(true)}
           className="text-[11px] uppercase tracking-widest text-[#767676] hover:text-[#b97979] border border-[#e0ddd8] hover:border-[#b97979] px-3 py-1.5 transition-colors"
         >
           {tc.vaciar}
@@ -302,5 +304,36 @@ export default function PaginaCarrito() {
         </div>
       </div>
     </div>
+
+    {/* Modal confirmar vaciar */}
+
+    {confirmarVaciar && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center px-6">
+        <div className="absolute inset-0 bg-[#1b1b1b]/40 backdrop-blur-sm" onClick={() => setConfirmarVaciar(false)} />
+        <div className="relative bg-[#f6f4f1] border border-[#e0ddd8] p-8 max-w-sm w-full text-center shadow-xl">
+          <p className="font-['EB_Garamond'] text-2xl italic text-[#1b1b1b] mb-2">
+            {idioma === 'ca' ? 'Buidar el carret?' : '¿Vaciar el carrito?'}
+          </p>
+          <p className="text-sm text-[#767676] mb-8">
+            {idioma === 'ca' ? 'S\'eliminaran tots els articles.' : 'Se eliminarán todos los artículos.'}
+          </p>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setConfirmarVaciar(false)}
+              className="flex-1 border border-[#d0cdc8] hover:border-[#1b1b1b] text-[#666] hover:text-[#1b1b1b] text-[11px] uppercase tracking-widest font-medium py-3 transition-colors"
+            >
+              {idioma === 'ca' ? 'Cancel·lar' : 'Cancelar'}
+            </button>
+            <button
+              onClick={() => { vaciar(); setConfirmarVaciar(false) }}
+              className="flex-1 bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-3 transition-colors"
+            >
+              {idioma === 'ca' ? 'Buidar' : 'Vaciar'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
+    </>
   )
 }
