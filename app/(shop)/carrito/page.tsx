@@ -13,26 +13,53 @@ export default function PaginaCarrito() {
   const tc = t.carrito
   const [nombre, setNombre] = useState('')
   const [direccion, setDireccion] = useState('')
+  const [enviando, setEnviando] = useState(false)
+  const [enviado, setEnviado] = useState(false)
+  const [errorEnvio, setErrorEnvio] = useState(false)
 
   const datosCompletos = nombre.trim().length > 0 && direccion.trim().length > 0
 
-  const enviarPedido = () => {
-    if (!datosCompletos) return
+  const enviarPedido = async () => {
+    if (!datosCompletos || enviando) return
+    setEnviando(true)
+    setErrorEnvio(false)
     const lineas = items.map(({ producto, cantidad, variante }) => {
       const nombreProd = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
       const nombreVar = variante ? ` · ${idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}` : ''
       const precioUd = producto.precio + (variante?.precio_extra ?? 0)
       const precioTotal = (precioUd * cantidad).toFixed(2).replace('.', ',')
-      return `  - ${nombreProd}${nombreVar} x ${cantidad} = ${precioTotal} EUR`
+      return `${nombreProd}${nombreVar} × ${cantidad} — ${precioTotal} €`
     })
     const totalStr = total().toFixed(2).replace('.', ',')
 
-    const asunto = idioma === 'ca' ? 'Nova comanda — llum & glow' : 'Nuevo pedido — llum & glow'
-    const cuerpo = idioma === 'ca'
-      ? `Nova comanda — llum & glow\n\nDades d'enviament:\n${nombre.trim()}\n${direccion.trim()}\n\nArticles:\n${lineas.join('\n')}\n\nTotal estimat: ${totalStr} EUR\n(L'enviament es calcularà en confirmar)\n\nGracies!`
-      : `Nuevo pedido — llum & glow\n\nDatos de envio:\n${nombre.trim()}\n${direccion.trim()}\n\nArticulos:\n${lineas.join('\n')}\n\nTotal estimado: ${totalStr} EUR\n(El envio se calculara al confirmar)\n\nGracias!`
+    const res = await fetch('/api/pedido', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre: nombre.trim(), direccion: direccion.trim(), lineas, total: totalStr, idioma }),
+    })
 
-    window.location.href = `mailto:info@llumandglow.com?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`
+    setEnviando(false)
+    if (res.ok) {
+      setEnviado(true)
+      vaciar()
+    } else {
+      setErrorEnvio(true)
+    }
+  }
+
+  if (enviado) {
+    return (
+      <div className="max-w-2xl mx-auto px-6 py-28 text-center">
+        <p className="font-['EB_Garamond'] text-5xl italic text-[#1b1b1b] mb-4">{tc.pedidoEnviado}</p>
+        <p className="text-sm text-[#767676] mb-10">{tc.pedidoEnviadoSub}</p>
+        <Link
+          href="/tienda"
+          className="inline-block bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium px-10 py-4 transition-colors"
+        >
+          {tc.irTienda}
+        </Link>
+      </div>
+    )
   }
 
   if (items.length === 0) {
@@ -203,12 +230,15 @@ export default function PaginaCarrito() {
               )}
             </div>
 
+            {errorEnvio && (
+              <p className="text-[11px] text-[#b97979] text-center mb-3">{tc.errorEnvio}</p>
+            )}
             <button
               onClick={enviarPedido}
-              disabled={!datosCompletos}
+              disabled={!datosCompletos || enviando}
               className="w-full bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#e0ddd8] disabled:text-[#a0a0a0] disabled:cursor-not-allowed text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 mb-3 transition-colors"
             >
-              {tc.generarPedido}
+              {enviando ? tc.enviando : tc.generarPedido}
             </button>
             <Link
               href="/tienda"

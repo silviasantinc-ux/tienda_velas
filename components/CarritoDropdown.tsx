@@ -12,7 +12,6 @@ export default function CarritoDropdown() {
   const { items, quitar, actualizarCantidad, total, vaciar } = useCarrito()
   const t = useIdioma((s) => s.t)
   const { idioma } = useIdioma()
-  const [hover, setHover] = useState<'ver' | 'pago' | null>(null)
   const [eliminados, setEliminados] = useState(0)
   const cd = t.carritoDropdown
 
@@ -116,23 +115,9 @@ export default function CarritoDropdown() {
             </div>
             <Link
               href="/carrito"
-              onMouseEnter={() => setHover('ver')}
-              onMouseLeave={() => setHover(null)}
-              className={`block w-full text-center text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors mb-2 ${
-                hover === 'pago' ? 'bg-[#f6f4f1] text-[#767676] border border-[#e0ddd8]' : 'bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1]'
-              }`}
+              className="block w-full text-center text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors bg-[#1b1b1b] hover:bg-[#333] text-[#f6f4f1]"
             >
               {cd.verCarrito}
-            </Link>
-            <Link
-              href="/carrito"
-              onMouseEnter={() => setHover('pago')}
-              onMouseLeave={() => setHover(null)}
-              className={`block w-full text-center text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors ${
-                hover === 'ver' ? 'border border-[#e0ddd8] text-[#bbb]' : 'border border-[#1b1b1b] text-[#1b1b1b] hover:bg-[#1b1b1b] hover:text-[#f6f4f1]'
-              }`}
-            >
-              {cd.generarPedido}
             </Link>
             <button
               onClick={vaciar}
