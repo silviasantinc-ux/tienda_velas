@@ -3,20 +3,35 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Trash2, Plus, Minus, ArrowLeft } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useCarrito, carritoKey } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
+import { supabase } from '@/lib/supabase'
 
 export default function PaginaCarrito() {
   const { items, quitar, actualizarCantidad, total, vaciar } = useCarrito()
   const { idioma, t } = useIdioma()
   const tc = t.carrito
+  const [imagenesVariante, setImagenesVariante] = useState<Map<string, string>>(new Map())
   const [nombre, setNombre] = useState('')
   const [email, setEmail] = useState('')
   const [direccion, setDireccion] = useState('')
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado] = useState(false)
   const [errorEnvio, setErrorEnvio] = useState(false)
+
+  useEffect(() => {
+    const ids = items.map((i) => i.variante?.imagen_id).filter(Boolean) as string[]
+    if (ids.length === 0) return
+    supabase
+      .from('producto_imagenes')
+      .select('id, url')
+      .in('id', ids)
+      .then(({ data }) => {
+        if (!data) return
+        setImagenesVariante(new Map(data.map((r) => [r.id, r.url])))
+      })
+  }, [items])
 
   const todosConPrecio = items.every(({ producto, variante }) => {
     const precioUd = producto.precio + (variante?.precio_extra ?? 0)
@@ -114,7 +129,7 @@ export default function PaginaCarrito() {
               <div key={key} className="py-7 flex gap-6">
                 <Link href={`/producto/${producto.id}`} className="relative w-28 h-28 bg-[#ece9e4] flex-shrink-0 overflow-hidden">
                   <Image
-                    src={producto.imagen_url}
+                    src={(variante?.imagen_id && imagenesVariante.get(variante.imagen_id)) || producto.imagen_url}
                     alt={nombre}
                     fill
                     className="object-cover hover:scale-105 transition-transform duration-300"
