@@ -32,8 +32,8 @@ Banner "próximamente" eliminado. Tienda operativa con pedidos por email (sin pa
 - [x] Productos inactivos no aparecen en tienda (filtro `activo = true` en todas las queries) ✓
 
 ## SEO
-- [ ] Registrar dominio en Google Search Console y verificar ownership
-- [ ] Enviar sitemap.xml desde Search Console
+- [x] Registrar dominio en Google Search Console y verificar ownership ✓
+- [ ] Enviar sitemap.xml desde Search Console (ir a Sitemaps → escribir sitemap.xml → Enviar)
 - [ ] Verificar que og:image se ve bien al compartir en WhatsApp / Twitter / LinkedIn
   (usar https://developers.facebook.com/tools/debug/ y https://cards-dev.twitter.com/validator)
 - [ ] Revisar títulos y descripciones de todas las páginas (< 60 / < 160 caracteres)
