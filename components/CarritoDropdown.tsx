@@ -13,6 +13,7 @@ export default function CarritoDropdown() {
   const t = useIdioma((s) => s.t)
   const { idioma } = useIdioma()
   const [eliminados, setEliminados] = useState(0)
+  const [imagenesVariante, setImagenesVariante] = useState<Map<string, string>>(new Map())
   const cd = t.carritoDropdown
 
   useEffect(() => {
@@ -26,6 +27,12 @@ export default function CarritoDropdown() {
       })
       setEliminados(inactivos.size)
     })
+    const imagenIds = items.map((i) => i.variante?.imagen_id).filter(Boolean) as string[]
+    if (imagenIds.length > 0) {
+      supabase.from('producto_imagenes').select('id, url').in('id', imagenIds).then(({ data }) => {
+        if (data) setImagenesVariante(new Map(data.map((r) => [r.id, r.url])))
+      })
+    }
   }, [])
 
   const totalArticulos = items.reduce((a, i) => a + i.cantidad, 0)
@@ -72,7 +79,7 @@ export default function CarritoDropdown() {
               return (
                 <div key={key} className="px-5 py-4 flex gap-3">
                   <Link href={`/producto/${producto.id}`} className="relative w-16 h-16 bg-[#ece9e4] flex-shrink-0 overflow-hidden">
-                    <Image src={producto.imagen_url} alt={nombre} fill className="object-cover" sizes="64px" />
+                    <Image src={(variante?.imagen_id && imagenesVariante.get(variante.imagen_id)) || producto.imagen_url} alt={nombre} fill className="object-cover" sizes="64px" />
                   </Link>
                   <div className="flex-1 min-w-0">
                     <Link href={`/producto/${producto.id}`}>
