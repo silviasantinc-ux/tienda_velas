@@ -124,15 +124,16 @@ export default function CarritoDropdown() {
             >
               {cd.verCarrito}
             </Link>
-            <button
+            <Link
+              href="/carrito"
               onMouseEnter={() => setHover('pago')}
               onMouseLeave={() => setHover(null)}
-              className={`w-full text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors ${
+              className={`block w-full text-center text-[11px] uppercase tracking-widest font-medium py-3.5 transition-colors ${
                 hover === 'ver' ? 'border border-[#e0ddd8] text-[#bbb]' : 'border border-[#1b1b1b] text-[#1b1b1b] hover:bg-[#1b1b1b] hover:text-[#f6f4f1]'
               }`}
             >
-              {cd.procederPago}
-            </button>
+              {cd.generarPedido}
+            </Link>
             <button
               onClick={vaciar}
               className="w-full text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#b97979] transition-colors pt-3"
