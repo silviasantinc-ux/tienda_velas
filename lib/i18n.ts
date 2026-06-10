@@ -316,6 +316,9 @@ const traducciones = {
       banner: 'Estamos ultimando los últimos detalles — la tienda abrirá oficialmente muy pronto.',
       pagoProximo: 'La pasarela de pago estará disponible próximamente.',
     },
+    whatsapp: {
+      tooltip: 'Chatea con nosotros por WhatsApp',
+    },
   },
 
   // ─────────────────────────────────────────────────────────────────
@@ -620,6 +623,9 @@ const traducciones = {
     proximamente: {
       banner: "Estem acabant els últims detalls — la botiga obrirà oficialment molt aviat.",
       pagoProximo: 'La passarel·la de pagament estarà disponible properament.',
+    },
+    whatsapp: {
+      tooltip: 'Xateja amb nosaltres per WhatsApp',
     },
   },
 }

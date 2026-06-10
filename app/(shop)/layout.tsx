@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import FooterClient from "@/components/FooterClient";
 import CookieBanner from "@/components/CookieBanner";
 import ProximamenteBanner from "@/components/ProximamenteBanner";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import type { ReactNode } from "react";
 
 export default function ShopLayout({ children }: { children: ReactNode }) {
@@ -12,6 +13,7 @@ export default function ShopLayout({ children }: { children: ReactNode }) {
       <main className="flex-1">{children}</main>
       <FooterClient />
       <CookieBanner />
+      <WhatsAppButton />
     </>
   )
 }

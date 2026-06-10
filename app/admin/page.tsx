@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { verificarAdmin } from '@/lib/admin-auth'
 import { Producto, ProductoVariante } from '@/types'
-import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen, Eye, EyeOff, ChevronUp, ChevronDown, Download } from 'lucide-react'
+import { Plus, Pencil, Trash2, LogOut, Package, Users, Tag, FolderOpen, Eye, EyeOff, ChevronUp, ChevronDown, Download, Settings } from 'lucide-react'
 
 type SortCol = 'nombre' | 'categoria' | 'precio' | 'stock' | 'badge' | 'activo'
 
@@ -146,6 +146,10 @@ export default function AdminPanel() {
           </span>
         </div>
         <div className="flex items-center gap-6">
+          <Link href="/admin/configuracion" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
+            <Settings className="w-3.5 h-3.5" />
+            Configuración
+          </Link>
           <Link href="/admin/categorias" className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors">
             <FolderOpen className="w-3.5 h-3.5" />
             Categorías
