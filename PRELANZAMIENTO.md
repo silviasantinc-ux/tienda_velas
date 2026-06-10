@@ -45,15 +45,15 @@ Banner "próximamente" eliminado. Tienda operativa con pedidos por email (sin pa
 - [ ] Probar filtros de categoría en móvil
 - [x] Contador de evento: se oculta automáticamente cuando no hay evento próximo ✓
 - [ ] Probar registro / login / recuperación de contraseña
-- [ ] Probar newsletter (formulario envía, email llega)
-- [ ] Comprobar que el cookie banner no vuelve a aparecer si ya se aceptó
+- [ ] Newsletter: el componente existe pero no está integrado en ninguna página, ni envía nada real — decidir si se quiere usar y con qué servicio (Mailchimp, Resend, etc.)
+- [x] Cookie banner: usa localStorage, no reaparece si ya se aceptó ✓
 
 ## Técnico
 - [ ] Activar Google Analytics o Plausible para medir tráfico desde el día 1
 - [ ] Configurar Google My Business si hay área de servicio/entrega
 - [x] `/admin` protegido con middleware — redirige a login si no hay sesión ✓
 - [ ] Revisar Core Web Vitals con Lighthouse en móvil (objetivo: LCP < 2.5s)
-- [ ] Comprobar que no hay errores 404 en ningún enlace interno
+- [x] Comprobar que no hay errores 404 en enlaces internos (footer, navbar, home) ✓
 
 ## Redes sociales
 - [ ] Crear perfil de Instagram / TikTok si no existe
