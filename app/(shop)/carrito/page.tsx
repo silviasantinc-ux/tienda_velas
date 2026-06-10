@@ -196,7 +196,9 @@ export default function PaginaCarrito() {
               </div>
               <div className="flex justify-between text-sm text-[#666]">
                 <span className="text-[11px] uppercase tracking-widest">{tc.envio}</span>
-                <span>{tc.aPendiente}</span>
+                <Link href="/envios" className="text-[11px] text-[#7d5d24] hover:underline underline-offset-2">
+                  {tc.verInfoEnvio}
+                </Link>
               </div>
             </div>
 
