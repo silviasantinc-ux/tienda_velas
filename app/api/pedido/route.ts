@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
 
   const { error } = await resend.emails.send({
     from: 'llum & glow <pedidos@llumandglow.com>',
-    to: 'info@llumandglow.com',
+    to: ['info@llumandglow.com', 'saramaiz@gmail.com'],
     subject: asunto,
     html,
   })
