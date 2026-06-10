@@ -109,8 +109,8 @@ export default function PaginaCarrito() {
           {tc.titulo} <span className="text-[#767676] text-2xl">({items.length})</span>
         </h1>
         <button
-          onClick={vaciar}
-          className="text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors"
+          onClick={() => { if (confirm(idioma === 'ca' ? 'Buidar el carret?' : '¿Vaciar el carrito?')) vaciar() }}
+          className="text-[11px] uppercase tracking-widest text-[#767676] hover:text-[#b97979] border border-[#e0ddd8] hover:border-[#b97979] px-3 py-1.5 transition-colors"
         >
           {tc.vaciar}
         </button>
