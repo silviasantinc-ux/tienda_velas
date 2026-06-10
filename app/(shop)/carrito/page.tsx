@@ -12,12 +12,13 @@ export default function PaginaCarrito() {
   const { idioma, t } = useIdioma()
   const tc = t.carrito
   const [nombre, setNombre] = useState('')
+  const [email, setEmail] = useState('')
   const [direccion, setDireccion] = useState('')
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado] = useState(false)
   const [errorEnvio, setErrorEnvio] = useState(false)
 
-  const datosCompletos = nombre.trim().length > 0 && direccion.trim().length > 0
+  const datosCompletos = nombre.trim().length > 0 && email.trim().length > 0 && direccion.trim().length > 0
 
   const enviarPedido = async () => {
     if (!datosCompletos || enviando) return
@@ -35,7 +36,7 @@ export default function PaginaCarrito() {
     const res = await fetch('/api/pedido', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre: nombre.trim(), direccion: direccion.trim(), lineas, total: totalStr, idioma }),
+      body: JSON.stringify({ nombre: nombre.trim(), email: email.trim(), direccion: direccion.trim(), lineas, total: totalStr, idioma }),
     })
 
     setEnviando(false)
@@ -216,6 +217,13 @@ export default function PaginaCarrito() {
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder={tc.placeholderNombre}
+                className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors"
+              />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={tc.placeholderEmail}
                 className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors"
               />
               <textarea
