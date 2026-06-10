@@ -1,6 +1,6 @@
 # Checklist pre-lanzamiento — llum & glow
 
-Revisar antes de quitar el banner "próximamente" y abrir la tienda al público.
+Banner "próximamente" eliminado. Tienda operativa con pedidos por email (sin pasarela de pago de momento).
 
 ---
 
@@ -8,26 +8,28 @@ Revisar antes de quitar el banner "próximamente" y abrir la tienda al público.
 - [ ] Integrar Stripe (o similar): checkout, confirmación de pedido, webhooks
 - [ ] Probar flujo completo: añadir → carrito → pago → confirmación → email
 - [ ] Gestión de errores de pago (tarjeta rechazada, timeout, etc.)
-- [ ] Quitar botón de pago deshabilitado y banner "próximamente"
+- [x] Quitar banner "próximamente" ✓
+
+> De momento los pedidos se gestionan por email via Resend (formulario en el carrito → info@llumandglow.com).
 
 ## Envíos
-- [ ] Definir tarifas y zonas de envío (España, Baleares, Canarias, UE)
-- [ ] Actualizar página `/envios` con tarifas reales
-- [ ] Conectar coste de envío con el carrito (mostrar precio real, no "a calcular")
+- [x] Definir tarifas y zonas de envío (España, Baleares, Canarias) ✓
+- [x] Actualizar página `/envios` con tarifas orientativas ✓
+- [ ] Conectar coste de envío con el carrito (cálculo automático) — de momento hay enlace a `/envios`
 
 ## Contenido
 - [ ] Revisar todos los textos — eliminar placeholders, coherencia ES/CA
 - [ ] Revisar imágenes de productos — todas en formato cuadrado 1200×1200 px, JPG/WebP, máx. 300 KB, fondo neutro centrado
 - [ ] Crear imagen OG 1200×630 px para redes sociales (actualmente usa `todas_las_velas.jpg`)
-- [ ] Completar página `/envios` con política de devoluciones real
 - [ ] Completar página `/seguridad` con fichas MSDS reales
 - [ ] Revisar `/privacidad`, `/terminos` y `/cookies` — contenido legal revisado por asesor
 
 ## Stock y productos
+> El stock se gestiona manualmente desde el admin al recibir cada pedido por email.
 - [ ] Verificar que todos los productos activos tienen imagen, precio y categoría correcta
-- [ ] Verificar stock inicial correcto en Supabase
-- [ ] Probar que productos agotados muestran "Agotado" y no permiten añadir al carrito
-- [ ] Probar que productos inactivos no aparecen en tienda ni en carrito
+- [ ] Poner stock inicial correcto en Supabase para cada producto
+- [x] Productos agotados muestran "Agotado" y no permiten añadir al carrito ✓
+- [x] Productos inactivos no aparecen en tienda (filtro `activo = true` en todas las queries) ✓
 
 ## SEO
 - [ ] Registrar dominio en Google Search Console y verificar ownership
@@ -41,7 +43,7 @@ Revisar antes de quitar el banner "próximamente" y abrir la tienda al público.
 - [ ] Probar carrito completo en móvil (añadir, modificar cantidad, eliminar)
 - [ ] Probar buscador de la tienda en móvil
 - [ ] Probar filtros de categoría en móvil
-- [ ] Verificar que el contador de evento muestra fechas correctas
+- [x] Contador de evento: se oculta automáticamente cuando no hay evento próximo ✓
 - [ ] Probar registro / login / recuperación de contraseña
 - [ ] Probar newsletter (formulario envía, email llega)
 - [ ] Comprobar que el cookie banner no vuelve a aparecer si ya se aceptó
@@ -49,7 +51,7 @@ Revisar antes de quitar el banner "próximamente" y abrir la tienda al público.
 ## Técnico
 - [ ] Activar Google Analytics o Plausible para medir tráfico desde el día 1
 - [ ] Configurar Google My Business si hay área de servicio/entrega
-- [ ] Verificar que `/admin` no es accesible sin login (middleware de auth)
+- [x] `/admin` protegido con middleware — redirige a login si no hay sesión ✓
 - [ ] Revisar Core Web Vitals con Lighthouse en móvil (objetivo: LCP < 2.5s)
 - [ ] Comprobar que no hay errores 404 en ningún enlace interno
 
