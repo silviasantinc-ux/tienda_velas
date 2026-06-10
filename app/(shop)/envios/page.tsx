@@ -65,8 +65,8 @@ export default function PaginaEnvios() {
           </h2>
           <p className="text-sm text-[#666] leading-relaxed">
             {ca
-              ? "Cada espelma s'elabora artesanalment quan rebem la comanda. El temps de preparació pot variar segons el volum de comandes en cada moment. Un cop enviada, el lliurament sol trigar entre 2-5 dies laborables depenent de la destinació. T'informem del termini exacte en confirmar el teu pedido."
-              : 'Cada vela se elabora artesanalmente al recibir el pedido. El tiempo de preparación puede variar según el volumen de pedidos en cada momento. Una vez enviado, la entrega suele tardar entre 2-5 días laborables según el destino. Te informamos del plazo exacto al confirmar tu pedido.'}
+              ? "Elaborem cada espelma de manera artesanal. El temps de preparació varia segons la demanda, i l'entrega sol tardar 2-5 dies laborables. T'informem del termini exacte en confirmar la comanda."
+              : 'Elaboramos cada vela de forma artesanal. El tiempo de preparación varía según la demanda, y la entrega suele tardar 2-5 días laborables. Te informamos del plazo exacto al confirmar el pedido.'}
           </p>
         </div>
 
