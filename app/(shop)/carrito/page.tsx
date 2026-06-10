@@ -211,30 +211,43 @@ export default function PaginaCarrito() {
 
             {/* Datos de envío */}
             <div className="mb-6 space-y-3">
-              <p className="text-[10px] uppercase tracking-widest text-[#767676]">
-                {tc.datosPedido} <span className="text-[#b97979]">*</span>
-              </p>
-              <input
-                type="text"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-                placeholder={tc.placeholderNombre}
-                className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors"
-              />
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={tc.placeholderEmail}
-                className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors"
-              />
-              <textarea
-                value={direccion}
-                onChange={(e) => setDireccion(e.target.value)}
-                placeholder={tc.placeholderDireccion}
-                rows={2}
-                className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors resize-none"
-              />
+              <p className="text-[10px] uppercase tracking-widest text-[#767676]">{tc.datosPedido}</p>
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-1">
+                  {tc.nombreCompleto} <span className="text-[#b97979]">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                  placeholder={tc.placeholderNombre}
+                  className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-1">
+                  {tc.emailLabel} <span className="text-[#b97979]">*</span>
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={tc.placeholderEmail}
+                  className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-1">
+                  {tc.direccionCompleta} <span className="text-[#b97979]">*</span>
+                </label>
+                <textarea
+                  value={direccion}
+                  onChange={(e) => setDireccion(e.target.value)}
+                  placeholder={tc.placeholderDireccion}
+                  rows={2}
+                  className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors resize-none"
+                />
+              </div>
               {!datosCompletos && (nombre || direccion) && (
                 <p className="text-[10px] text-[#b97979]">{tc.camposObligatorios}</p>
               )}
