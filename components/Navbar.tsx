@@ -118,7 +118,7 @@ export default function Navbar() {
         <div className="flex items-center gap-5 text-[#1b1b1b]">
           {selectorIdioma}
           <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
-          {usuario ? (
+          {usuario && (
             <div className="relative"
               onMouseEnter={() => { if (userTimer.current) clearTimeout(userTimer.current); setUsuarioMenuAbierto(true) }}
               onMouseLeave={() => { userTimer.current = setTimeout(() => setUsuarioMenuAbierto(false), 180) }}
@@ -128,7 +128,6 @@ export default function Navbar() {
                 <span className="text-[10px] uppercase tracking-widest text-[#7d5d24] max-w-[140px] truncate hidden md:inline">
                   {usuario.split(' ')[0]}
                 </span>
-                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#7d5d24] md:hidden" />
               </button>
               {usuarioMenuAbierto && (
                 <div className="absolute right-0 top-full w-48 bg-[#f6f4f1] border border-[#e0ddd8] shadow-xl z-50 py-3">
@@ -140,8 +139,6 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-          ) : (
-            <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
           )}
           {carritoIcono}
         </div>
@@ -158,7 +155,7 @@ export default function Navbar() {
           <div className="flex items-center gap-4 text-[#1b1b1b]">
             {selectorIdioma}
             <button onClick={abrirBusqueda} className="hover:text-[#7d5d24] transition-colors"><Search className="w-5 h-5" /></button>
-            {usuario ? (
+            {usuario && (
               <div className="relative">
                 <button onClick={() => setUsuarioMenuAbierto(!usuarioMenuAbierto)} className="relative hover:text-[#7d5d24] transition-colors">
                   <User className="w-5 h-5" />
@@ -177,8 +174,6 @@ export default function Navbar() {
                   </>
                 )}
               </div>
-            ) : (
-              <Link href="/registro" className="hover:text-[#7d5d24] transition-colors"><User className="w-5 h-5" /></Link>
             )}
             {carritoIcono}
           </div>
