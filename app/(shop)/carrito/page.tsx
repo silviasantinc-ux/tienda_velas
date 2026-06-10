@@ -3,42 +3,36 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Trash2, Plus, Minus, ArrowLeft } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useCarrito, carritoKey } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
-import { supabase } from '@/lib/supabase'
 
 export default function PaginaCarrito() {
   const { items, quitar, actualizarCantidad, total, vaciar } = useCarrito()
   const { idioma, t } = useIdioma()
   const tc = t.carrito
-  const [telefono, setTelefono] = useState<string | null>(null)
   const [nombre, setNombre] = useState('')
   const [direccion, setDireccion] = useState('')
 
-  useEffect(() => {
-    supabase.from('configuracion').select('valor').eq('clave', 'telefono').single()
-      .then(({ data }) => { if (data?.valor) setTelefono(data.valor) })
-  }, [])
-
   const datosCompletos = nombre.trim().length > 0 && direccion.trim().length > 0
 
-  const generarPedido = () => {
-    if (!telefono || !datosCompletos) return
+  const enviarPedido = () => {
+    if (!datosCompletos) return
     const lineas = items.map(({ producto, cantidad, variante }) => {
       const nombreProd = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
       const nombreVar = variante ? ` · ${idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}` : ''
       const precioUd = producto.precio + (variante?.precio_extra ?? 0)
       const precioTotal = (precioUd * cantidad).toFixed(2).replace('.', ',')
-      return `• ${nombreProd}${nombreVar} × ${cantidad} — ${precioTotal} €`
+      return `  - ${nombreProd}${nombreVar} x ${cantidad} = ${precioTotal} EUR`
     })
     const totalStr = total().toFixed(2).replace('.', ',')
 
-    const msg = idioma === 'ca'
-      ? `🕯️ *Nova comanda — llum & glow*\n\n👤 *Dades d'enviament:*\n${nombre.trim()}\n${direccion.trim()}\n\n📦 *Articles:*\n${lineas.join('\n')}\n\n💰 *Total estimat: ${totalStr} €*\n_(L'enviament es calcularà en confirmar)_\n\nHola! M'agradaria fer aquesta comanda 😊`
-      : `🕯️ *Nuevo pedido — llum & glow*\n\n👤 *Datos de envío:*\n${nombre.trim()}\n${direccion.trim()}\n\n📦 *Artículos:*\n${lineas.join('\n')}\n\n💰 *Total estimado: ${totalStr} €*\n_(El envío se calculará al confirmar)_\n\n¡Hola! Me gustaría hacer este pedido 😊`
+    const asunto = idioma === 'ca' ? 'Nova comanda — llum & glow' : 'Nuevo pedido — llum & glow'
+    const cuerpo = idioma === 'ca'
+      ? `Nova comanda — llum & glow\n\nDades d'enviament:\n${nombre.trim()}\n${direccion.trim()}\n\nArticles:\n${lineas.join('\n')}\n\nTotal estimat: ${totalStr} EUR\n(L'enviament es calcularà en confirmar)\n\nGracies!`
+      : `Nuevo pedido — llum & glow\n\nDatos de envio:\n${nombre.trim()}\n${direccion.trim()}\n\nArticulos:\n${lineas.join('\n')}\n\nTotal estimado: ${totalStr} EUR\n(El envio se calculara al confirmar)\n\nGracias!`
 
-    window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer')
+    window.location.href = `mailto:info@llumandglow.com?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`
   }
 
   if (items.length === 0) {
@@ -210,8 +204,8 @@ export default function PaginaCarrito() {
             </div>
 
             <button
-              onClick={generarPedido}
-              disabled={!telefono || !datosCompletos}
+              onClick={enviarPedido}
+              disabled={!datosCompletos}
               className="w-full bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#e0ddd8] disabled:text-[#a0a0a0] disabled:cursor-not-allowed text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 mb-3 transition-colors"
             >
               {tc.generarPedido}
