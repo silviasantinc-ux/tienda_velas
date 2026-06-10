@@ -4,7 +4,7 @@ const BASE = 'https://www.llumandglow.com'
 
 export const metadata: Metadata = {
   title: 'Tienda de velas artesanales — llum & glow',
-  description: 'Descubre nuestra colección de velas artesanales elaboradas con cera de soja natural, mechas de algodón y fragancias únicas. Categorías: Otoño, Postre, Bebidas, Hogar y Eventos.',
+  description: 'Descubre nuestra colección de velas artesanales elaboradas con cera de soja natural, mechas de algodón y fragancias únicas.',
   openGraph: {
     title: 'Tienda de velas artesanales — llum & glow',
     description: 'Velas elaboradas a mano con cera de soja natural y fragancias únicas.',

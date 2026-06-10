@@ -4,7 +4,7 @@ const BASE = 'https://www.llumandglow.com'
 
 export const metadata: Metadata = {
   title: 'El origen — llum & glow | Nuestra historia',
-  description: 'Somos dos personas que empezamos haciendo velas un domingo por la tarde. Conoce la historia de llum & glow: artesanía hecha con cera de soja, algodón y muchas ganas.',
+  description: 'Conoce la historia de llum & glow: artesanía hecha con cera de soja, algodón y mucho cuidado. Velas elaboradas a mano con ingredientes naturales.',
   openGraph: {
     title: 'El origen — llum & glow',
     description: 'La historia detrás de cada vela artesanal llum & glow.',
