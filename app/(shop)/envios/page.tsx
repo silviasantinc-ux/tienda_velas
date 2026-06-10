@@ -18,23 +18,76 @@ export default function PaginaEnvios() {
         </h1>
       </div>
 
-      <div className="border-t border-[#e0ddd8] pt-10">
-        <p className="text-sm text-[#666] leading-relaxed mb-8">
-          {ca
-            ? 'Estem treballant per oferir-te la millor experiència d\'enviament. Pròximament trobaràs aquí tota la informació sobre terminis, tarifes i seguiment de comandes.'
-            : 'Estamos trabajando para ofrecerte la mejor experiencia de envío. Próximamente encontrarás aquí toda la información sobre plazos, tarifas y seguimiento de pedidos.'}
-        </p>
-        <p className="text-sm text-[#666] mb-4">
-          {ca
-            ? 'Per a qualsevol consulta sobre la teva comanda, contacta\'ns a:'
-            : 'Para cualquier consulta sobre tu pedido, contáctanos en:'}
-        </p>
-        <a
-          href="mailto:info@llumandglow.com"
-          className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors"
-        >
-          info@llumandglow.com
-        </a>
+      <div className="space-y-10 border-t border-[#e0ddd8] pt-10">
+
+        {/* Envío gratuito */}
+        <div>
+          <h2 className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">
+            {ca ? 'Enviament gratuït' : 'Envío gratuito'}
+          </h2>
+          <p className="text-sm text-[#666] leading-relaxed">
+            {ca
+              ? 'Totes les comandes a partir de 60€ tenen enviament gratuït a la península.'
+              : 'Todos los pedidos a partir de 60€ tienen envío gratuito a la península.'}
+          </p>
+        </div>
+
+        {/* Tarifas */}
+        <div>
+          <h2 className="text-[10px] uppercase tracking-widest text-[#767676] mb-4">
+            {ca ? 'Tarifes orientatives' : 'Tarifas orientativas'}
+          </h2>
+          <div className="divide-y divide-[#f0ede8] text-sm text-[#666]">
+            <div className="flex justify-between py-3">
+              <span>{ca ? 'Península' : 'Península'}</span>
+              <span>{ca ? 'Entre 4,90€ i 7€' : 'Entre 4,90€ y 7€'}</span>
+            </div>
+            <div className="flex justify-between py-3">
+              <span>{ca ? 'Illes Balears' : 'Islas Baleares'}</span>
+              <span>{ca ? 'Entre 6€ i 9€' : 'Entre 6€ y 9€'}</span>
+            </div>
+            <div className="flex justify-between py-3">
+              <span>{ca ? 'Canàries, Ceuta, Melilla' : 'Canarias, Ceuta, Melilla'}</span>
+              <span>{ca ? 'Consultar' : 'Consultar'}</span>
+            </div>
+          </div>
+          <p className="text-[11px] text-[#999] mt-4 leading-relaxed">
+            {ca
+              ? "El cost exacte de l'enviament es confirma amb cada comanda en funció del pes i la destinació."
+              : 'El coste exacto del envío se confirma con cada pedido en función del peso y el destino.'}
+          </p>
+        </div>
+
+        {/* Plazos */}
+        <div>
+          <h2 className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">
+            {ca ? 'Terminis' : 'Plazos'}
+          </h2>
+          <p className="text-sm text-[#666] leading-relaxed">
+            {ca
+              ? 'En rebre la teva comanda, la preparem artesanalment i l\'enviem en un termini de 2-4 dies laborables. El lliurament sol trigar entre 2-5 dies addicionals depenent de la destinació.'
+              : 'Al recibir tu pedido, lo preparamos artesanalmente y lo enviamos en un plazo de 2-4 días laborables. La entrega suele tardar entre 2-5 días adicionales según el destino.'}
+          </p>
+        </div>
+
+        {/* Contacto */}
+        <div>
+          <h2 className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">
+            {ca ? 'Consultes' : 'Consultas'}
+          </h2>
+          <p className="text-sm text-[#666] mb-4">
+            {ca
+              ? "Per a qualsevol dubte sobre la teva comanda, escriu-nos a:"
+              : 'Para cualquier duda sobre tu pedido, escríbenos a:'}
+          </p>
+          <a
+            href="mailto:info@llumandglow.com"
+            className="text-[11px] uppercase tracking-widest text-[#1b1b1b] border-b border-[#1b1b1b] pb-0.5 hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors"
+          >
+            info@llumandglow.com
+          </a>
+        </div>
+
       </div>
     </div>
   )
