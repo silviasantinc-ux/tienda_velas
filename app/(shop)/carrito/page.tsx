@@ -18,7 +18,11 @@ export default function PaginaCarrito() {
   const [enviado, setEnviado] = useState(false)
   const [errorEnvio, setErrorEnvio] = useState(false)
 
-  const datosCompletos = nombre.trim().length > 0 && email.trim().length > 0 && direccion.trim().length > 0
+  const todosConPrecio = items.every(({ producto, variante }) => {
+    const precioUd = producto.precio + (variante?.precio_extra ?? 0)
+    return precioUd > 0
+  })
+  const datosCompletos = nombre.trim().length > 0 && email.trim().length > 0 && direccion.trim().length > 0 && todosConPrecio
 
   const enviarPedido = async () => {
     if (!datosCompletos || enviando) return
@@ -255,6 +259,13 @@ export default function PaginaCarrito() {
               )}
             </div>
 
+            {!todosConPrecio && (
+              <p className="text-[11px] text-[#b97979] text-center mb-3">
+                {idioma === 'ca'
+                  ? 'Hi ha articles sense preu. Elimina\'ls per poder enviar la comanda.'
+                  : 'Hay artículos sin precio. Elimínalos para poder enviar el pedido.'}
+              </p>
+            )}
             {errorEnvio && (
               <p className="text-[11px] text-[#b97979] text-center mb-3">{tc.errorEnvio}</p>
             )}
