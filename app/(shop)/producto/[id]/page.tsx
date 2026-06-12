@@ -99,6 +99,8 @@ export default function PaginaProducto() {
   const detalle = idioma === 'ca' ? (producto.detalle_ca ?? producto.detalle) : producto.detalle
   const categoria = idioma === 'ca' ? (producto.categoria_ca ?? producto.categoria) : producto.categoria
   const stockActual = varianteSeleccionada ? varianteSeleccionada.stock : (variantes.length === 0 ? producto.stock : 0)
+  const precioActual = producto.precio + (varianteSeleccionada?.precio_extra ?? 0)
+  const sinPrecio = precioActual <= 0
 
   const handleAgregar = () => {
     for (let i = 0; i < cantidad; i++) agregar(producto, varianteSeleccionada ?? undefined)
@@ -253,10 +255,10 @@ export default function PaginaProducto() {
               </div>
               <button
                 onClick={handleAgregar}
-                disabled={stockActual === 0 || (variantes.length > 0 && !varianteSeleccionada)}
+                disabled={stockActual === 0 || (variantes.length > 0 && !varianteSeleccionada) || sinPrecio}
                 className="flex-1 bg-[#1b1b1b] hover:bg-[#333] disabled:bg-[#e0ddd8] disabled:text-[#767676] disabled:cursor-not-allowed text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
               >
-                {(varianteSeleccionada || variantes.length === 0) && stockActual === 0 ? tp.agotado : tp.añadir}
+                {sinPrecio ? (idioma === 'ca' ? 'Sense preu' : 'Sin precio') : (varianteSeleccionada || variantes.length === 0) && stockActual === 0 ? tp.agotado : tp.añadir}
               </button>
             </div>
 

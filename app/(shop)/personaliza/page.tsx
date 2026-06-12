@@ -43,7 +43,7 @@ function PersonalizaInner() {
 
   const colorSel = colores.find((c) => c.id === colorId) ?? null
   const aromaSel = aromas.find((a) => a.id === aromaId) ?? null
-  const listo = colorSel !== null && aromaSel !== null
+  const listo = colorSel !== null && aromaSel !== null && (producto?.precio ?? 0) > 0
 
   const handleAñadir = () => {
     if (!producto || !colorSel || !aromaSel) return
@@ -170,7 +170,12 @@ function PersonalizaInner() {
           </button>
         </div>
 
-        {!listo && (colorId || aromaId) && (
+        {producto.precio <= 0 && (
+          <p className="text-[10px] text-[#b97979] mt-3">
+            {idioma === 'ca' ? 'Aquest producte no té preu assignat.' : 'Este producto no tiene precio asignado.'}
+          </p>
+        )}
+        {!listo && producto.precio > 0 && (colorId || aromaId) && (
           <p className="text-[10px] text-[#b97979]">{tp.obligatorio}</p>
         )}
       </div>
