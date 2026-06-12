@@ -98,10 +98,10 @@ export default function AdminPanel() {
       const vars = (p.producto_variantes ?? []).sort((a, b) => a.orden - b.orden)
       const activo = p.activo === false ? 'No' : 'Sí'
       if (vars.length === 0) {
-        filas.push([p.nombre, p.nombre_ca ?? '', '', '', p.categoria, p.categoria_ca ?? '', p.precio.toFixed(2), p.stock, p.badge ?? '', p.tipologia ?? '', p.peso_gr ?? '', p.alto_cm ?? '', p.ancho_cm ?? '', activo])
+        filas.push([p.nombre, p.nombre_ca ?? '', '', '', p.categoria, p.categoria_ca ?? '', p.precio.toFixed(2).replace('.', ','), p.stock, p.badge ?? '', p.tipologia ?? '', p.peso_gr ?? '', p.alto_cm ?? '', p.ancho_cm ?? '', activo])
       } else {
         for (const v of vars) {
-          const precio = (p.precio + (v.precio_extra ?? 0)).toFixed(2)
+          const precio = (p.precio + (v.precio_extra ?? 0)).toFixed(2).replace('.', ',')
           filas.push([p.nombre, p.nombre_ca ?? '', v.nombre, v.nombre_ca ?? '', p.categoria, p.categoria_ca ?? '', precio, v.stock, p.badge ?? '', p.tipologia ?? '', p.peso_gr ?? '', p.alto_cm ?? '', p.ancho_cm ?? '', activo])
         }
       }
