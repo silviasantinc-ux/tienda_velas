@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { Producto, ProductoImagen, ProductoVariante } from '@/types'
-import { ArrowLeft, Upload, X, GripVertical, Plus } from 'lucide-react'
+import { ArrowLeft, Upload, X, Star, Plus } from 'lucide-react'
 
 type Props = {
   modo: 'nuevo' | 'editar'
@@ -131,11 +131,12 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
     setGaleria((prev) => prev.filter((_, i) => i !== idx).map((m, i) => ({ ...m, orden: i })))
   }
 
-  const moverArriba = (idx: number) => {
+  const marcarPortada = (idx: number) => {
     if (idx === 0) return
     setGaleria((prev) => {
       const next = [...prev]
-      ;[next[idx - 1], next[idx]] = [next[idx], next[idx - 1]]
+      const [item] = next.splice(idx, 1)
+      next.unshift(item)
       return next.map((m, i) => ({ ...m, orden: i }))
     })
   }
@@ -357,10 +358,10 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                       </span>
                     )}
                     <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                      {idx > 0 && (
-                        <button type="button" onClick={() => moverArriba(idx)}
-                          className="bg-white/90 p-1 hover:bg-white transition-colors" title="Mover antes">
-                          <GripVertical className="w-3 h-3 text-[#1b1b1b]" />
+                      {item.tipo === 'imagen' && idx > 0 && (
+                        <button type="button" onClick={() => marcarPortada(idx)}
+                          className="bg-white/90 p-1 hover:bg-white transition-colors" title="Hacer portada">
+                          <Star className="w-3 h-3 text-[#7d5d24]" />
                         </button>
                       )}
                       <button type="button" onClick={() => eliminarMedia(idx)}
@@ -372,7 +373,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
                 ))}
               </div>
             )}
-            <p className="text-[10px] text-[#ccc] mt-2">La primera foto es la portada. Pasa el ratón sobre una imagen para reordenar o eliminar.</p>
+            <p className="text-[10px] text-[#ccc] mt-2">La primera foto es la portada. Pasa el ratón y usa la estrella ★ para cambiarla.</p>
           </div>
 
           {/* Variantes */}
