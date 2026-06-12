@@ -48,6 +48,12 @@ const jsonLdOrganizacion = {
   url: BASE,
   description: 'Velas artesanales elaboradas a mano con cera de soja natural, mechas de algodón y fragancias únicas.',
   email: 'info@llumandglow.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Barcelona',
+    addressRegion: 'Cataluña',
+    addressCountry: 'ES',
+  },
   sameAs: [],
 }
 
