@@ -123,7 +123,7 @@ export default function PaginaProducto() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           {/* Columna izquierda: visor + miniaturas */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 md:self-start">
             <div className="relative aspect-square overflow-hidden bg-[#ece9e4]">
               {!mediaActual || mediaActual.tipo === 'imagen' ? (
                 <Image
