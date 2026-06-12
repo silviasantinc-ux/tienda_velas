@@ -188,10 +188,10 @@ export default function PaginaCarrito() {
                   </button>
                   <div className="text-right">
                     <p className="text-sm font-medium text-[#1b1b1b]">
-                      {(precioUd * cantidad).toFixed(2)} €
+                      {(precioUd * cantidad).toFixed(2).replace('.', ',')} €
                     </p>
                     {cantidad > 1 && (
-                      <p className="text-[10px] text-[#767676]">{precioUd.toFixed(2)} € {tc.udAbrev}</p>
+                      <p className="text-[10px] text-[#767676]">{precioUd.toFixed(2).replace('.', ',')} € {tc.udAbrev}</p>
                     )}
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export default function PaginaCarrito() {
                     <span className="truncate mr-2">
                       {nombre}{sufijos ? ` · ${sufijos}` : ''} × {cantidad}
                     </span>
-                    <span className="flex-shrink-0">{(precioUd * cantidad).toFixed(2)} €</span>
+                    <span className="flex-shrink-0">{(precioUd * cantidad).toFixed(2).replace('.', ',')} €</span>
                   </div>
                 )
               })}
@@ -229,7 +229,7 @@ export default function PaginaCarrito() {
             <div className="border-t border-[#d0cdc8] py-4 space-y-2">
               <div className="flex justify-between text-sm text-[#666]">
                 <span className="text-[11px] uppercase tracking-widest">{tc.subtotal}</span>
-                <span>{total().toFixed(2)} €</span>
+                <span>{total().toFixed(2).replace('.', ',')} €</span>
               </div>
               <div className="flex justify-between text-sm text-[#666]">
                 <span className="text-[11px] uppercase tracking-widest">{tc.envio}</span>
@@ -243,7 +243,7 @@ export default function PaginaCarrito() {
               <div className="flex justify-between text-[#1b1b1b]">
                 <span className="text-[11px] uppercase tracking-widest font-medium">{tc.total}</span>
                 <span className="font-medium text-lg">
-                  {total().toFixed(2)} €
+                  {total().toFixed(2).replace('.', ',')} €
                 </span>
               </div>
             </div>

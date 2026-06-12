@@ -81,7 +81,7 @@ export default function TarjetaProducto({ producto, tieneVariantes = false }: { 
             {nombre}
           </h3>
         </Link>
-        <p className="text-sm text-[#1b1b1b] font-medium">{producto.precio.toFixed(2)} €</p>
+        <p className="text-sm text-[#1b1b1b] font-medium">{producto.precio.toFixed(2).replace('.', ',')} €</p>
         {producto.stock <= 3 && producto.stock > 0 && (
           <p className="text-[10px] text-[#b97979] uppercase tracking-widest mt-1">{t.tarjeta.ultimasUnidades}</p>
         )}

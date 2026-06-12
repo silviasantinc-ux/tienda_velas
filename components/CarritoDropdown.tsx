@@ -98,7 +98,7 @@ export default function CarritoDropdown() {
                         {aroma && ` · ${idioma === 'ca' ? (aroma.nombre_ca ?? aroma.nombre) : aroma.nombre}`}
                       </p>
                     )}
-                    <p className="text-[10px] text-[#767676] mt-0.5">{cantidad} × {precioUd.toFixed(2)} €</p>
+                    <p className="text-[10px] text-[#767676] mt-0.5">{cantidad} × {precioUd.toFixed(2).replace('.', ',')} €</p>
                   </div>
                   <div className="flex flex-col items-end justify-between flex-shrink-0 gap-2">
                     <button onClick={() => quitar(key)} className="text-[#ccc] hover:text-[#b97979] transition-colors">
@@ -113,7 +113,7 @@ export default function CarritoDropdown() {
                         <Plus className="w-2.5 h-2.5" />
                       </button>
                     </div>
-                    <p className="text-xs font-medium text-[#1b1b1b]">{(precioUd * cantidad).toFixed(2)} €</p>
+                    <p className="text-xs font-medium text-[#1b1b1b]">{(precioUd * cantidad).toFixed(2).replace('.', ',')} €</p>
                   </div>
                 </div>
               )
@@ -124,7 +124,7 @@ export default function CarritoDropdown() {
           <div className="px-5 py-4 border-t border-[#e0ddd8]">
             <div className="flex justify-between items-center mb-4">
               <span className="text-[11px] uppercase tracking-widest text-[#666]">{cd.total}</span>
-              <span className="font-medium text-[#1b1b1b]">{total().toFixed(2)} €</span>
+              <span className="font-medium text-[#1b1b1b]">{total().toFixed(2).replace('.', ',')} €</span>
             </div>
             <Link
               href="/carrito"

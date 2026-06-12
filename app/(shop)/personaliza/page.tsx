@@ -103,7 +103,7 @@ function PersonalizaInner() {
         </div>
         <div>
           <p className="font-['EB_Garamond'] italic text-lg text-[#1b1b1b]">{nombreProd}</p>
-          <p className="text-sm text-[#767676]">{producto.precio.toFixed(2)} €</p>
+          <p className="text-sm text-[#767676]">{producto.precio.toFixed(2).replace('.', ',')} €</p>
         </div>
       </div>
 

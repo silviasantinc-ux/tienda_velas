@@ -243,7 +243,7 @@ export default function AdminPanel() {
                       </div>
                     </td>
                     <td className="px-4 py-4 text-sm text-[#666]">{p.categoria}</td>
-                    <td className="px-4 py-4 text-sm text-[#1b1b1b] font-medium">{p.precio.toFixed(2)} €</td>
+                    <td className="px-4 py-4 text-sm text-[#1b1b1b] font-medium">{p.precio.toFixed(2).replace('.', ',')} €</td>
                     <td className="px-4 py-4">
                       <span className={`text-sm font-medium ${p.stock <= 5 ? 'text-red-600' : 'text-[#1b1b1b]'}`}>
                         {p.stock}

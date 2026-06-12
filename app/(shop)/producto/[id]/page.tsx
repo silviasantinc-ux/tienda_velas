@@ -195,7 +195,7 @@ export default function PaginaProducto() {
           <div className="flex flex-col justify-center py-4">
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{categoria}</p>
             <h1 className="font-['EB_Garamond'] text-5xl italic text-[#1b1b1b] mb-3 leading-tight">{nombre}</h1>
-            <p className="text-2xl text-[#1b1b1b] font-medium mb-6">{producto.precio.toFixed(2)} €</p>
+            <p className="text-2xl text-[#1b1b1b] font-medium mb-6">{producto.precio.toFixed(2).replace('.', ',')} €</p>
             <p className="text-sm text-[#666] leading-relaxed mb-6">{descripcion}</p>
 
             {variantes.length > 0 && (
