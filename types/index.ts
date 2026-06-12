@@ -18,6 +18,7 @@ export type Producto = {
   alto_cm?: number
   ancho_cm?: number
   personalizable?: boolean
+  tipologia?: string
 }
 
 export type Color = {

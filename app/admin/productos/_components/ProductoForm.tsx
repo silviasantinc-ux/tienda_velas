@@ -90,6 +90,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
     alto_cm: productoInicial?.alto_cm?.toString() ?? '',
     ancho_cm: productoInicial?.ancho_cm?.toString() ?? '',
     personalizable: productoInicial?.personalizable ?? false,
+    tipologia: productoInicial?.tipologia ?? '',
   })
 
   const set = (campo: string, valor: string) => setForm((f) => ({ ...f, [campo]: valor }))
@@ -170,6 +171,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
       alto_cm: form.alto_cm ? parseFloat(form.alto_cm) : null,
       ancho_cm: form.ancho_cm ? parseFloat(form.ancho_cm) : null,
       personalizable: form.personalizable,
+      tipologia: form.tipologia || null,
     }
 
     try {
@@ -478,6 +480,20 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             <span className="text-[11px] uppercase tracking-widest text-[#666]">
               {form.personalizable ? 'Permite personalización (color + aroma)' : 'Sin personalización'}
             </span>
+          </div>
+
+          {/* Tipología */}
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="Tipología">
+              <select value={form.tipologia} onChange={(e) => set('tipologia', e.target.value)} className={inputCls}>
+                <option value="">— Sin tipología —</option>
+                <option value="con env - con nata">con env - con nata</option>
+                <option value="con env - sin nata">con env - sin nata</option>
+                <option value="sin env - con nata">sin env - con nata</option>
+                <option value="sin env - sin nata">sin env - sin nata</option>
+                <option value="wax melt">wax melt</option>
+              </select>
+            </Field>
           </div>
 
           {/* Medidas y peso */}
