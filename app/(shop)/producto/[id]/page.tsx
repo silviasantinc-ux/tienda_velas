@@ -274,7 +274,7 @@ export default function PaginaProducto() {
             )}
 
             {/* Detalle + material + normativa — en la misma columna derecha */}
-            <div className="border-t border-[#e0ddd8] mt-8 pt-8 space-y-6">
+            <div className="border-t border-[#e0ddd8] mt-4 pt-6 space-y-6">
               {detalle && (
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">{tp.verMas}</p>
