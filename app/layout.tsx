@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 
 const jsonLdOrganizacion = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'Store',
   name: 'llum & glow',
   url: BASE,
   description: 'Velas artesanales elaboradas a mano con cera de soja natural, mechas de algodón y fragancias únicas.',
@@ -54,7 +54,20 @@ const jsonLdOrganizacion = {
     addressRegion: 'Cataluña',
     addressCountry: 'ES',
   },
+  areaServed: { '@type': 'Country', name: 'España' },
   sameAs: [],
+}
+
+const jsonLdWebSite = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'llum & glow',
+  url: BASE,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: { '@type': 'EntryPoint', urlTemplate: `${BASE}/tienda?q={search_term_string}` },
+    'query-input': 'required name=search_term_string',
+  },
 }
 
 export default function RootLayout({
@@ -70,10 +83,8 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
       </head>
       <body className="min-h-full flex flex-col bg-[#f6f4f1] text-[#1b1b1b]">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganizacion) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrganizacion) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }} />
         {children}
       </body>
     </html>
