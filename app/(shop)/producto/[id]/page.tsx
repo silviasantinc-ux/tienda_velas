@@ -188,56 +188,12 @@ export default function PaginaProducto() {
             )}
           </div>
 
+          {/* Columna derecha: solo info esencial + CTAs */}
           <div className="flex flex-col justify-center py-4">
             <p className="text-[10px] uppercase tracking-[0.3em] text-[#7d5d24] mb-3">{categoria}</p>
             <h1 className="font-['EB_Garamond'] text-5xl italic text-[#1b1b1b] mb-3 leading-tight">{nombre}</h1>
             <p className="text-2xl text-[#1b1b1b] font-medium mb-6">{producto.precio.toFixed(2)} €</p>
-            <p className="text-sm text-[#666] leading-relaxed mb-4">{descripcion}</p>
-            {detalle && (
-              <p className="text-sm text-[#666] leading-relaxed whitespace-pre-line">{detalle}</p>
-            )}
-            <div className="relative group mb-8 w-fit mt-1">
-              <p className="text-[11px] text-[#767676] leading-relaxed cursor-default border-b border-dotted border-[#ccc]">
-                {tp.verMas}
-              </p>
-              <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
-                <p className="text-[11px] text-[#666] leading-relaxed">{tp.artesanalTooltip}</p>
-              </div>
-            </div>
-
-
-            <div className="border-t border-[#e0ddd8] pt-6 mb-8 grid grid-cols-2 gap-4">
-{producto.alto_cm && (
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.alto}</p>
-                  <p className="text-sm text-[#1b1b1b]">{producto.alto_cm} cm</p>
-                </div>
-              )}
-              {producto.ancho_cm && (
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.ancho}</p>
-                  <p className="text-sm text-[#1b1b1b]">{producto.ancho_cm} cm</p>
-                </div>
-              )}
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.material}</p>
-                <p className="text-sm text-[#1b1b1b]">{tp.ceraSoja}</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.mecha}</p>
-                <p className="text-sm text-[#1b1b1b]">{tp.algodon}</p>
-              </div>
-            </div>
-
-            <div className="relative group mb-6 w-fit">
-              <Link href="/seguridad" className="text-[11px] text-[#767676] leading-relaxed border-b border-dotted border-[#ccc] hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors">
-                {tp.normativaUE}
-              </Link>
-              <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
-                <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-1.5">{tp.normativaUETooltipTitulo}</p>
-                <p className="text-[11px] text-[#666] leading-relaxed">{tp.normativaUETooltipTexto}</p>
-              </div>
-            </div>
+            <p className="text-sm text-[#666] leading-relaxed mb-6">{descripcion}</p>
 
             {variantes.length > 0 && (
               <div className="mb-6">
@@ -252,13 +208,13 @@ export default function PaginaProducto() {
                         key={v.id}
                         type="button"
                         onClick={() => {
-                        setVarianteSeleccionada(v)
-                        setCantidad(1)
-                        if (v.imagen_id) {
-                          const idx = galeria.findIndex((img) => img.id === v.imagen_id)
-                          if (idx !== -1) setSeleccionado(idx)
-                        }
-                      }}
+                          setVarianteSeleccionada(v)
+                          setCantidad(1)
+                          if (v.imagen_id) {
+                            const idx = galeria.findIndex((img) => img.id === v.imagen_id)
+                            if (idx !== -1) setSeleccionado(idx)
+                          }
+                        }}
                         disabled={v.stock === 0}
                         className={`px-4 py-2.5 text-[11px] uppercase tracking-widest transition-colors border ${
                           varianteSeleccionada?.id === v.id
@@ -274,9 +230,7 @@ export default function PaginaProducto() {
                   })}
                 </div>
                 {variantes.length > 0 && !varianteSeleccionada && (
-                  <p className="text-[10px] text-[#b97979] mt-2">
-                    {tp.varianteSelecciona}
-                  </p>
+                  <p className="text-[10px] text-[#b97979] mt-2">{tp.varianteSelecciona}</p>
                 )}
               </div>
             )}
@@ -309,18 +263,76 @@ export default function PaginaProducto() {
             {producto.personalizable && (
               <Link
                 href={`/personaliza?producto=${producto.id}`}
-                className="mt-4 flex items-center justify-center gap-2 w-full border border-[#7d5d24] text-[#7d5d24] hover:bg-[#7d5d24] hover:text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
+                className="mt-3 flex items-center justify-center gap-2 w-full border border-[#7d5d24] text-[#7d5d24] hover:bg-[#7d5d24] hover:text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 {t.personaliza.botonProducto}
               </Link>
             )}
-
-            <div className="mt-8 pt-6 border-t border-[#e0ddd8]" />
           </div>
         </div>
-      </div>
 
+        {/* Sección de detalle — debajo del hero, ancho completo */}
+        {(detalle || producto.alto_cm || producto.ancho_cm) && (
+          <div className="border-t border-[#e0ddd8] mt-12 pt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+            {detalle && (
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-4">{tp.verMas}</p>
+                <p className="text-sm text-[#666] leading-relaxed whitespace-pre-line">{detalle}</p>
+              </div>
+            )}
+            <div>
+              <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-4">{tp.material}</p>
+              <div className="grid grid-cols-2 gap-4">
+                {producto.alto_cm && (
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.alto}</p>
+                    <p className="text-sm text-[#1b1b1b]">{producto.alto_cm} cm</p>
+                  </div>
+                )}
+                {producto.ancho_cm && (
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.ancho}</p>
+                    <p className="text-sm text-[#1b1b1b]">{producto.ancho_cm} cm</p>
+                  </div>
+                )}
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.material}</p>
+                  <p className="text-sm text-[#1b1b1b]">{tp.ceraSoja}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.mecha}</p>
+                  <p className="text-sm text-[#1b1b1b]">{tp.algodon}</p>
+                </div>
+              </div>
+              <div className="mt-6">
+                <div className="relative group w-fit">
+                  <Link href="/seguridad" className="text-[11px] text-[#767676] border-b border-dotted border-[#ccc] hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors">
+                    {tp.normativaUE}
+                  </Link>
+                  <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
+                    <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-1.5">{tp.normativaUETooltipTitulo}</p>
+                    <p className="text-[11px] text-[#666] leading-relaxed">{tp.normativaUETooltipTexto}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {!(detalle || producto.alto_cm || producto.ancho_cm) && (
+          <div className="border-t border-[#e0ddd8] mt-8 pt-6">
+            <div className="relative group w-fit">
+              <Link href="/seguridad" className="text-[11px] text-[#767676] border-b border-dotted border-[#ccc] hover:text-[#7d5d24] hover:border-[#7d5d24] transition-colors">
+                {tp.normativaUE}
+              </Link>
+              <div className="absolute bottom-full left-0 mb-2 w-72 bg-white border border-[#e0ddd8] shadow-md px-4 py-3 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 z-10">
+                <p className="text-[10px] uppercase tracking-widest text-[#7d5d24] mb-1.5">{tp.normativaUETooltipTitulo}</p>
+                <p className="text-[11px] text-[#666] leading-relaxed">{tp.normativaUETooltipTexto}</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
 
 <Toast visible={visible} mensaje={mensaje} />
     </div>
