@@ -24,7 +24,7 @@ export default function Toast({ mensaje, visible }: ToastProps) {
         href="/carrito"
         className="border-l border-[#444] pl-4 text-[#dcbcbc] hover:text-white transition-colors whitespace-nowrap"
       >
-        {idioma === 'ca' ? 'Fer la comanda →' : 'Hacer pedido →'}
+        {idioma === 'ca' ? 'Veure cistella →' : 'Ver carrito →'}
       </Link>
     </div>
   )
