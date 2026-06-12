@@ -53,6 +53,16 @@ export default async function Layout({
     .eq('id', id)
     .single()
 
+  const jsonLdBreadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: BASE },
+      { '@type': 'ListItem', position: 2, name: 'Tienda', item: `${BASE}/tienda` },
+      { '@type': 'ListItem', position: 3, name: p?.nombre ?? 'Producto', item: `${BASE}/producto/${id}` },
+    ],
+  }
+
   const jsonLd = p
     ? {
         '@context': 'https://schema.org',
@@ -108,6 +118,7 @@ export default async function Layout({
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
       {jsonLd && (
         <script
           type="application/ld+json"
