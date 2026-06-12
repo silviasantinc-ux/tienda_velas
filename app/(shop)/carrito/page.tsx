@@ -17,6 +17,7 @@ export default function PaginaCarrito() {
   const [nombre, setNombre] = useState('')
   const [email, setEmail] = useState('')
   const [direccion, setDireccion] = useState('')
+  const [observaciones, setObservaciones] = useState('')
   const [enviando, setEnviando] = useState(false)
   const [enviado, setEnviado] = useState(false)
   const [errorEnvio, setErrorEnvio] = useState(false)
@@ -56,7 +57,7 @@ export default function PaginaCarrito() {
     const res = await fetch('/api/pedido', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ nombre: nombre.trim(), email: email.trim(), direccion: direccion.trim(), lineas, total: totalStr, idioma }),
+      body: JSON.stringify({ nombre: nombre.trim(), email: email.trim(), direccion: direccion.trim(), observaciones: observaciones.trim(), lineas, total: totalStr, idioma }),
     })
 
     setEnviando(false)
@@ -267,6 +268,18 @@ export default function PaginaCarrito() {
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
                   placeholder={tc.placeholderDireccion}
+                  rows={2}
+                  className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors resize-none"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest text-[#767676] mb-1">
+                  {tc.observaciones}
+                </label>
+                <textarea
+                  value={observaciones}
+                  onChange={(e) => setObservaciones(e.target.value)}
+                  placeholder={tc.placeholderObservaciones}
                   rows={2}
                   className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors resize-none"
                 />

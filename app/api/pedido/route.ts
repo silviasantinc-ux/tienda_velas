@@ -4,7 +4,7 @@ import { Resend } from 'resend'
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(req: NextRequest) {
-  const { nombre, email, direccion, lineas, total, idioma } = await req.json()
+  const { nombre, email, direccion, observaciones, lineas, total, idioma } = await req.json()
 
   if (!nombre || !email || !direccion || !lineas?.length) {
     return NextResponse.json({ error: 'Datos incompletos' }, { status: 400 })
@@ -31,6 +31,7 @@ export async function POST(req: NextRequest) {
         </h2>
         <p style="margin:0 0 24px;font-size:15px;line-height:1.6;">
           ${nombre}<br/>${email}<br/>${direccion}
+          ${observaciones ? `<br/><br/><em style="color:#666;">${observaciones}</em>` : ''}
         </p>
         <h2 style="font-size:13px;text-transform:uppercase;letter-spacing:2px;color:#767676;margin:0 0 8px;">
           ${esCA ? 'Articles' : 'Artículos'}
