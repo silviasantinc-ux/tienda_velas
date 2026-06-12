@@ -282,7 +282,6 @@ export default function PaginaProducto() {
                 </div>
               )}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-3">{tp.material}</p>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-[#767676] mb-1">{tp.material}</p>
