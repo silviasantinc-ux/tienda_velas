@@ -124,16 +124,17 @@ export default function PaginaProducto() {
         </Link>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-          {/* Columna izquierda: visor + miniaturas */}
-          <div className="flex flex-col gap-3 md:self-start">
-            <div className="relative aspect-square overflow-hidden bg-[#ece9e4]">
+          {/* Columna izquierda: miniaturas (lateral en desktop) + visor */}
+          <div className="flex flex-col gap-3 md:self-start md:flex-row-reverse md:items-start">
+            {/* Imagen principal */}
+            <div className="relative aspect-square md:flex-1 overflow-hidden bg-[#ece9e4]">
               {!mediaActual || mediaActual.tipo === 'imagen' ? (
                 <Image
                   src={mediaActual?.url ?? producto.imagen_url}
                   alt={nombre}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  sizes="(max-width: 768px) 100vw, 45vw"
                   priority
                 />
               ) : (
@@ -163,9 +164,9 @@ export default function PaginaProducto() {
               )}
             </div>
 
-            {/* Miniaturas */}
+            {/* Miniaturas — fila horizontal en móvil, columna vertical en desktop */}
             {galeria.length > 1 && (
-              <div className="flex gap-2 overflow-x-auto pb-1">
+              <div className="flex flex-row gap-2 overflow-x-auto pb-1 md:flex-col md:overflow-x-hidden md:overflow-y-auto md:pb-0 md:w-16 md:flex-shrink-0">
                 {galeria.map((item, idx) => (
                   <button
                     key={item.id}
