@@ -244,7 +244,6 @@ export default function PaginaCarrito() {
                   type="text"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
-                  placeholder={tc.placeholderNombre}
                   className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors"
                 />
               </div>
@@ -256,7 +255,6 @@ export default function PaginaCarrito() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={tc.placeholderEmail}
                   className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors"
                 />
               </div>
@@ -267,7 +265,6 @@ export default function PaginaCarrito() {
                 <textarea
                   value={direccion}
                   onChange={(e) => setDireccion(e.target.value)}
-                  placeholder={tc.placeholderDireccion}
                   rows={2}
                   className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors resize-none"
                 />
@@ -279,7 +276,6 @@ export default function PaginaCarrito() {
                 <textarea
                   value={observaciones}
                   onChange={(e) => setObservaciones(e.target.value)}
-                  placeholder={tc.placeholderObservaciones}
                   rows={2}
                   className="w-full border border-[#d0cdc8] bg-white px-3 py-2.5 text-sm text-[#1b1b1b] placeholder-[#bbb] focus:outline-none focus:border-[#1b1b1b] transition-colors resize-none"
                 />
