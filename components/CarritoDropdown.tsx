@@ -23,7 +23,7 @@ export default function CarritoDropdown() {
       const inactivos = new Set((data ?? []).filter((p) => p.activo === false).map((p) => p.id))
       if (inactivos.size === 0) return
       items.forEach((i) => {
-        if (inactivos.has(i.producto.id)) quitar(carritoKey(i.producto.id, i.variante?.id))
+        if (inactivos.has(i.producto.id)) quitar(carritoKey(i.producto.id, i.variante?.id, i.color?.id, i.aroma?.id))
       })
       setEliminados(inactivos.size)
     })
@@ -72,9 +72,9 @@ export default function CarritoDropdown() {
         <>
           {/* Lista de items */}
           <div className="divide-y divide-[#e0ddd8] max-h-64 overflow-y-auto">
-            {items.map(({ producto, cantidad, variante }) => {
+            {items.map(({ producto, cantidad, variante, color, aroma }) => {
               const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
-              const key = carritoKey(producto.id, variante?.id)
+              const key = carritoKey(producto.id, variante?.id, color?.id, aroma?.id)
               const precioUd = producto.precio + (variante?.precio_extra ?? 0)
               return (
                 <div key={key} className="px-5 py-4 flex gap-3">
@@ -90,6 +90,12 @@ export default function CarritoDropdown() {
                     {variante && (
                       <p className="text-[10px] text-[#7d5d24] mt-0.5 truncate">
                         {idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}
+                      </p>
+                    )}
+                    {color && (
+                      <p className="text-[10px] text-[#7d5d24] mt-0.5 truncate">
+                        {idioma === 'ca' ? (color.nombre_ca ?? color.nombre) : color.nombre}
+                        {aroma && ` · ${idioma === 'ca' ? (aroma.nombre_ca ?? aroma.nombre) : aroma.nombre}`}
                       </p>
                     )}
                     <p className="text-[10px] text-[#767676] mt-0.5">{cantidad} × {precioUd.toFixed(2)} €</p>

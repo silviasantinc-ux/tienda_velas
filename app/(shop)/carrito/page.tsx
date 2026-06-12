@@ -45,12 +45,16 @@ export default function PaginaCarrito() {
     if (!datosCompletos || enviando) return
     setEnviando(true)
     setErrorEnvio(false)
-    const lineas = items.map(({ producto, cantidad, variante }) => {
+    const lineas = items.map(({ producto, cantidad, variante, color, aroma }) => {
       const nombreProd = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
-      const nombreVar = variante ? ` · ${idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}` : ''
+      const sufijos = [
+        variante ? (idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre) : null,
+        color ? (idioma === 'ca' ? (color.nombre_ca ?? color.nombre) : color.nombre) : null,
+        aroma ? (idioma === 'ca' ? (aroma.nombre_ca ?? aroma.nombre) : aroma.nombre) : null,
+      ].filter(Boolean).join(' · ')
       const precioUd = producto.precio + (variante?.precio_extra ?? 0)
       const precioTotal = (precioUd * cantidad).toFixed(2).replace('.', ',')
-      return `${nombreProd}${nombreVar} × ${cantidad} — ${precioTotal} €`
+      return `${nombreProd}${sufijos ? ` · ${sufijos}` : ''} × ${cantidad} — ${precioTotal} €`
     })
     const totalStr = total().toFixed(2).replace('.', ',')
 
@@ -123,10 +127,10 @@ export default function PaginaCarrito() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Items */}
         <div className="lg:col-span-2 divide-y divide-[#e0ddd8]">
-          {items.map(({ producto, cantidad, variante }) => {
+          {items.map(({ producto, cantidad, variante, color, aroma }) => {
             const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
             const categoria = idioma === 'ca' ? (producto.categoria_ca ?? producto.categoria) : producto.categoria
-            const key = carritoKey(producto.id, variante?.id)
+            const key = carritoKey(producto.id, variante?.id, color?.id, aroma?.id)
             const precioUd = producto.precio + (variante?.precio_extra ?? 0)
             return (
               <div key={key} className="py-7 flex gap-6">
@@ -150,6 +154,12 @@ export default function PaginaCarrito() {
                   {variante && (
                     <p className="text-[10px] text-[#7d5d24] mb-1 uppercase tracking-widest">
                       {idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}
+                    </p>
+                  )}
+                  {color && (
+                    <p className="text-[10px] text-[#7d5d24] uppercase tracking-widest">
+                      {idioma === 'ca' ? (color.nombre_ca ?? color.nombre) : color.nombre}
+                      {aroma && ` · ${idioma === 'ca' ? (aroma.nombre_ca ?? aroma.nombre) : aroma.nombre}`}
                     </p>
                   )}
                   <div className="flex items-center gap-3">
@@ -196,14 +206,19 @@ export default function PaginaCarrito() {
             <p className="font-['EB_Garamond'] text-2xl italic text-[#1b1b1b] mb-6">{tc.resumen}</p>
 
             <div className="space-y-3 mb-5">
-              {items.map(({ producto, cantidad, variante }) => {
+              {items.map(({ producto, cantidad, variante, color, aroma }) => {
                 const nombre = idioma === 'ca' ? (producto.nombre_ca ?? producto.nombre) : producto.nombre
-                const key = carritoKey(producto.id, variante?.id)
+                const key = carritoKey(producto.id, variante?.id, color?.id, aroma?.id)
                 const precioUd = producto.precio + (variante?.precio_extra ?? 0)
+                const sufijos = [
+                  variante ? (idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre) : null,
+                  color ? (idioma === 'ca' ? (color.nombre_ca ?? color.nombre) : color.nombre) : null,
+                  aroma ? (idioma === 'ca' ? (aroma.nombre_ca ?? aroma.nombre) : aroma.nombre) : null,
+                ].filter(Boolean).join(' · ')
                 return (
                   <div key={key} className="flex justify-between text-sm text-[#666]">
                     <span className="truncate mr-2">
-                      {nombre}{variante ? ` · ${idioma === 'ca' ? (variante.nombre_ca ?? variante.nombre) : variante.nombre}` : ''} × {cantidad}
+                      {nombre}{sufijos ? ` · ${sufijos}` : ''} × {cantidad}
                     </span>
                     <span className="flex-shrink-0">{(precioUd * cantidad).toFixed(2)} €</span>
                   </div>

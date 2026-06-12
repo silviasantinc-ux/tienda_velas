@@ -17,7 +17,23 @@ export type Producto = {
   peso_gr?: number
   alto_cm?: number
   ancho_cm?: number
+  personalizable?: boolean
+}
 
+export type Color = {
+  id: string
+  nombre: string
+  nombre_ca?: string
+  activo: boolean
+  orden: number
+}
+
+export type Aroma = {
+  id: string
+  nombre: string
+  nombre_ca?: string
+  activo: boolean
+  orden: number
 }
 
 export type ProductoVariante = {
@@ -35,6 +51,8 @@ export type ItemCarrito = {
   producto: Producto
   cantidad: number
   variante?: ProductoVariante
+  color?: { id: string; nombre: string; nombre_ca?: string }
+  aroma?: { id: string; nombre: string; nombre_ca?: string }
 }
 
 export type ProductoImagen = {

@@ -89,6 +89,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
     peso_gr: productoInicial?.peso_gr?.toString() ?? '',
     alto_cm: productoInicial?.alto_cm?.toString() ?? '',
     ancho_cm: productoInicial?.ancho_cm?.toString() ?? '',
+    personalizable: productoInicial?.personalizable ?? false,
   })
 
   const set = (campo: string, valor: string) => setForm((f) => ({ ...f, [campo]: valor }))
@@ -168,6 +169,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
       peso_gr: form.peso_gr ? parseInt(form.peso_gr) : null,
       alto_cm: form.alto_cm ? parseFloat(form.alto_cm) : null,
       ancho_cm: form.ancho_cm ? parseFloat(form.ancho_cm) : null,
+      personalizable: form.personalizable,
     }
 
     try {
@@ -462,6 +464,20 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
             {variantes.length > 0 && (
               <p className="text-[10px] text-[#ccc] mt-2">Si hay variantes, el stock del producto base se ignora y se usa el stock de cada variante.</p>
             )}
+          </div>
+
+          {/* Personalizable */}
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setForm((f) => ({ ...f, personalizable: !f.personalizable }))}
+              className={`relative inline-flex h-5 w-9 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 focus:outline-none ${form.personalizable ? 'bg-[#7d5d24]' : 'bg-[#d0cdc8]'}`}
+            >
+              <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform duration-200 ${form.personalizable ? 'translate-x-4' : 'translate-x-0'}`} />
+            </button>
+            <span className="text-[11px] uppercase tracking-widest text-[#666]">
+              {form.personalizable ? 'Permite personalización (color + aroma)' : 'Sin personalización'}
+            </span>
           </div>
 
           {/* Medidas y peso */}

@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, Minus, Plus, ChevronLeft, ChevronRight, Play } from 'lucide-react'
+import { ArrowLeft, Minus, Plus, ChevronLeft, ChevronRight, Play, Sparkles } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Producto, ProductoImagen, ProductoVariante } from '@/types'
@@ -305,6 +305,16 @@ export default function PaginaProducto() {
                 {(varianteSeleccionada || variantes.length === 0) && stockActual === 0 ? tp.agotado : tp.añadir}
               </button>
             </div>
+
+            {producto.personalizable && (
+              <Link
+                href={`/personaliza?producto=${producto.id}`}
+                className="mt-4 flex items-center justify-center gap-2 w-full border border-[#7d5d24] text-[#7d5d24] hover:bg-[#7d5d24] hover:text-[#f6f4f1] text-[11px] uppercase tracking-widest font-medium py-4 transition-colors"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                {t.personaliza.botonProducto}
+              </Link>
+            )}
 
             <div className="mt-8 pt-6 border-t border-[#e0ddd8]" />
           </div>

@@ -332,6 +332,20 @@ const traducciones = {
     whatsapp: {
       tooltip: 'Chatea con nosotros por WhatsApp',
     },
+
+    // Página personaliza
+    personaliza: {
+      titulo: 'Personaliza tu vela',
+      subtitulo: 'Elige el color y el aroma para crear tu vela a medida.',
+      color: 'Color',
+      aroma: 'Aroma',
+      seleccionaColor: 'Elige un color',
+      seleccionaAroma: 'Elige un aroma',
+      añadir: 'Añadir al carrito',
+      obligatorio: 'Selecciona color y aroma para continuar',
+      personalizado: 'Vela personalizada',
+      botonProducto: 'Personaliza esta vela',
+    },
   },
 
   // ─────────────────────────────────────────────────────────────────
@@ -652,6 +666,20 @@ const traducciones = {
     },
     whatsapp: {
       tooltip: 'Xateja amb nosaltres per WhatsApp',
+    },
+
+    // Pàgina personalitza
+    personaliza: {
+      titulo: 'Personalitza la teva espelma',
+      subtitulo: 'Tria el color i l\'aroma per crear la teva espelma a mida.',
+      color: 'Color',
+      aroma: 'Aroma',
+      seleccionaColor: 'Tria un color',
+      seleccionaAroma: 'Tria un aroma',
+      añadir: 'Afegir a la cistella',
+      obligatorio: 'Selecciona color i aroma per continuar',
+      personalizado: 'Espelma personalitzada',
+      botonProducto: 'Personalitza aquesta espelma',
     },
   },
 }
