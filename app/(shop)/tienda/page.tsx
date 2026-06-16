@@ -87,8 +87,9 @@ function TiendaContenido() {
     if (busqueda.trim() && fuseRef.current) {
       const t = busqueda.trim().toLowerCase()
       const sin = sinonimosRef.current.find((s) => s.termino.toLowerCase() === t)
-      const terminoBusqueda = sin?.busca ?? busqueda.trim()
-      const ids = new Set(fuseRef.current.search(terminoBusqueda).map((r) => r.item.id))
+      const r1 = fuseRef.current.search(sin?.busca ?? busqueda.trim())
+      const r2 = sin ? fuseRef.current.search(busqueda.trim()) : []
+      const ids = new Set([...r1, ...r2].map((r) => r.item.id))
       lista = lista.filter((p) => ids.has(p.id))
     }
 

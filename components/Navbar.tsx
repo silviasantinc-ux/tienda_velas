@@ -83,8 +83,15 @@ export default function Navbar() {
       if (!fuseRef.current) return
       const t = termino.trim().toLowerCase()
       const sin = sinonimosRef.current.find((s) => s.termino.toLowerCase() === t)
-      const terminoBusqueda = sin?.busca ?? termino.trim()
-      setSugerencias(fuseRef.current.search(terminoBusqueda).map((r) => r.item).slice(0, 6))
+      const r1 = fuseRef.current.search(sin?.busca ?? termino.trim())
+      const r2 = sin ? fuseRef.current.search(termino.trim()) : []
+      const seen = new Set<string>()
+      const merged = [...r1, ...r2].filter((r) => {
+        if (seen.has(r.item.id)) return false
+        seen.add(r.item.id)
+        return true
+      })
+      setSugerencias(merged.map((r) => r.item).slice(0, 6))
     }, 250)
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
   }, [termino])
