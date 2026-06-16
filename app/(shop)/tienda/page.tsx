@@ -75,7 +75,7 @@ function TiendaContenido() {
 
     if (busqueda.trim()) {
       const q = norm(busqueda.trim())
-      const sin = sinonimosRef.current.find((s) => norm(s.termino) === q)
+      const sin = sinonimosRef.current.find((s) => { const st = norm(s.termino); return st.startsWith(q) || q.startsWith(st) })
       const termBusqueda = sin ? norm(sin.busca) : q
       const distinto = termBusqueda !== q
       lista = lista.filter((p) => {

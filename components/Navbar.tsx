@@ -57,10 +57,9 @@ export default function Navbar() {
     Promise.all([
       supabase.from('productos').select('*').eq('activo', true),
       supabase.from('sinonimos').select('termino, busca').eq('activo', true),
-    ]).then(([{ data: prods, error: e1 }, { data: sins, error: e2 }]) => {
+    ]).then(([{ data: prods }, { data: sins }]) => {
       productosRef.current = (prods as Producto[]) ?? []
       sinonimosRef.current = (sins as { termino: string; busca: string }[]) ?? []
-      console.log('[search] productos:', productosRef.current.length, 'sinonimos:', sinonimosRef.current, 'errors:', e1, e2)
     })
   }, [busquedaAbierta])
 
@@ -70,15 +69,13 @@ export default function Navbar() {
     if (termino.trim().length < 2) { setSugerencias([]); return }
     debounceRef.current = setTimeout(() => {
       const q = norm(termino.trim())
-      const sin = sinonimosRef.current.find((s) => norm(s.termino) === q)
+      const sin = sinonimosRef.current.find((s) => { const st = norm(s.termino); return st.startsWith(q) || q.startsWith(st) })
       const termBusqueda = sin ? norm(sin.busca) : q
       const distinto = termBusqueda !== q
-      console.log('[search] q:', q, '| sinonimo:', sin, '| termBusqueda:', termBusqueda)
       const resultados = productosRef.current.filter((p) => {
         const campos = [p.nombre, p.nombre_ca ?? '', p.descripcion ?? '', p.descripcion_ca ?? '', p.categoria ?? '']
         return campos.some((c) => norm(c).includes(termBusqueda) || (distinto && norm(c).includes(q)))
       })
-      console.log('[search] resultados:', resultados.map(p => p.nombre))
       setSugerencias(resultados.slice(0, 6))
     }, 250)
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
