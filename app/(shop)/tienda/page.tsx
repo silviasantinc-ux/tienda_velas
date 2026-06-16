@@ -25,32 +25,20 @@ function TiendaContenido() {
   const [busqueda, setBusqueda] = useState(qParam || '')
   const [productosConVariantes, setProductosConVariantes] = useState<Set<string>>(new Set())
   const [cargando, setCargando] = useState(true)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const fuseRef = useRef<any>(null)
   const sinonimosRef = useRef<{ termino: string; busca: string }[]>([])
+
+  const norm = (s: string) => (s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
   useEffect(() => {
     Promise.all([
-      import('fuse.js'),
       supabase.from('productos').select('*').eq('activo', true),
       supabase.from('categorias').select('*').eq('activo', true).order('nombre'),
       supabase.from('producto_variantes').select('producto_id'),
       supabase.from('sinonimos').select('termino, busca').eq('activo', true),
-    ]).then(([{ default: FuseLib }, { data: prods }, { data: cats }, { data: vars }, { data: sins }]) => {
+    ]).then(([{ data: prods }, { data: cats }, { data: vars }, { data: sins }]) => {
       const productosLista = (prods as Producto[]) ?? []
       setTodosProductos(productosLista)
       sinonimosRef.current = (sins as { termino: string; busca: string }[]) ?? []
-      fuseRef.current = new FuseLib(productosLista, {
-        keys: [
-          { name: 'nombre', weight: 3 },
-          { name: 'nombre_ca', weight: 3 },
-          { name: 'descripcion', weight: 1 },
-          { name: 'descripcion_ca', weight: 1 },
-          { name: 'categoria', weight: 1 },
-        ],
-        threshold: 0.35,
-        minMatchCharLength: 2,
-      })
       const lista = (cats as Categoria[]) ?? []
       setCategorias(lista)
       const ids = new Set((vars ?? []).map((v: { producto_id: string }) => v.producto_id))
@@ -85,13 +73,15 @@ function TiendaContenido() {
       lista = lista.filter((p) => p.categoria === categoriaES)
     }
 
-    if (busqueda.trim() && fuseRef.current) {
-      const t = busqueda.trim().toLowerCase()
-      const sin = sinonimosRef.current.find((s) => s.termino.toLowerCase() === t)
-      const r1 = fuseRef.current.search(sin?.busca ?? busqueda.trim())
-      const r2 = sin ? fuseRef.current.search(busqueda.trim()) : []
-      const ids = new Set([...r1, ...r2].map((r) => r.item.id))
-      lista = lista.filter((p) => ids.has(p.id))
+    if (busqueda.trim()) {
+      const q = norm(busqueda.trim())
+      const sin = sinonimosRef.current.find((s) => norm(s.termino) === q)
+      const termBusqueda = sin ? norm(sin.busca) : q
+      const distinto = termBusqueda !== q
+      lista = lista.filter((p) => {
+        const campos = [p.nombre, p.nombre_ca ?? '', p.descripcion ?? '', p.descripcion_ca ?? '', p.categoria ?? '']
+        return campos.some((c) => norm(c).includes(termBusqueda) || (distinto && norm(c).includes(q)))
+      })
     }
 
     if (orden === 'alfabetico') lista.sort((a, b) => {

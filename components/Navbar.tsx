@@ -25,11 +25,11 @@ export default function Navbar() {
   const userTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const fuseRef = useRef<any>(null)
   const productosRef = useRef<Producto[]>([])
   const sinonimosRef = useRef<{ termino: string; busca: string }[]>([])
   const router = useRouter()
+
+  const norm = (s: string) => (s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -51,48 +51,32 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setCarritoAbierto(false), 180)
   }
 
-  // Cargar productos, sinónimos y Fuse cuando se abre la búsqueda (una sola vez)
+  // Cargar productos y sinónimos cuando se abre la búsqueda (una sola vez)
   useEffect(() => {
     if (!busquedaAbierta || productosRef.current.length > 0) return
     Promise.all([
-      import('fuse.js'),
       supabase.from('productos').select('*').eq('activo', true),
       supabase.from('sinonimos').select('termino, busca').eq('activo', true),
-    ]).then(([{ default: FuseLib }, { data: prods }, { data: sins }]) => {
-      const lista = (prods as Producto[]) ?? []
-      productosRef.current = lista
+    ]).then(([{ data: prods }, { data: sins }]) => {
+      productosRef.current = (prods as Producto[]) ?? []
       sinonimosRef.current = (sins as { termino: string; busca: string }[]) ?? []
-      fuseRef.current = new FuseLib(lista, {
-        keys: [
-          { name: 'nombre', weight: 3 },
-          { name: 'nombre_ca', weight: 3 },
-          { name: 'descripcion', weight: 1 },
-          { name: 'descripcion_ca', weight: 1 },
-          { name: 'categoria', weight: 1 },
-        ],
-        threshold: 0.35,
-        minMatchCharLength: 2,
-      })
     })
   }, [busquedaAbierta])
 
-  // Búsqueda fuzzy con debounce
+  // Búsqueda con debounce
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current)
     if (termino.trim().length < 2) { setSugerencias([]); return }
     debounceRef.current = setTimeout(() => {
-      if (!fuseRef.current) return
-      const t = termino.trim().toLowerCase()
-      const sin = sinonimosRef.current.find((s) => s.termino.toLowerCase() === t)
-      const r1 = fuseRef.current.search(sin?.busca ?? termino.trim())
-      const r2 = sin ? fuseRef.current.search(termino.trim()) : []
-      const seen = new Set<string>()
-      const merged = [...r1, ...r2].filter((r) => {
-        if (seen.has(r.item.id)) return false
-        seen.add(r.item.id)
-        return true
+      const q = norm(termino.trim())
+      const sin = sinonimosRef.current.find((s) => norm(s.termino) === q)
+      const termBusqueda = sin ? norm(sin.busca) : q
+      const distinto = termBusqueda !== q
+      const resultados = productosRef.current.filter((p) => {
+        const campos = [p.nombre, p.nombre_ca ?? '', p.descripcion ?? '', p.descripcion_ca ?? '', p.categoria ?? '']
+        return campos.some((c) => norm(c).includes(termBusqueda) || (distinto && norm(c).includes(q)))
       })
-      setSugerencias(merged.map((r) => r.item).slice(0, 6))
+      setSugerencias(resultados.slice(0, 6))
     }, 250)
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
   }, [termino])
