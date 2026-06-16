@@ -95,8 +95,14 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
 
   const set = (campo: string, valor: string) => setForm((f) => ({ ...f, [campo]: valor }))
 
+  const stockBase = useRef(productoInicial?.stock?.toString() ?? '')
+
   useEffect(() => {
-    if (!variantesListas || variantes.length === 0) return
+    if (!variantesListas) return
+    if (variantes.length === 0) {
+      setForm((f) => ({ ...f, stock: stockBase.current }))
+      return
+    }
     const suma = variantes.reduce((acc, v) => acc + (parseInt(v.stock) || 0), 0)
     setForm((f) => ({ ...f, stock: suma.toString() }))
   }, [variantes, variantesListas])
@@ -160,7 +166,7 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
       descripcion_ca: form.descripcion_ca.trim() || null,
       detalle: form.detalle.trim() || null,
       detalle_ca: form.detalle_ca.trim() || null,
-      precio: parseFloat(form.precio),
+      precio: parseFloat(form.precio.replace(',', '.')),
       imagen_url: primeraImagen?.url ?? '',
       video_url: video?.url ?? null,
       categoria: form.categoria,
@@ -282,8 +288,8 @@ export default function ProductoForm({ modo, productoInicial }: Props) {
 
           <div className="grid grid-cols-4 gap-4">
             <Field label="Precio (€)" required>
-              <input type="number" step="0.01" min="0" value={form.precio}
-                onChange={(e) => set('precio', e.target.value)} required className={inputCls} />
+              <input type="text" inputMode="decimal" value={form.precio}
+                onChange={(e) => set('precio', e.target.value.replace(',', '.'))} required className={inputCls} />
             </Field>
             {(() => {
               const conVariantes = variantesListas && variantes.length > 0
