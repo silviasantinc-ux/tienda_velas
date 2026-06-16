@@ -6,11 +6,11 @@ const BASE = 'https://www.llumandglow.com'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: 'llum & glow — velas artesanales',
+    default: 'llum & glow — velas artesanales en el área de Barcelona',
     template: '%s | llum & glow',
   },
-  description: 'Velas artesanales elaboradas a mano con cera de soja natural, mechas de algodón y fragancias únicas. Descubre la colección llum & glow.',
-  keywords: ['velas artesanales', 'velas de soja', 'velas perfumadas', 'regalo', 'llum and glow', 'velas barcelona'],
+  description: 'Velas artesanales elaboradas a mano en el área de Barcelona con cera de soja natural, mechas de algodón y fragancias únicas. Descubre la colección llum & glow.',
+  keywords: ['velas artesanales', 'velas artesanales barcelona', 'velas de soja', 'velas perfumadas', 'regalo', 'llum and glow', 'velas barcelona'],
   authors: [{ name: 'llum & glow' }],
   creator: 'llum & glow',
   openGraph: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     url: BASE,
     siteName: 'llum & glow',
-    title: 'llum & glow — velas artesanales',
-    description: 'Velas elaboradas a mano con cera de soja natural y fragancias únicas para transformar tu hogar.',
+    title: 'llum & glow — velas artesanales en el área de Barcelona',
+    description: 'Velas elaboradas a mano en el área de Barcelona con cera de soja natural y fragancias únicas para transformar tu hogar.',
     images: [{ url: `${BASE}/todas_las_velas.jpg`, width: 1200, height: 630, alt: 'llum & glow velas artesanales' }],
   },
   twitter: {
@@ -46,7 +46,7 @@ const jsonLdOrganizacion = {
   '@type': 'Store',
   name: 'llum & glow',
   url: BASE,
-  description: 'Velas artesanales elaboradas a mano con cera de soja natural, mechas de algodón y fragancias únicas.',
+  description: 'Velas artesanales elaboradas a mano en el área de Barcelona con cera de soja natural, mechas de algodón y fragancias únicas.',
   email: 'info@llumandglow.com',
   address: {
     '@type': 'PostalAddress',

@@ -297,7 +297,7 @@ const traducciones = {
 
     // Footer
     footer: {
-      descripcion: 'Cada vela es elaborada a mano en nuestro taller usando exclusivamente cera de soja, mechas de algodón y fragancias de grado cosmético.',
+      descripcion: 'Cada vela es elaborada a mano en nuestro taller del área de Barcelona usando exclusivamente cera de soja, mechas de algodón y fragancias de grado cosmético.',
       seccionTienda: 'Tienda',
       todasLasVelas: 'Todas las velas',
       elOrigen: 'El origen',
@@ -632,7 +632,7 @@ const traducciones = {
     },
 
     footer: {
-      descripcion: "Cada espelma és elaborada a mà al nostre taller usant exclusivament cera de soia, bles de cotó i fragàncies de grau cosmètic.",
+      descripcion: "Cada espelma és elaborada a mà al nostre taller de l'àrea de Barcelona usant exclusivament cera de soia, bles de cotó i fragàncies de grau cosmètic.",
       seccionTienda: 'Botiga',
       todasLasVelas: 'Totes les espelmes',
       elOrigen: "L'origen",
