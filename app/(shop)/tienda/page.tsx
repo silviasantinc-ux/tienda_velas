@@ -7,7 +7,6 @@ import { supabase } from '@/lib/supabase'
 import { useIdioma } from '@/lib/idioma-store'
 import TarjetaProducto from '@/components/TarjetaProducto'
 import { Producto } from '@/types'
-import Fuse from 'fuse.js'
 
 type Categoria = { id: string; nombre: string; nombre_ca: string }
 
@@ -26,20 +25,22 @@ function TiendaContenido() {
   const [busqueda, setBusqueda] = useState(qParam || '')
   const [productosConVariantes, setProductosConVariantes] = useState<Set<string>>(new Set())
   const [cargando, setCargando] = useState(true)
-  const fuseRef = useRef<Fuse<Producto> | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const fuseRef = useRef<any>(null)
   const sinonimosRef = useRef<{ termino: string; busca: string }[]>([])
 
   useEffect(() => {
     Promise.all([
+      import('fuse.js'),
       supabase.from('productos').select('*').eq('activo', true),
       supabase.from('categorias').select('*').eq('activo', true).order('nombre'),
       supabase.from('producto_variantes').select('producto_id'),
       supabase.from('sinonimos').select('termino, busca').eq('activo', true),
-    ]).then(([{ data: prods }, { data: cats }, { data: vars }, { data: sins }]) => {
+    ]).then(([{ default: FuseLib }, { data: prods }, { data: cats }, { data: vars }, { data: sins }]) => {
       const productosLista = (prods as Producto[]) ?? []
       setTodosProductos(productosLista)
       sinonimosRef.current = (sins as { termino: string; busca: string }[]) ?? []
-      fuseRef.current = new Fuse(productosLista, {
+      fuseRef.current = new FuseLib(productosLista, {
         keys: [
           { name: 'nombre', weight: 3 },
           { name: 'nombre_ca', weight: 3 },

@@ -8,7 +8,6 @@ import { useIdioma } from '@/lib/idioma-store'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
-import Fuse from 'fuse.js'
 import { Producto } from '@/types'
 import CarritoDropdown from './CarritoDropdown'
 import LogoLlumGlow from './LogoLlumGlow'
@@ -26,7 +25,8 @@ export default function Navbar() {
   const userTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const fuseRef = useRef<Fuse<Producto> | null>(null)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const fuseRef = useRef<any>(null)
   const productosRef = useRef<Producto[]>([])
   const sinonimosRef = useRef<{ termino: string; busca: string }[]>([])
   const router = useRouter()
@@ -51,17 +51,18 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setCarritoAbierto(false), 180)
   }
 
-  // Cargar productos y sinónimos cuando se abre la búsqueda (una sola vez)
+  // Cargar productos, sinónimos y Fuse cuando se abre la búsqueda (una sola vez)
   useEffect(() => {
     if (!busquedaAbierta || productosRef.current.length > 0) return
     Promise.all([
+      import('fuse.js'),
       supabase.from('productos').select('*').eq('activo', true),
       supabase.from('sinonimos').select('termino, busca').eq('activo', true),
-    ]).then(([{ data: prods }, { data: sins }]) => {
+    ]).then(([{ default: FuseLib }, { data: prods }, { data: sins }]) => {
       const lista = (prods as Producto[]) ?? []
       productosRef.current = lista
       sinonimosRef.current = (sins as { termino: string; busca: string }[]) ?? []
-      fuseRef.current = new Fuse(lista, {
+      fuseRef.current = new FuseLib(lista, {
         keys: [
           { name: 'nombre', weight: 3 },
           { name: 'nombre_ca', weight: 3 },
