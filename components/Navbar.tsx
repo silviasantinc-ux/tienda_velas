@@ -1,12 +1,15 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShoppingBag, Search, X, User, Home } from 'lucide-react'
 import { useCarrito } from '@/lib/carrito-store'
 import { useIdioma } from '@/lib/idioma-store'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import Fuse from 'fuse.js'
+import { Producto } from '@/types'
 import CarritoDropdown from './CarritoDropdown'
 import LogoLlumGlow from './LogoLlumGlow'
 
@@ -18,9 +21,14 @@ export default function Navbar() {
   const [usuarioMenuAbierto, setUsuarioMenuAbierto] = useState(false)
   const [termino, setTermino] = useState('')
   const [usuario, setUsuario] = useState<string | null>(null)
+  const [sugerencias, setSugerencias] = useState<Producto[]>([])
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const userTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const fuseRef = useRef<Fuse<Producto> | null>(null)
+  const productosRef = useRef<Producto[]>([])
+  const sinonimosRef = useRef<{ termino: string; busca: string }[]>([])
   const router = useRouter()
 
   useEffect(() => {
@@ -43,10 +51,49 @@ export default function Navbar() {
     closeTimer.current = setTimeout(() => setCarritoAbierto(false), 180)
   }
 
+  // Cargar productos y sinónimos cuando se abre la búsqueda (una sola vez)
+  useEffect(() => {
+    if (!busquedaAbierta || productosRef.current.length > 0) return
+    Promise.all([
+      supabase.from('productos').select('*').eq('activo', true),
+      supabase.from('sinonimos').select('termino, busca').eq('activo', true),
+    ]).then(([{ data: prods }, { data: sins }]) => {
+      const lista = (prods as Producto[]) ?? []
+      productosRef.current = lista
+      sinonimosRef.current = (sins as { termino: string; busca: string }[]) ?? []
+      fuseRef.current = new Fuse(lista, {
+        keys: [
+          { name: 'nombre', weight: 3 },
+          { name: 'nombre_ca', weight: 3 },
+          { name: 'descripcion', weight: 1 },
+          { name: 'descripcion_ca', weight: 1 },
+          { name: 'categoria', weight: 1 },
+        ],
+        threshold: 0.35,
+        minMatchCharLength: 2,
+      })
+    })
+  }, [busquedaAbierta])
+
+  // Búsqueda fuzzy con debounce
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    if (termino.trim().length < 2) { setSugerencias([]); return }
+    debounceRef.current = setTimeout(() => {
+      if (!fuseRef.current) return
+      const t = termino.trim().toLowerCase()
+      const sin = sinonimosRef.current.find((s) => s.termino.toLowerCase() === t)
+      const terminoBusqueda = sin?.busca ?? termino.trim()
+      setSugerencias(fuseRef.current.search(terminoBusqueda).map((r) => r.item).slice(0, 6))
+    }, 250)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [termino])
+
   const abrirBusqueda = () => setBusquedaAbierta(true)
   const cerrarBusqueda = () => {
     setBusquedaAbierta(false)
     setTermino('')
+    setSugerencias([])
   }
   const buscar = () => {
     if (termino.trim()) router.push(`/tienda?q=${encodeURIComponent(termino.trim())}`)
@@ -188,32 +235,67 @@ export default function Navbar() {
       {/* ── Barra de búsqueda desplegable ── */}
       {busquedaAbierta && (
         <div className="border-t border-[#e0ddd8] bg-[#f6f4f1] px-6 py-3">
-          <div className="max-w-7xl mx-auto flex items-center gap-3">
-            <Search className="w-4 h-4 text-[#767676] flex-shrink-0" />
-            <input
-              autoFocus
-              type="text"
-              value={termino}
-              onChange={(e) => setTermino(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter') buscar(); if (e.key === 'Escape') cerrarBusqueda() }}
-              onBlur={() => { blurTimer.current = setTimeout(() => cerrarBusqueda(), 200) }}
-              placeholder={t.nav.buscarPlaceholder}
-              className="flex-1 bg-transparent text-sm text-[#1b1b1b] placeholder-[#aaa] outline-none"
-            />
-            <button
-              onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
-              onClick={buscar}
-              className="text-[10px] uppercase tracking-widest text-[#7d5d24] font-medium hover:text-[#1b1b1b] transition-colors flex-shrink-0"
-            >
-              {t.nav.buscar}
-            </button>
-            <button
-              onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
-              onClick={cerrarBusqueda}
-              className="text-[#767676] hover:text-[#1b1b1b] transition-colors flex-shrink-0"
-            >
-              <X className="w-4 h-4" />
-            </button>
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center gap-3">
+              <Search className="w-4 h-4 text-[#767676] flex-shrink-0" />
+              <input
+                autoFocus
+                type="text"
+                value={termino}
+                onChange={(e) => setTermino(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') buscar(); if (e.key === 'Escape') cerrarBusqueda() }}
+                onBlur={() => { blurTimer.current = setTimeout(() => cerrarBusqueda(), 200) }}
+                placeholder={t.nav.buscarPlaceholder}
+                className="flex-1 bg-transparent text-sm text-[#1b1b1b] placeholder-[#aaa] outline-none"
+              />
+              <button
+                onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
+                onClick={buscar}
+                className="text-[10px] uppercase tracking-widest text-[#7d5d24] font-medium hover:text-[#1b1b1b] transition-colors flex-shrink-0"
+              >
+                {t.nav.buscar}
+              </button>
+              <button
+                onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
+                onClick={cerrarBusqueda}
+                className="text-[#767676] hover:text-[#1b1b1b] transition-colors flex-shrink-0"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Sugerencias autocomplete */}
+            {sugerencias.length > 0 && (
+              <div className="mt-2 border border-[#e0ddd8] bg-white shadow-lg">
+                {sugerencias.map((p) => {
+                  const nombre = idioma === 'ca' ? (p.nombre_ca ?? p.nombre) : p.nombre
+                  return (
+                    <Link
+                      key={p.id}
+                      href={`/producto/${p.id}`}
+                      onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
+                      onClick={cerrarBusqueda}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-[#f6f4f1] transition-colors border-b border-[#f0ede8] last:border-0"
+                    >
+                      <div className="relative w-10 h-10 flex-shrink-0 overflow-hidden bg-[#ece9e4]">
+                        <Image src={p.imagen_url} alt={nombre} fill className="object-cover" sizes="40px" />
+                      </div>
+                      <p className="flex-1 text-sm text-[#1b1b1b] truncate">{nombre}</p>
+                      <p className="text-sm text-[#7d5d24] flex-shrink-0 font-medium">
+                        {p.precio.toFixed(2).replace('.', ',')} €
+                      </p>
+                    </Link>
+                  )
+                })}
+                <button
+                  onMouseDown={() => { if (blurTimer.current) clearTimeout(blurTimer.current) }}
+                  onClick={buscar}
+                  className="w-full py-2.5 text-[10px] uppercase tracking-widest text-[#767676] hover:text-[#1b1b1b] transition-colors border-t border-[#e0ddd8]"
+                >
+                  {idioma === 'ca' ? 'Veure tots els resultats →' : 'Ver todos los resultados →'}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}

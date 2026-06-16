@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Suspense } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useIdioma } from '@/lib/idioma-store'
 import TarjetaProducto from '@/components/TarjetaProducto'
 import { Producto } from '@/types'
+import Fuse from 'fuse.js'
 
 type Categoria = { id: string; nombre: string; nombre_ca: string }
 
@@ -25,14 +26,30 @@ function TiendaContenido() {
   const [busqueda, setBusqueda] = useState(qParam || '')
   const [productosConVariantes, setProductosConVariantes] = useState<Set<string>>(new Set())
   const [cargando, setCargando] = useState(true)
+  const fuseRef = useRef<Fuse<Producto> | null>(null)
+  const sinonimosRef = useRef<{ termino: string; busca: string }[]>([])
 
   useEffect(() => {
     Promise.all([
       supabase.from('productos').select('*').eq('activo', true),
       supabase.from('categorias').select('*').eq('activo', true).order('nombre'),
       supabase.from('producto_variantes').select('producto_id'),
-    ]).then(([{ data: prods }, { data: cats }, { data: vars }]) => {
-      setTodosProductos((prods as Producto[]) ?? [])
+      supabase.from('sinonimos').select('termino, busca').eq('activo', true),
+    ]).then(([{ data: prods }, { data: cats }, { data: vars }, { data: sins }]) => {
+      const productosLista = (prods as Producto[]) ?? []
+      setTodosProductos(productosLista)
+      sinonimosRef.current = (sins as { termino: string; busca: string }[]) ?? []
+      fuseRef.current = new Fuse(productosLista, {
+        keys: [
+          { name: 'nombre', weight: 3 },
+          { name: 'nombre_ca', weight: 3 },
+          { name: 'descripcion', weight: 1 },
+          { name: 'descripcion_ca', weight: 1 },
+          { name: 'categoria', weight: 1 },
+        ],
+        threshold: 0.35,
+        minMatchCharLength: 2,
+      })
       const lista = (cats as Categoria[]) ?? []
       setCategorias(lista)
       const ids = new Set((vars ?? []).map((v: { producto_id: string }) => v.producto_id))
@@ -67,18 +84,12 @@ function TiendaContenido() {
       lista = lista.filter((p) => p.categoria === categoriaES)
     }
 
-    if (busqueda.trim()) {
-      const q = busqueda.toLowerCase()
-      lista = lista.filter((p) => {
-        const nombre = idioma === 'ca' ? (p.nombre_ca ?? p.nombre) : p.nombre
-        const cat = idioma === 'ca' ? (p.categoria_ca ?? p.categoria) : p.categoria
-        const desc = idioma === 'ca' ? (p.descripcion_ca ?? p.descripcion) : p.descripcion
-        return (
-          nombre.toLowerCase().includes(q) ||
-          cat.toLowerCase().includes(q) ||
-          desc?.toLowerCase().includes(q)
-        )
-      })
+    if (busqueda.trim() && fuseRef.current) {
+      const t = busqueda.trim().toLowerCase()
+      const sin = sinonimosRef.current.find((s) => s.termino.toLowerCase() === t)
+      const terminoBusqueda = sin?.busca ?? busqueda.trim()
+      const ids = new Set(fuseRef.current.search(terminoBusqueda).map((r) => r.item.id))
+      lista = lista.filter((p) => ids.has(p.id))
     }
 
     if (orden === 'alfabetico') lista.sort((a, b) => {
