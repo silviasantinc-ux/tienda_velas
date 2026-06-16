@@ -30,6 +30,11 @@ export default function Navbar() {
   const router = useRouter()
 
   const norm = (s: string) => (s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+  const ld = (a: string, b: string) => {
+    const d = Array.from({length: a.length+1}, (_,i) => Array.from({length: b.length+1}, (_,j) => i===0?j:j===0?i:0))
+    for (let i=1;i<=a.length;i++) for (let j=1;j<=b.length;j++) d[i][j]=a[i-1]===b[j-1]?d[i-1][j-1]:1+Math.min(d[i-1][j],d[i][j-1],d[i-1][j-1])
+    return d[a.length][b.length]
+  }
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
@@ -69,7 +74,7 @@ export default function Navbar() {
     if (termino.trim().length < 2) { setSugerencias([]); return }
     debounceRef.current = setTimeout(() => {
       const q = norm(termino.trim())
-      const sin = sinonimosRef.current.find((s) => { const st = norm(s.termino); return st.startsWith(q) || q.startsWith(st) })
+      const sin = sinonimosRef.current.find((s) => { const st = norm(s.termino); return st.startsWith(q) || q.startsWith(st) || (q.length >= 4 && ld(q, st) <= 1) })
       const termBusqueda = sin ? norm(sin.busca) : q
       const distinto = termBusqueda !== q
       const resultados = productosRef.current.filter((p) => {
