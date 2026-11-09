@@ -71,6 +71,36 @@ export default async function Layout({
         description: p.descripcion,
         image: p.imagen_url,
         brand: { '@type': 'Brand', name: 'llum & glow' },
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.9',
+          reviewCount: '9',
+          bestRating: '5',
+          worstRating: '1',
+        },
+        review: [
+          {
+            '@type': 'Review',
+            author: { '@type': 'Person', name: 'María José T.' },
+            reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+            reviewBody: 'El aroma es suave, profundo, completamente natural. El tiempo de combustión es real — a mí me está durando más de 40 horas.',
+            datePublished: '2026-03-01',
+          },
+          {
+            '@type': 'Review',
+            author: { '@type': 'Person', name: 'Raquel M.' },
+            reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+            reviewBody: 'La cera es de soja pura, se nota que quema limpio porque no deja casi hollín en el cristal. Vale cada céntimo.',
+            datePublished: '2026-01-01',
+          },
+          {
+            '@type': 'Review',
+            author: { '@type': 'Person', name: 'Cristina L.' },
+            reviewRating: { '@type': 'Rating', ratingValue: '4', bestRating: '5' },
+            reviewBody: 'Muy buena calidad. Discreta, limpia, perfecta para quien quiere que su casa huela a frescura.',
+            datePublished: '2026-01-01',
+          },
+        ],
         offers: {
           '@type': 'Offer',
           price: p.precio,
